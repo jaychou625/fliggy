@@ -107,6 +107,7 @@ public class Fliggy_interface_util {
         req.setName(fliggy_hotel_info.getHotel_name());
         req.setDomestic(1L);
         req.setCountry(fliggy_hotel_info.getCountry());
+        System.out.println(fliggy_hotel_info.getCity().longValue());
         req.setCity(fliggy_hotel_info.getCity().longValue());
         req.setAddress(fliggy_hotel_info.getAddress());
         req.setLongitude(fliggy_hotel_info.getLongitude());

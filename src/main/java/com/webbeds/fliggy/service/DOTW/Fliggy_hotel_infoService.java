@@ -50,4 +50,13 @@ public class Fliggy_hotel_infoService {
     public boolean updateCity(Fliggy_hotel_info fliggy_hotel_info){
         return fliggy_hotel_infoMapper.updateCity(fliggy_hotel_info);
     }
+
+    /**
+     * 更新酒店状态信息，0：未添加入飞猪。1：已添加入飞猪
+     * @param fliggy_hotel_info
+     * @return
+     */
+    public boolean updateStateAndDate(Fliggy_hotel_info fliggy_hotel_info){
+        return fliggy_hotel_infoMapper.updateStateAndDate(fliggy_hotel_info);
+    }
 }

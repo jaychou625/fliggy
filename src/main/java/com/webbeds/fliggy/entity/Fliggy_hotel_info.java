@@ -2,6 +2,8 @@ package com.webbeds.fliggy.entity;
 
 import lombok.*;
 
+import java.util.Date;
+
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
@@ -55,7 +57,7 @@ public class Fliggy_hotel_info {
     @Getter @Setter private String standard_booking_notice;
     @Getter @Setter private String batch_id;
     @Getter @Setter private String state;
-    @Getter @Setter private String insertDate;
+    @Getter @Setter private Date insertDate;
 
 
 

@@ -79,4 +79,9 @@
             where outer_id = #{outer_id}
         </update>
 
+        <update id="updateStateAndDate" parameterType="com.webbeds.fliggy.entity.Fliggy_hotel_info">
+            UPDATE fliggy_hotel_information SET state = #{state}, insertDate =  #{insertDate}
+            where outer_id = #{outer_id}
+        </update>
+
 </mapper>

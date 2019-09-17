@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -78,10 +79,13 @@ public class Hotel_info_controller {
     public void testAddHotel(){
         List<Fliggy_hotel_info> list = fliggy_hotel_infoService.searchAllHotel();
         for (Fliggy_hotel_info fliggy_hotel_info : list){
-            if(fliggy_hotel_info.getOuter_id().equals("100502")){
+            if(fliggy_hotel_info.getCity() != 0){
                 String res = fliggy_interface_util.xhotel_add(fliggy_hotel_info);
                 if(res != null && res.indexOf("xhotel_add_response") != -1){
                     System.out.println("酒店添加成功");
+                    fliggy_hotel_info.setInsertDate(new Date());
+                    fliggy_hotel_info.setState("1");
+                    System.out.println(fliggy_hotel_infoService.updateStateAndDate(fliggy_hotel_info));
                 }else{
                     System.out.println("酒店添加失败");
                 }

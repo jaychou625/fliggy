@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.webbeds.fliggy.mapper.Fliggy_oversea_cityMapper">
+
+    <resultMap id="Fliggy_oversea_city_ResultMap" type="com.webbeds.fliggy.entity.Fliggy_oversea_city">
+        <!--        <id column="aew_info_seq" property="aewInfoSeq" javaType="java.lang.Integer" jdbcType="INTEGER"/>-->
+        <result column="city_id" property="city_id" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result column="city_en_name" property="city_en_name" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result column="country_id" property="country_id" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result column="country_en_name" property="country_en_name" javaType="java.lang.String" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <select id="findCityIdByName" resultType="java.lang.String">
+        select city_id from fliggy_oversea_city
+        where city_en_name like "%"#{cityName}"%" and country_en_name like "%"#{countryName}"%"
+        GROUP BY city_en_name
+    </select>
+
+    <select id="findCountryIdByName" resultType="java.lang.String">
+        select country_id from fliggy_oversea_city
+        where country_en_name like "%"#{countryName}"%"
+        group by country_en_name
+    </select>
+
+</mapper>

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.webbeds.fliggy.mapper.Fliggy_hotel_infoMapper">
+
+    <resultMap id="Fliggy_hotel_info_ResultMap" type="com.webbeds.fliggy.entity.Fliggy_hotel_info">
+        <!--        <id column="aew_info_seq" property="aewInfoSeq" javaType="java.lang.Integer" jdbcType="INTEGER"/>-->
+        <result column="outer_id" property="outer_id" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result column="hotel_name" property="hotel_name" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result column="used_name" property="used_name" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result column="domestic" property="domestic" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+        <result column="country" property="country" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result column="province" property="province" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+        <result column="city" property="city" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+        <result column="district" property="district" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+        <result column="business" property="business" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result column="address" property="address" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result column="longitude" property="longitude" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result column="latitude" property="latitude" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result column="position_type" property="position_type" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result column="tel" property="tel" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result column="extend" property="extend" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result column="shid" property="shid" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+        <result column="vendor" property="vendor" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result column="star" property="star" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result column="opening_time" property="opening_time" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result column="decorate_time" property="decorate_time" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result column="floors" property="floors" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result column="rooms" property="rooms" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+        <result column="description" property="description" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result column="hotel_policies" property="hotel_policies" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result column="hotel_facilities" property="hotel_facilities" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result column="service" property="service" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result column="room_facilities" property="room_facilities" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result column="pics" property="pics" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result column="brand" property="brand" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result column="postal_code" property="postal_code" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result column="booking_notice" property="booking_notice" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result column="credit_card_types" property="credit_card_types" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result column="orbit_track" property="orbit_track" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result column="name_e" property="name_e" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result column="supplier" property="supplier" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result column="settlement_currency" property="settlement_currency" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result column="standard_amuse_facilities" property="standard_amuse_facilities" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result column="standard_room_facilities" property="standard_room_facilities" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result column="standard_hotel_service" property="standard_hotel_service" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result column="standard_hotel_facilities" property="standard_hotel_facilities" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result column="standard_booking_notice" property="standard_booking_notice" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result column="batch_id" property="batch_id" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result column="state" property="state" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result column="insertDate" property="insertDate" javaType="java.util.Date" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+<!--    <select id="findAll" resultMap="Fliggy_hotel_info_ResultMap">-->
+<!--        SELECT * FROM all_country_code-->
+<!--    </select>-->
+
+    <!--    <select id="find" resultMap="aewInfoResultMap" parameterType="java.lang.Integer">-->
+    <!--        SELECT * FROM AP_AEW_INFO-->
+    <!--    </select>-->
+
+        <insert id="add" parameterType="com.webbeds.fliggy.entity.Fliggy_hotel_info">
+            INSERT INTO fliggy_hotel_information(outer_id,hotel_name,used_name,domestic,country,province,city,district,business,address,longitude,latitude,position_type,tel,extend,shid,vendor,star,opening_time,decorate_time,floors,rooms,description,hotel_policies,hotel_facilities,service,room_facilities,pics,brand,postal_code,booking_notice,credit_card_types,orbit_track,name_e,supplier,settlement_currency,standard_amuse_facilities,standard_room_facilities,standard_hotel_service,standard_hotel_facilities,standard_booking_notice,batch_id,state,insertDate)
+            VALUES (#{outer_id}, #{hotel_name}, #{used_name}, #{domestic}, #{country}, #{province},#{city},#{district},#{business},#{address},#{longitude},#{latitude},#{position_type},#{tel},#{extend},#{shid},#{vendor},#{star},#{opening_time},#{decorate_time},#{floors},#{rooms},#{description},#{hotel_policies},#{hotel_facilities},#{service},#{room_facilities},#{pics},#{brand},#{postal_code},#{booking_notice},#{credit_card_types},#{orbit_track},#{name_e},#{supplier},#{settlement_currency},#{standard_amuse_facilities},#{standard_room_facilities},#{standard_hotel_service},#{standard_hotel_facilities},#{standard_booking_notice},#{batch_id},#{state},#{insertDate})
+        </insert>
+
+        <select id="findHotelCountById" resultType="java.lang.Integer">
+            SELECT COUNT(*) FROM fliggy_hotel_information
+            WHERE outer_id = #{outer_id}
+        </select>
+
+        <select id="searchAllHotel" resultMap="Fliggy_hotel_info_ResultMap">
+            SELECT * FROM fliggy_hotel_information
+        </select>
+
+        <update id="updateCity" parameterType="com.webbeds.fliggy.entity.Fliggy_hotel_info">
+            UPDATE fliggy_hotel_information SET city = #{city}
+            where outer_id = #{outer_id}
+        </update>
+
+</mapper>

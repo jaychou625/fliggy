@@ -1,0 +1,1408 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result command="searchhotels" tID="1568192066107186" ip="180.169.247.254" date="2019-09-11 08:54:26" version="4.0"
+        elapsedTime="0.014986038208008">
+    <currencyShort>USD</currencyShort>
+    <hotels count="1">
+        <hotel runno="0" preferred="no" exclusive="no" cityname="DUBLIN" hotelid="215966">
+            <hotelName>Academy Plaza Hotel</hotelName>
+            <chain>2019</chain>
+            <cityName>DUBLIN</cityName>
+            <cityCode>10094</cityCode>
+            <stateName></stateName>
+            <stateCode></stateCode>
+            <countryName>REPUBLIC OF IRELAND</countryName>
+            <countryCode>71</countryCode>
+            <regionName>EUROPE</regionName>
+            <regionCode>54</regionCode>
+            <preferred>no</preferred>
+            <builtYear>1998</builtYear>
+            <renovationYear>2018</renovationYear>
+            <floors>7</floors>
+            <noOfRooms>304</noOfRooms>
+            <luxury>false</luxury>
+            <fullAddress>
+                <hotelStreetAddress>FINDLATER PLACE, O&#039;CONNELL STREET 10-14</hotelStreetAddress>
+                <hotelZipCode></hotelZipCode>
+                <hotelCountry>REPUBLIC OF IRELAND</hotelCountry>
+                <hotelState></hotelState>
+                <hotelCity>DUBLIN</hotelCity>
+            </fullAddress>
+            <description1>
+                <language id="EN" name="English"><![CDATA[Location:
+This hotel is superbly located in the centre of the city, near to Dublin&#039;s famous O&#039;Connell Street where the spectacular Spire can be found. Many shops and attractions are just a short walk away. The new LUAS tram system is just 3 minutes away and 2 mainline stations are within easy reach. The Dublin city tour starts and ends just across the road from the hotel and the airport link service stops right outside on O&#039;Connell Street. The airport can be reached in approximately 20 minutes.
+Rooms:
+The hotel features 304 accommodation units. All rooms feature air conditioning, central heating and a bathroom. Bathrooms with wheelchair access can also be booked. The carpeted accommodation units feature a double bed or a king-size bed. A safe and a desk also feature. The accommodation units offer a range of amenities, including tea and coffee making equipment. An ironing set is also available to guests. Convenient features include internet access, a telephone, a TV and wireless internet access. Wheelchair-accessible rooms are also bookable. In each of the bathrooms, guests will find a shower, a bathtub and a hairdryer.
+Amenities:
+A lift can be used to access the upper floors. Amenities include a safe and currency exchange facilities. Internet access and wireless internet access are available in the public areas. Gastronomic options offered by the hotel include a restaurant, a dining area, a breakfast room, a café, a bar and a pub. Shopping facilities are available. A playroom is also among the amenities at the hotel. Guests arriving in their own vehicles can park in the car park. Additional services include medical assistance, room service and a laundry. In addition, a conference room and a business centre are also available. The hotel offers a selection of sport and leisure opportunities. Leisure options at the hotel also include a gym and massage treatments. Various meals and board options are bookable. Guests can choose from breakfast, lunch, dinner, B &amp; B and half board. Special meals, including special dietary cuisine, are available.
+Payment
+All major credit cards, including American Express, VISA and MasterCard, are accepted for payment.]]></language>
+            </description1>
+            <description2>
+                <language id="EN" name="English">
+                    <![CDATA[The Academy Plaza Hotel is a Tourist hotel. Located in Dublin area. The nightlife/restaurants are located in the hotel.]]></language>
+            </description2>
+            <address>FINDLATER PLACE, O&#039;CONNELL STREET 10-14</address>
+            <location>Dublin</location>
+            <locationId>131875</locationId>
+            <location1>.</location1>
+            <location2>.</location2>
+            <location3>.</location3>
+            <attraction></attraction>
+            <amenitie count="18">
+                <language id="EN" name="English">
+                    <amenitieItem id="719">Air Conditioning</amenitieItem>
+                    <amenitieItem id="3134">Bar</amenitieItem>
+                    <amenitieItem id="18006">Business Centre</amenitieItem>
+                    <amenitieItem id="18776">Complimentary In-Room Coffee Or Tea</amenitieItem>
+                    <amenitieItem id="48325">Complimentary Wifi Access</amenitieItem>
+                    <amenitieItem id="646">Concierge</amenitieItem>
+                    <amenitieItem id="3084">Doctor On Call</amenitieItem>
+                    <amenitieItem id="2007">Elevators</amenitieItem>
+                    <amenitieItem id="3871">Foreign Currency Exchange</amenitieItem>
+                    <amenitieItem id="18336">Free Ice Available</amenitieItem>
+                    <amenitieItem id="3664">High Speed Internet</amenitieItem>
+                    <amenitieItem id="18316">Housekeeping-Daily</amenitieItem>
+                    <amenitieItem id="18366">Laundry Service</amenitieItem>
+                    <amenitieItem id="3074">Multilingual Staff</amenitieItem>
+                    <amenitieItem id="641">Restaurant</amenitieItem>
+                    <amenitieItem id="18676">Room Service-Limited Hours</amenitieItem>
+                    <amenitieItem id="1993">Safety Deposit Box</amenitieItem>
+                    <amenitieItem id="1995">Wheelchair Access</amenitieItem>
+                </language>
+            </amenitie>
+            <leisure count="0"></leisure>
+            <business count="3">
+                <language id="EN" name="English">
+                    <businessItem id="620">Av Equipment Available</businessItem>
+                    <businessItem id="3694">Conference Rooms</businessItem>
+                    <businessItem id="17536">Meeting Rooms</businessItem>
+                </language>
+            </business>
+            <transportation>
+                <airports name="Nearest Airports">
+                    <airport>
+                        <name>Dublin Airport</name>
+                        <dist attr="Km">13.4</dist>
+                        <dist attr="minutes">21</dist>
+                        <directions>By car (Approximately)</directions>
+                    </airport>
+                    <airport>
+                        <name></name>
+                        <dist attr="Miles">0</dist>
+                        <dist attr="minutes">0</dist>
+                        <directions></directions>
+                    </airport>
+                </airports>
+                <rails name="Nearest Rail Stations">
+                    <rail>
+                        <name>Conelly Station</name>
+                        <dist attr="Km">1.0</dist>
+                        <dist attr="minutes">12</dist>
+                        <directions>By car (Approximately)</directions>
+                    </rail>
+                    <rail>
+                        <name>Heuston Station</name>
+                        <dist attr="Km">2.6</dist>
+                        <dist attr="minutes">19</dist>
+                        <directions>By car (Approximately)</directions>
+                    </rail>
+                </rails>
+                <subways name="Nearest Subway/Tube Stations">
+                    <subway>
+                        <name></name>
+                        <dist attr="Miles">0</dist>
+                        <dist attr="minutes">0</dist>
+                        <directions></directions>
+                    </subway>
+                </subways>
+                <cruises name="Nearest Cruise Ports">
+                    <cruise>
+                        <name></name>
+                        <dist attr="Miles">0</dist>
+                        <dist attr="minutes">0</dist>
+                        <directions></directions>
+                    </cruise>
+                </cruises>
+            </transportation>
+            <hotelPhone>+353-18780666</hotelPhone>
+            <hotelCheckIn>00:00</hotelCheckIn>
+            <hotelCheckOut>00:00</hotelCheckOut>
+            <minAge>18</minAge>
+            <rating>561</rating>
+            <fireSafety>yes</fireSafety>
+            <hotelPreference count="0"></hotelPreference>
+            <direct>yes</direct>
+            <geoPoint>
+                <lat>53.352486</lat>
+                <lng>-6.259989</lng>
+            </geoPoint>
+            <lastUpdated>1563803329</lastUpdated>
+            <priority>1</priority>
+            <rooms count="1">
+                <room runno="0" count="84">
+                    <roomType runno="0" roomtypecode="76315115">
+                        <name>Standard Double RO</name>
+                        <twin>no</twin>
+                        <roomInfo>
+                            <maxAdult>2</maxAdult>
+                            <maxExtraBed>0</maxExtraBed>
+                            <maxChildren>1</maxChildren>
+                        </roomInfo>
+                        <roomCapacityInfo>
+                            <roomPaxCapacity>2</roomPaxCapacity>
+                            <allowedAdultsWithoutChildren>2</allowedAdultsWithoutChildren>
+                            <allowedAdultsWithChildren>1</allowedAdultsWithChildren>
+                            <maxExtraBed>0</maxExtraBed>
+                        </roomCapacityInfo>
+                    </roomType>
+                    <roomType runno="1" roomtypecode="76315125">
+                        <name>Twin Standard RO</name>
+                        <twin>no</twin>
+                        <roomInfo>
+                            <maxAdult>2</maxAdult>
+                            <maxExtraBed>0</maxExtraBed>
+                            <maxChildren>1</maxChildren>
+                        </roomInfo>
+                        <roomCapacityInfo>
+                            <roomPaxCapacity>2</roomPaxCapacity>
+                            <allowedAdultsWithoutChildren>2</allowedAdultsWithoutChildren>
+                            <allowedAdultsWithChildren>1</allowedAdultsWithChildren>
+                            <maxExtraBed>0</maxExtraBed>
+                        </roomCapacityInfo>
+                    </roomType>
+                    <roomType runno="2" roomtypecode="76315575">
+                        <name>Triple RO</name>
+                        <twin>no</twin>
+                        <roomInfo>
+                            <maxAdult>3</maxAdult>
+                            <maxExtraBed>0</maxExtraBed>
+                            <maxChildren>1</maxChildren>
+                        </roomInfo>
+                        <roomCapacityInfo>
+                            <roomPaxCapacity>3</roomPaxCapacity>
+                            <allowedAdultsWithoutChildren>3</allowedAdultsWithoutChildren>
+                            <allowedAdultsWithChildren>2</allowedAdultsWithChildren>
+                            <maxExtraBed>0</maxExtraBed>
+                        </roomCapacityInfo>
+                    </roomType>
+                    <roomType runno="3" roomtypecode="91906635">
+                        <name>Basic Double RO</name>
+                        <twin>no</twin>
+                        <roomInfo>
+                            <maxAdult>2</maxAdult>
+                            <maxExtraBed>0</maxExtraBed>
+                            <maxChildren>1</maxChildren>
+                        </roomInfo>
+                        <roomCapacityInfo>
+                            <roomPaxCapacity>2</roomPaxCapacity>
+                            <allowedAdultsWithoutChildren>2</allowedAdultsWithoutChildren>
+                            <allowedAdultsWithChildren>1</allowedAdultsWithChildren>
+                            <maxExtraBed>0</maxExtraBed>
+                        </roomCapacityInfo>
+                    </roomType>
+                    <roomType runno="4" roomtypecode="91907025">
+                        <name>Quad RO</name>
+                        <twin>no</twin>
+                        <roomInfo>
+                            <maxAdult>4</maxAdult>
+                            <maxExtraBed>0</maxExtraBed>
+                            <maxChildren>2</maxChildren>
+                        </roomInfo>
+                        <roomCapacityInfo>
+                            <roomPaxCapacity>4</roomPaxCapacity>
+                            <allowedAdultsWithoutChildren>4</allowedAdultsWithoutChildren>
+                            <allowedAdultsWithChildren>2</allowedAdultsWithChildren>
+                            <maxExtraBed>0</maxExtraBed>
+                        </roomCapacityInfo>
+                    </roomType>
+                    <roomType runno="5" roomtypecode="50276535">
+                        <name>DOUBLE TWO BEDS</name>
+                        <twin>no</twin>
+                        <roomInfo>
+                            <maxAdult>250</maxAdult>
+                            <maxExtraBed>0</maxExtraBed>
+                            <maxChildren>120</maxChildren>
+                        </roomInfo>
+                        <roomCapacityInfo>
+                            <roomPaxCapacity>250</roomPaxCapacity>
+                            <allowedAdultsWithoutChildren>250</allowedAdultsWithoutChildren>
+                            <allowedAdultsWithChildren>250</allowedAdultsWithChildren>
+                            <maxExtraBed>0</maxExtraBed>
+                        </roomCapacityInfo>
+                    </roomType>
+                    <roomType runno="6" roomtypecode="1799275">
+                        <name>Double Room</name>
+                        <twin>no</twin>
+                        <roomInfo>
+                            <maxAdult>2</maxAdult>
+                            <maxExtraBed>0</maxExtraBed>
+                            <maxChildren>1</maxChildren>
+                        </roomInfo>
+                        <roomCapacityInfo>
+                            <roomPaxCapacity>2</roomPaxCapacity>
+                            <allowedAdultsWithoutChildren>2</allowedAdultsWithoutChildren>
+                            <allowedAdultsWithChildren>2</allowedAdultsWithChildren>
+                            <maxExtraBed>0</maxExtraBed>
+                        </roomCapacityInfo>
+                    </roomType>
+                    <roomType runno="7" roomtypecode="20758025">
+                        <name>double basic</name>
+                        <twin>no</twin>
+                        <roomInfo>
+                            <maxAdult>3</maxAdult>
+                            <maxExtraBed>0</maxExtraBed>
+                            <maxChildren>0</maxChildren>
+                        </roomInfo>
+                        <roomCapacityInfo>
+                            <roomPaxCapacity>4</roomPaxCapacity>
+                            <allowedAdultsWithoutChildren>3</allowedAdultsWithoutChildren>
+                            <allowedAdultsWithChildren>2</allowedAdultsWithChildren>
+                            <maxExtraBed>0</maxExtraBed>
+                        </roomCapacityInfo>
+                    </roomType>
+                    <roomType runno="8" roomtypecode="50276545">
+                        <name>QUADRUPLE DOUBLE BED</name>
+                        <twin>no</twin>
+                        <roomInfo>
+                            <maxAdult>250</maxAdult>
+                            <maxExtraBed>0</maxExtraBed>
+                            <maxChildren>120</maxChildren>
+                        </roomInfo>
+                        <roomCapacityInfo>
+                            <roomPaxCapacity>250</roomPaxCapacity>
+                            <allowedAdultsWithoutChildren>250</allowedAdultsWithoutChildren>
+                            <allowedAdultsWithChildren>250</allowedAdultsWithChildren>
+                            <maxExtraBed>0</maxExtraBed>
+                        </roomCapacityInfo>
+                    </roomType>
+                    <roomType runno="9" roomtypecode="50276555">
+                        <name>QUADRUPLE STANDARD</name>
+                        <twin>no</twin>
+                        <roomInfo>
+                            <maxAdult>250</maxAdult>
+                            <maxExtraBed>0</maxExtraBed>
+                            <maxChildren>120</maxChildren>
+                        </roomInfo>
+                        <roomCapacityInfo>
+                            <roomPaxCapacity>250</roomPaxCapacity>
+                            <allowedAdultsWithoutChildren>250</allowedAdultsWithoutChildren>
+                            <allowedAdultsWithChildren>250</allowedAdultsWithChildren>
+                            <maxExtraBed>0</maxExtraBed>
+                        </roomCapacityInfo>
+                    </roomType>
+                    <roomType runno="10" roomtypecode="50276565">
+                        <name>ROOM ECONOMY</name>
+                        <twin>no</twin>
+                        <roomInfo>
+                            <maxAdult>250</maxAdult>
+                            <maxExtraBed>0</maxExtraBed>
+                            <maxChildren>120</maxChildren>
+                        </roomInfo>
+                        <roomCapacityInfo>
+                            <roomPaxCapacity>250</roomPaxCapacity>
+                            <allowedAdultsWithoutChildren>250</allowedAdultsWithoutChildren>
+                            <allowedAdultsWithChildren>250</allowedAdultsWithChildren>
+                            <maxExtraBed>0</maxExtraBed>
+                        </roomCapacityInfo>
+                    </roomType>
+                    <roomType runno="11" roomtypecode="50276585">
+                        <name>ROOM WITH SHARED BATHROOM</name>
+                        <twin>no</twin>
+                        <roomInfo>
+                            <maxAdult>250</maxAdult>
+                            <maxExtraBed>0</maxExtraBed>
+                            <maxChildren>120</maxChildren>
+                        </roomInfo>
+                        <roomCapacityInfo>
+                            <roomPaxCapacity>250</roomPaxCapacity>
+                            <allowedAdultsWithoutChildren>250</allowedAdultsWithoutChildren>
+                            <allowedAdultsWithChildren>250</allowedAdultsWithChildren>
+                            <maxExtraBed>0</maxExtraBed>
+                        </roomCapacityInfo>
+                    </roomType>
+                    <roomType runno="12" roomtypecode="9399788">
+                        <name>Standard</name>
+                        <twin>no</twin>
+                        <roomInfo>
+                            <maxAdult>2</maxAdult>
+                            <maxExtraBed>0</maxExtraBed>
+                            <maxChildren>1</maxChildren>
+                        </roomInfo>
+                        <roomCapacityInfo>
+                            <roomPaxCapacity>2</roomPaxCapacity>
+                            <allowedAdultsWithoutChildren>2</allowedAdultsWithoutChildren>
+                            <allowedAdultsWithChildren>2</allowedAdultsWithChildren>
+                            <maxExtraBed>0</maxExtraBed>
+                        </roomCapacityInfo>
+                    </roomType>
+                    <roomType runno="13" roomtypecode="1799255">
+                        <name>Single Room</name>
+                        <twin>no</twin>
+                        <roomInfo>
+                            <maxAdult>1</maxAdult>
+                            <maxExtraBed>0</maxExtraBed>
+                            <maxChildren>0</maxChildren>
+                        </roomInfo>
+                        <roomCapacityInfo>
+                            <roomPaxCapacity>1</roomPaxCapacity>
+                            <allowedAdultsWithoutChildren>1</allowedAdultsWithoutChildren>
+                            <allowedAdultsWithChildren>1</allowedAdultsWithChildren>
+                            <maxExtraBed>0</maxExtraBed>
+                        </roomCapacityInfo>
+                    </roomType>
+                    <roomType runno="14" roomtypecode="1799265">
+                        <name>Triple Room</name>
+                        <twin>no</twin>
+                        <roomInfo>
+                            <maxAdult>3</maxAdult>
+                            <maxExtraBed>0</maxExtraBed>
+                            <maxChildren>2</maxChildren>
+                        </roomInfo>
+                        <roomCapacityInfo>
+                            <roomPaxCapacity>3</roomPaxCapacity>
+                            <allowedAdultsWithoutChildren>3</allowedAdultsWithoutChildren>
+                            <allowedAdultsWithChildren>3</allowedAdultsWithChildren>
+                            <maxExtraBed>0</maxExtraBed>
+                        </roomCapacityInfo>
+                    </roomType>
+                    <roomType runno="15" roomtypecode="1799285">
+                        <name>Twin Room</name>
+                        <twin>no</twin>
+                        <roomInfo>
+                            <maxAdult>2</maxAdult>
+                            <maxExtraBed>0</maxExtraBed>
+                            <maxChildren>1</maxChildren>
+                        </roomInfo>
+                        <roomCapacityInfo>
+                            <roomPaxCapacity>2</roomPaxCapacity>
+                            <allowedAdultsWithoutChildren>2</allowedAdultsWithoutChildren>
+                            <allowedAdultsWithChildren>2</allowedAdultsWithChildren>
+                            <maxExtraBed>0</maxExtraBed>
+                        </roomCapacityInfo>
+                    </roomType>
+                    <roomType runno="16" roomtypecode="101779195">
+                        <name>Double Standard</name>
+                        <twin>no</twin>
+                        <roomInfo>
+                            <maxAdult>250</maxAdult>
+                            <maxExtraBed>0</maxExtraBed>
+                            <maxChildren>120</maxChildren>
+                        </roomInfo>
+                        <roomCapacityInfo>
+                            <roomPaxCapacity>250</roomPaxCapacity>
+                            <allowedAdultsWithoutChildren>250</allowedAdultsWithoutChildren>
+                            <allowedAdultsWithChildren>250</allowedAdultsWithChildren>
+                            <maxExtraBed>0</maxExtraBed>
+                        </roomCapacityInfo>
+                    </roomType>
+                    <roomType runno="17" roomtypecode="101779695">
+                        <name>Single Standard</name>
+                        <twin>no</twin>
+                        <roomInfo>
+                            <maxAdult>250</maxAdult>
+                            <maxExtraBed>0</maxExtraBed>
+                            <maxChildren>120</maxChildren>
+                        </roomInfo>
+                        <roomCapacityInfo>
+                            <roomPaxCapacity>250</roomPaxCapacity>
+                            <allowedAdultsWithoutChildren>250</allowedAdultsWithoutChildren>
+                            <allowedAdultsWithChildren>250</allowedAdultsWithChildren>
+                            <maxExtraBed>0</maxExtraBed>
+                        </roomCapacityInfo>
+                    </roomType>
+                    <roomType runno="18" roomtypecode="101779895">
+                        <name>Triple Standard</name>
+                        <twin>no</twin>
+                        <roomInfo>
+                            <maxAdult>250</maxAdult>
+                            <maxExtraBed>0</maxExtraBed>
+                            <maxChildren>120</maxChildren>
+                        </roomInfo>
+                        <roomCapacityInfo>
+                            <roomPaxCapacity>250</roomPaxCapacity>
+                            <allowedAdultsWithoutChildren>250</allowedAdultsWithoutChildren>
+                            <allowedAdultsWithChildren>250</allowedAdultsWithChildren>
+                            <maxExtraBed>0</maxExtraBed>
+                        </roomCapacityInfo>
+                    </roomType>
+                    <roomType runno="19" roomtypecode="101993615">
+                        <name>Triple Standard Sharing Bedding</name>
+                        <twin>no</twin>
+                        <roomInfo>
+                            <maxAdult>250</maxAdult>
+                            <maxExtraBed>0</maxExtraBed>
+                            <maxChildren>120</maxChildren>
+                        </roomInfo>
+                        <roomCapacityInfo>
+                            <roomPaxCapacity>250</roomPaxCapacity>
+                            <allowedAdultsWithoutChildren>250</allowedAdultsWithoutChildren>
+                            <allowedAdultsWithChildren>250</allowedAdultsWithChildren>
+                            <maxExtraBed>0</maxExtraBed>
+                        </roomCapacityInfo>
+                    </roomType>
+                    <roomType runno="20" roomtypecode="106707065">
+                        <name>Room Shared Bed</name>
+                        <twin>no</twin>
+                        <roomInfo>
+                            <maxAdult>250</maxAdult>
+                            <maxExtraBed>0</maxExtraBed>
+                            <maxChildren>120</maxChildren>
+                        </roomInfo>
+                        <roomCapacityInfo>
+                            <roomPaxCapacity>250</roomPaxCapacity>
+                            <allowedAdultsWithoutChildren>250</allowedAdultsWithoutChildren>
+                            <allowedAdultsWithChildren>250</allowedAdultsWithChildren>
+                            <maxExtraBed>0</maxExtraBed>
+                        </roomCapacityInfo>
+                    </roomType>
+                    <roomType runno="21" roomtypecode="1107465">
+                        <name>Leisure</name>
+                        <twin>no</twin>
+                        <roomInfo>
+                            <maxAdult>3</maxAdult>
+                            <maxExtraBed>0</maxExtraBed>
+                            <maxChildren>3</maxChildren>
+                        </roomInfo>
+                        <roomCapacityInfo>
+                            <roomPaxCapacity>4</roomPaxCapacity>
+                            <allowedAdultsWithoutChildren>3</allowedAdultsWithoutChildren>
+                            <allowedAdultsWithChildren>3</allowedAdultsWithChildren>
+                            <maxExtraBed>0</maxExtraBed>
+                        </roomCapacityInfo>
+                    </roomType>
+                    <roomType runno="22" roomtypecode="1107475">
+                        <name>Leisure Non Refundable</name>
+                        <twin>no</twin>
+                        <roomInfo>
+                            <maxAdult>2</maxAdult>
+                            <maxExtraBed>0</maxExtraBed>
+                            <maxChildren>1</maxChildren>
+                        </roomInfo>
+                        <roomCapacityInfo>
+                            <roomPaxCapacity>2</roomPaxCapacity>
+                            <allowedAdultsWithoutChildren>2</allowedAdultsWithoutChildren>
+                            <allowedAdultsWithChildren>2</allowedAdultsWithChildren>
+                            <maxExtraBed>0</maxExtraBed>
+                        </roomCapacityInfo>
+                    </roomType>
+                    <roomType runno="23" roomtypecode="12348678">
+                        <name>Double/Twin + 1 Child</name>
+                        <twin>no</twin>
+                        <roomInfo>
+                            <maxAdult>2</maxAdult>
+                            <maxExtraBed>0</maxExtraBed>
+                            <maxChildren>0</maxChildren>
+                        </roomInfo>
+                        <roomCapacityInfo>
+                            <roomPaxCapacity>3</roomPaxCapacity>
+                            <allowedAdultsWithoutChildren>2</allowedAdultsWithoutChildren>
+                            <allowedAdultsWithChildren>2</allowedAdultsWithChildren>
+                            <maxExtraBed>0</maxExtraBed>
+                        </roomCapacityInfo>
+                    </roomType>
+                    <roomType runno="24" roomtypecode="20757145">
+                        <name>1 double 1 single flat screen television safe movies to rent tea/coffee air cond</name>
+                        <twin>no</twin>
+                        <roomInfo>
+                            <maxAdult>3</maxAdult>
+                            <maxExtraBed>0</maxExtraBed>
+                            <maxChildren>0</maxChildren>
+                        </roomInfo>
+                        <roomCapacityInfo>
+                            <roomPaxCapacity>4</roomPaxCapacity>
+                            <allowedAdultsWithoutChildren>3</allowedAdultsWithoutChildren>
+                            <allowedAdultsWithChildren>2</allowedAdultsWithChildren>
+                            <maxExtraBed>0</maxExtraBed>
+                        </roomCapacityInfo>
+                    </roomType>
+                    <roomType runno="25" roomtypecode="20757255">
+                        <name>1 double bed deluxe room flat screen television movies to rent tea/coffee air co</name>
+                        <twin>no</twin>
+                        <roomInfo>
+                            <maxAdult>3</maxAdult>
+                            <maxExtraBed>0</maxExtraBed>
+                            <maxChildren>0</maxChildren>
+                        </roomInfo>
+                        <roomCapacityInfo>
+                            <roomPaxCapacity>4</roomPaxCapacity>
+                            <allowedAdultsWithoutChildren>3</allowedAdultsWithoutChildren>
+                            <allowedAdultsWithChildren>2</allowedAdultsWithChildren>
+                            <maxExtraBed>0</maxExtraBed>
+                        </roomCapacityInfo>
+                    </roomType>
+                    <roomType runno="26" roomtypecode="20757325">
+                        <name>1 double bed non-smoking deluxe room tea/coffee air-conditioned heating</name>
+                        <twin>no</twin>
+                        <roomInfo>
+                            <maxAdult>3</maxAdult>
+                            <maxExtraBed>0</maxExtraBed>
+                            <maxChildren>0</maxChildren>
+                        </roomInfo>
+                        <roomCapacityInfo>
+                            <roomPaxCapacity>4</roomPaxCapacity>
+                            <allowedAdultsWithoutChildren>3</allowedAdultsWithoutChildren>
+                            <allowedAdultsWithChildren>2</allowedAdultsWithChildren>
+                            <maxExtraBed>0</maxExtraBed>
+                        </roomCapacityInfo>
+                    </roomType>
+                    <roomType runno="27" roomtypecode="20757395">
+                        <name>1 double bed non-smoking standard room basic tea/coffee air-conditioned</name>
+                        <twin>no</twin>
+                        <roomInfo>
+                            <maxAdult>3</maxAdult>
+                            <maxExtraBed>0</maxExtraBed>
+                            <maxChildren>0</maxChildren>
+                        </roomInfo>
+                        <roomCapacityInfo>
+                            <roomPaxCapacity>4</roomPaxCapacity>
+                            <allowedAdultsWithoutChildren>3</allowedAdultsWithoutChildren>
+                            <allowedAdultsWithChildren>2</allowedAdultsWithChildren>
+                            <maxExtraBed>0</maxExtraBed>
+                        </roomCapacityInfo>
+                    </roomType>
+                    <roomType runno="28" roomtypecode="20757475">
+                        <name>1 single bed flat screen television safe movies to rent tea/coffee air condition</name>
+                        <twin>no</twin>
+                        <roomInfo>
+                            <maxAdult>3</maxAdult>
+                            <maxExtraBed>0</maxExtraBed>
+                            <maxChildren>0</maxChildren>
+                        </roomInfo>
+                        <roomCapacityInfo>
+                            <roomPaxCapacity>4</roomPaxCapacity>
+                            <allowedAdultsWithoutChildren>3</allowedAdultsWithoutChildren>
+                            <allowedAdultsWithChildren>2</allowedAdultsWithChildren>
+                            <maxExtraBed>0</maxExtraBed>
+                        </roomCapacityInfo>
+                    </roomType>
+                    <roomType runno="29" roomtypecode="20757595">
+                        <name>1 single bed non-smoking safe tea/coffee air-conditioned shower in room</name>
+                        <twin>no</twin>
+                        <roomInfo>
+                            <maxAdult>3</maxAdult>
+                            <maxExtraBed>0</maxExtraBed>
+                            <maxChildren>0</maxChildren>
+                        </roomInfo>
+                        <roomCapacityInfo>
+                            <roomPaxCapacity>4</roomPaxCapacity>
+                            <allowedAdultsWithoutChildren>3</allowedAdultsWithoutChildren>
+                            <allowedAdultsWithChildren>2</allowedAdultsWithChildren>
+                            <maxExtraBed>0</maxExtraBed>
+                        </roomCapacityInfo>
+                    </roomType>
+                    <roomType runno="30" roomtypecode="20757675">
+                        <name>2 single beds flat screen television safe movies to rent tea/coffee air conditio</name>
+                        <twin>no</twin>
+                        <roomInfo>
+                            <maxAdult>3</maxAdult>
+                            <maxExtraBed>0</maxExtraBed>
+                            <maxChildren>0</maxChildren>
+                        </roomInfo>
+                        <roomCapacityInfo>
+                            <roomPaxCapacity>4</roomPaxCapacity>
+                            <allowedAdultsWithoutChildren>3</allowedAdultsWithoutChildren>
+                            <allowedAdultsWithChildren>2</allowedAdultsWithChildren>
+                            <maxExtraBed>0</maxExtraBed>
+                        </roomCapacityInfo>
+                    </roomType>
+                    <roomType runno="31" roomtypecode="20757795">
+                        <name>2 single beds non-smoking safe tea/coffee air-conditioned heating</name>
+                        <twin>no</twin>
+                        <roomInfo>
+                            <maxAdult>3</maxAdult>
+                            <maxExtraBed>0</maxExtraBed>
+                            <maxChildren>0</maxChildren>
+                        </roomInfo>
+                        <roomCapacityInfo>
+                            <roomPaxCapacity>4</roomPaxCapacity>
+                            <allowedAdultsWithoutChildren>3</allowedAdultsWithoutChildren>
+                            <allowedAdultsWithChildren>2</allowedAdultsWithChildren>
+                            <maxExtraBed>0</maxExtraBed>
+                        </roomCapacityInfo>
+                    </roomType>
+                    <roomType runno="32" roomtypecode="20757835">
+                        <name>basic double room</name>
+                        <twin>no</twin>
+                        <roomInfo>
+                            <maxAdult>3</maxAdult>
+                            <maxExtraBed>0</maxExtraBed>
+                            <maxChildren>0</maxChildren>
+                        </roomInfo>
+                        <roomCapacityInfo>
+                            <roomPaxCapacity>4</roomPaxCapacity>
+                            <allowedAdultsWithoutChildren>3</allowedAdultsWithoutChildren>
+                            <allowedAdultsWithChildren>2</allowedAdultsWithChildren>
+                            <maxExtraBed>0</maxExtraBed>
+                        </roomCapacityInfo>
+                    </roomType>
+                    <roomType runno="33" roomtypecode="20757975">
+                        <name>basic double room non-refundable</name>
+                        <twin>no</twin>
+                        <roomInfo>
+                            <maxAdult>3</maxAdult>
+                            <maxExtraBed>0</maxExtraBed>
+                            <maxChildren>0</maxChildren>
+                        </roomInfo>
+                        <roomCapacityInfo>
+                            <roomPaxCapacity>4</roomPaxCapacity>
+                            <allowedAdultsWithoutChildren>3</allowedAdultsWithoutChildren>
+                            <allowedAdultsWithChildren>2</allowedAdultsWithChildren>
+                            <maxExtraBed>0</maxExtraBed>
+                        </roomCapacityInfo>
+                    </roomType>
+                    <roomType runno="34" roomtypecode="20758055">
+                        <name>double basic - non refundable</name>
+                        <twin>no</twin>
+                        <roomInfo>
+                            <maxAdult>3</maxAdult>
+                            <maxExtraBed>0</maxExtraBed>
+                            <maxChildren>0</maxChildren>
+                        </roomInfo>
+                        <roomCapacityInfo>
+                            <roomPaxCapacity>4</roomPaxCapacity>
+                            <allowedAdultsWithoutChildren>3</allowedAdultsWithoutChildren>
+                            <allowedAdultsWithChildren>2</allowedAdultsWithChildren>
+                            <maxExtraBed>0</maxExtraBed>
+                        </roomCapacityInfo>
+                    </roomType>
+                    <roomType runno="35" roomtypecode="20758195">
+                        <name>double room non-refundable</name>
+                        <twin>no</twin>
+                        <roomInfo>
+                            <maxAdult>3</maxAdult>
+                            <maxExtraBed>0</maxExtraBed>
+                            <maxChildren>0</maxChildren>
+                        </roomInfo>
+                        <roomCapacityInfo>
+                            <roomPaxCapacity>4</roomPaxCapacity>
+                            <allowedAdultsWithoutChildren>3</allowedAdultsWithoutChildren>
+                            <allowedAdultsWithChildren>2</allowedAdultsWithChildren>
+                            <maxExtraBed>0</maxExtraBed>
+                        </roomCapacityInfo>
+                    </roomType>
+                    <roomType runno="36" roomtypecode="20758245">
+                        <name>quadruple room non-refundable</name>
+                        <twin>no</twin>
+                        <roomInfo>
+                            <maxAdult>3</maxAdult>
+                            <maxExtraBed>0</maxExtraBed>
+                            <maxChildren>0</maxChildren>
+                        </roomInfo>
+                        <roomCapacityInfo>
+                            <roomPaxCapacity>4</roomPaxCapacity>
+                            <allowedAdultsWithoutChildren>3</allowedAdultsWithoutChildren>
+                            <allowedAdultsWithChildren>2</allowedAdultsWithChildren>
+                            <maxExtraBed>0</maxExtraBed>
+                        </roomCapacityInfo>
+                    </roomType>
+                    <roomType runno="37" roomtypecode="20758505">
+                        <name>single room non-refundable</name>
+                        <twin>no</twin>
+                        <roomInfo>
+                            <maxAdult>3</maxAdult>
+                            <maxExtraBed>0</maxExtraBed>
+                            <maxChildren>0</maxChildren>
+                        </roomInfo>
+                        <roomCapacityInfo>
+                            <roomPaxCapacity>4</roomPaxCapacity>
+                            <allowedAdultsWithoutChildren>3</allowedAdultsWithoutChildren>
+                            <allowedAdultsWithChildren>2</allowedAdultsWithChildren>
+                            <maxExtraBed>0</maxExtraBed>
+                        </roomCapacityInfo>
+                    </roomType>
+                    <roomType runno="38" roomtypecode="20758635">
+                        <name>standard single - 1 twin (single) bed</name>
+                        <twin>no</twin>
+                        <roomInfo>
+                            <maxAdult>3</maxAdult>
+                            <maxExtraBed>0</maxExtraBed>
+                            <maxChildren>0</maxChildren>
+                        </roomInfo>
+                        <roomCapacityInfo>
+                            <roomPaxCapacity>4</roomPaxCapacity>
+                            <allowedAdultsWithoutChildren>3</allowedAdultsWithoutChildren>
+                            <allowedAdultsWithChildren>2</allowedAdultsWithChildren>
+                            <maxExtraBed>0</maxExtraBed>
+                        </roomCapacityInfo>
+                    </roomType>
+                    <roomType runno="39" roomtypecode="20758695">
+                        <name>triple room non-refundable</name>
+                        <twin>no</twin>
+                        <roomInfo>
+                            <maxAdult>3</maxAdult>
+                            <maxExtraBed>0</maxExtraBed>
+                            <maxChildren>0</maxChildren>
+                        </roomInfo>
+                        <roomCapacityInfo>
+                            <roomPaxCapacity>4</roomPaxCapacity>
+                            <allowedAdultsWithoutChildren>3</allowedAdultsWithoutChildren>
+                            <allowedAdultsWithChildren>2</allowedAdultsWithChildren>
+                            <maxExtraBed>0</maxExtraBed>
+                        </roomCapacityInfo>
+                    </roomType>
+                    <roomType runno="40" roomtypecode="2173305">
+                        <name>FAMILY ROOM STANDARD</name>
+                        <twin>no</twin>
+                        <roomInfo>
+                            <maxAdult>2</maxAdult>
+                            <maxExtraBed>0</maxExtraBed>
+                            <maxChildren>2</maxChildren>
+                        </roomInfo>
+                        <roomCapacityInfo>
+                            <roomPaxCapacity>3</roomPaxCapacity>
+                            <allowedAdultsWithoutChildren>2</allowedAdultsWithoutChildren>
+                            <allowedAdultsWithChildren>2</allowedAdultsWithChildren>
+                            <maxExtraBed>0</maxExtraBed>
+                        </roomCapacityInfo>
+                    </roomType>
+                    <roomType runno="41" roomtypecode="3036785">
+                        <name>1 DOUBLE BED</name>
+                        <twin>no</twin>
+                        <roomInfo>
+                            <maxAdult>4</maxAdult>
+                            <maxExtraBed>0</maxExtraBed>
+                            <maxChildren>3</maxChildren>
+                        </roomInfo>
+                        <roomCapacityInfo>
+                            <roomPaxCapacity>4</roomPaxCapacity>
+                            <allowedAdultsWithoutChildren>4</allowedAdultsWithoutChildren>
+                            <allowedAdultsWithChildren>3</allowedAdultsWithChildren>
+                            <maxExtraBed>0</maxExtraBed>
+                        </roomCapacityInfo>
+                    </roomType>
+                    <roomType runno="42" roomtypecode="3036805">
+                        <name>1 KING BED</name>
+                        <twin>no</twin>
+                        <roomInfo>
+                            <maxAdult>4</maxAdult>
+                            <maxExtraBed>0</maxExtraBed>
+                            <maxChildren>3</maxChildren>
+                        </roomInfo>
+                        <roomCapacityInfo>
+                            <roomPaxCapacity>4</roomPaxCapacity>
+                            <allowedAdultsWithoutChildren>4</allowedAdultsWithoutChildren>
+                            <allowedAdultsWithChildren>3</allowedAdultsWithChildren>
+                            <maxExtraBed>0</maxExtraBed>
+                        </roomCapacityInfo>
+                    </roomType>
+                    <roomType runno="43" roomtypecode="3036815">
+                        <name>1 DOUBLE BED</name>
+                        <twin>no</twin>
+                        <roomInfo>
+                            <maxAdult>4</maxAdult>
+                            <maxExtraBed>0</maxExtraBed>
+                            <maxChildren>3</maxChildren>
+                        </roomInfo>
+                        <roomCapacityInfo>
+                            <roomPaxCapacity>4</roomPaxCapacity>
+                            <allowedAdultsWithoutChildren>4</allowedAdultsWithoutChildren>
+                            <allowedAdultsWithChildren>3</allowedAdultsWithChildren>
+                            <maxExtraBed>0</maxExtraBed>
+                        </roomCapacityInfo>
+                    </roomType>
+                    <roomType runno="44" roomtypecode="3036825">
+                        <name>1 DOUBLE 1 SINGLE</name>
+                        <twin>no</twin>
+                        <roomInfo>
+                            <maxAdult>4</maxAdult>
+                            <maxExtraBed>0</maxExtraBed>
+                            <maxChildren>3</maxChildren>
+                        </roomInfo>
+                        <roomCapacityInfo>
+                            <roomPaxCapacity>4</roomPaxCapacity>
+                            <allowedAdultsWithoutChildren>4</allowedAdultsWithoutChildren>
+                            <allowedAdultsWithChildren>3</allowedAdultsWithChildren>
+                            <maxExtraBed>0</maxExtraBed>
+                        </roomCapacityInfo>
+                    </roomType>
+                    <roomType runno="45" roomtypecode="3060945">
+                        <name>1 SINGLE BED</name>
+                        <twin>no</twin>
+                        <roomInfo>
+                            <maxAdult>4</maxAdult>
+                            <maxExtraBed>0</maxExtraBed>
+                            <maxChildren>3</maxChildren>
+                        </roomInfo>
+                        <roomCapacityInfo>
+                            <roomPaxCapacity>4</roomPaxCapacity>
+                            <allowedAdultsWithoutChildren>4</allowedAdultsWithoutChildren>
+                            <allowedAdultsWithChildren>3</allowedAdultsWithChildren>
+                            <maxExtraBed>0</maxExtraBed>
+                        </roomCapacityInfo>
+                    </roomType>
+                    <roomType runno="46" roomtypecode="38113985">
+                        <name>Quadruple room</name>
+                        <twin>no</twin>
+                        <roomInfo>
+                            <maxAdult>250</maxAdult>
+                            <maxExtraBed>0</maxExtraBed>
+                            <maxChildren>120</maxChildren>
+                        </roomInfo>
+                        <roomCapacityInfo>
+                            <roomPaxCapacity>250</roomPaxCapacity>
+                            <allowedAdultsWithoutChildren>250</allowedAdultsWithoutChildren>
+                            <allowedAdultsWithChildren>250</allowedAdultsWithChildren>
+                            <maxExtraBed>0</maxExtraBed>
+                        </roomCapacityInfo>
+                    </roomType>
+                    <roomType runno="47" roomtypecode="39504865">
+                        <name>Twin/Double room</name>
+                        <twin>no</twin>
+                        <roomInfo>
+                            <maxAdult>250</maxAdult>
+                            <maxExtraBed>0</maxExtraBed>
+                            <maxChildren>120</maxChildren>
+                        </roomInfo>
+                        <roomCapacityInfo>
+                            <roomPaxCapacity>250</roomPaxCapacity>
+                            <allowedAdultsWithoutChildren>250</allowedAdultsWithoutChildren>
+                            <allowedAdultsWithChildren>250</allowedAdultsWithChildren>
+                            <maxExtraBed>0</maxExtraBed>
+                        </roomCapacityInfo>
+                    </roomType>
+                    <roomType runno="48" roomtypecode="40272285">
+                        <name>DOUBLE (DOUBLE BED) STANDARD</name>
+                        <twin>no</twin>
+                        <roomInfo>
+                            <maxAdult>250</maxAdult>
+                            <maxExtraBed>0</maxExtraBed>
+                            <maxChildren>120</maxChildren>
+                        </roomInfo>
+                        <roomCapacityInfo>
+                            <roomPaxCapacity>250</roomPaxCapacity>
+                            <allowedAdultsWithoutChildren>250</allowedAdultsWithoutChildren>
+                            <allowedAdultsWithChildren>250</allowedAdultsWithChildren>
+                            <maxExtraBed>0</maxExtraBed>
+                        </roomCapacityInfo>
+                    </roomType>
+                    <roomType runno="49" roomtypecode="40272295">
+                        <name>DOUBLE (2 TWIN BEDS) STANDARD</name>
+                        <twin>no</twin>
+                        <roomInfo>
+                            <maxAdult>250</maxAdult>
+                            <maxExtraBed>0</maxExtraBed>
+                            <maxChildren>120</maxChildren>
+                        </roomInfo>
+                        <roomCapacityInfo>
+                            <roomPaxCapacity>250</roomPaxCapacity>
+                            <allowedAdultsWithoutChildren>250</allowedAdultsWithoutChildren>
+                            <allowedAdultsWithChildren>250</allowedAdultsWithChildren>
+                            <maxExtraBed>0</maxExtraBed>
+                        </roomCapacityInfo>
+                    </roomType>
+                    <roomType runno="50" roomtypecode="40272305">
+                        <name>SINGLE ROOM STANDARD</name>
+                        <twin>no</twin>
+                        <roomInfo>
+                            <maxAdult>250</maxAdult>
+                            <maxExtraBed>0</maxExtraBed>
+                            <maxChildren>120</maxChildren>
+                        </roomInfo>
+                        <roomCapacityInfo>
+                            <roomPaxCapacity>250</roomPaxCapacity>
+                            <allowedAdultsWithoutChildren>250</allowedAdultsWithoutChildren>
+                            <allowedAdultsWithChildren>250</allowedAdultsWithChildren>
+                            <maxExtraBed>0</maxExtraBed>
+                        </roomCapacityInfo>
+                    </roomType>
+                    <roomType runno="51" roomtypecode="40272315">
+                        <name>DOUBLE + EXTRA BED STANDARD</name>
+                        <twin>no</twin>
+                        <roomInfo>
+                            <maxAdult>250</maxAdult>
+                            <maxExtraBed>0</maxExtraBed>
+                            <maxChildren>120</maxChildren>
+                        </roomInfo>
+                        <roomCapacityInfo>
+                            <roomPaxCapacity>250</roomPaxCapacity>
+                            <allowedAdultsWithoutChildren>250</allowedAdultsWithoutChildren>
+                            <allowedAdultsWithChildren>250</allowedAdultsWithChildren>
+                            <maxExtraBed>0</maxExtraBed>
+                        </roomCapacityInfo>
+                    </roomType>
+                    <roomType runno="52" roomtypecode="49326605">
+                        <name>Standard Double New</name>
+                        <twin>no</twin>
+                        <roomInfo>
+                            <maxAdult>250</maxAdult>
+                            <maxExtraBed>0</maxExtraBed>
+                            <maxChildren>120</maxChildren>
+                        </roomInfo>
+                        <roomCapacityInfo>
+                            <roomPaxCapacity>250</roomPaxCapacity>
+                            <allowedAdultsWithoutChildren>250</allowedAdultsWithoutChildren>
+                            <allowedAdultsWithChildren>250</allowedAdultsWithChildren>
+                            <maxExtraBed>0</maxExtraBed>
+                        </roomCapacityInfo>
+                    </roomType>
+                    <roomType runno="53" roomtypecode="49523515">
+                        <name>Standard Single New</name>
+                        <twin>no</twin>
+                        <roomInfo>
+                            <maxAdult>250</maxAdult>
+                            <maxExtraBed>0</maxExtraBed>
+                            <maxChildren>120</maxChildren>
+                        </roomInfo>
+                        <roomCapacityInfo>
+                            <roomPaxCapacity>250</roomPaxCapacity>
+                            <allowedAdultsWithoutChildren>250</allowedAdultsWithoutChildren>
+                            <allowedAdultsWithChildren>250</allowedAdultsWithChildren>
+                            <maxExtraBed>0</maxExtraBed>
+                        </roomCapacityInfo>
+                    </roomType>
+                    <roomType runno="54" roomtypecode="49582155">
+                        <name>Standard Triple New</name>
+                        <twin>no</twin>
+                        <roomInfo>
+                            <maxAdult>250</maxAdult>
+                            <maxExtraBed>0</maxExtraBed>
+                            <maxChildren>120</maxChildren>
+                        </roomInfo>
+                        <roomCapacityInfo>
+                            <roomPaxCapacity>250</roomPaxCapacity>
+                            <allowedAdultsWithoutChildren>250</allowedAdultsWithoutChildren>
+                            <allowedAdultsWithChildren>250</allowedAdultsWithChildren>
+                            <maxExtraBed>0</maxExtraBed>
+                        </roomCapacityInfo>
+                    </roomType>
+                    <roomType runno="55" roomtypecode="50557585">
+                        <name>Standard New</name>
+                        <twin>no</twin>
+                        <roomInfo>
+                            <maxAdult>250</maxAdult>
+                            <maxExtraBed>0</maxExtraBed>
+                            <maxChildren>120</maxChildren>
+                        </roomInfo>
+                        <roomCapacityInfo>
+                            <roomPaxCapacity>250</roomPaxCapacity>
+                            <allowedAdultsWithoutChildren>250</allowedAdultsWithoutChildren>
+                            <allowedAdultsWithChildren>250</allowedAdultsWithChildren>
+                            <maxExtraBed>0</maxExtraBed>
+                        </roomCapacityInfo>
+                    </roomType>
+                    <roomType runno="56" roomtypecode="50557605">
+                        <name>Standard</name>
+                        <twin>no</twin>
+                        <roomInfo>
+                            <maxAdult>250</maxAdult>
+                            <maxExtraBed>0</maxExtraBed>
+                            <maxChildren>120</maxChildren>
+                        </roomInfo>
+                        <roomCapacityInfo>
+                            <roomPaxCapacity>250</roomPaxCapacity>
+                            <allowedAdultsWithoutChildren>250</allowedAdultsWithoutChildren>
+                            <allowedAdultsWithChildren>250</allowedAdultsWithChildren>
+                            <maxExtraBed>0</maxExtraBed>
+                        </roomCapacityInfo>
+                    </roomType>
+                    <roomType runno="57" roomtypecode="50557615">
+                        <name>Standard</name>
+                        <twin>no</twin>
+                        <roomInfo>
+                            <maxAdult>250</maxAdult>
+                            <maxExtraBed>0</maxExtraBed>
+                            <maxChildren>120</maxChildren>
+                        </roomInfo>
+                        <roomCapacityInfo>
+                            <roomPaxCapacity>250</roomPaxCapacity>
+                            <allowedAdultsWithoutChildren>250</allowedAdultsWithoutChildren>
+                            <allowedAdultsWithChildren>250</allowedAdultsWithChildren>
+                            <maxExtraBed>0</maxExtraBed>
+                        </roomCapacityInfo>
+                    </roomType>
+                    <roomType runno="58" roomtypecode="50557625">
+                        <name>Standard</name>
+                        <twin>no</twin>
+                        <roomInfo>
+                            <maxAdult>250</maxAdult>
+                            <maxExtraBed>0</maxExtraBed>
+                            <maxChildren>120</maxChildren>
+                        </roomInfo>
+                        <roomCapacityInfo>
+                            <roomPaxCapacity>250</roomPaxCapacity>
+                            <allowedAdultsWithoutChildren>250</allowedAdultsWithoutChildren>
+                            <allowedAdultsWithChildren>250</allowedAdultsWithChildren>
+                            <maxExtraBed>0</maxExtraBed>
+                        </roomCapacityInfo>
+                    </roomType>
+                    <roomType runno="59" roomtypecode="50557635">
+                        <name>Standard</name>
+                        <twin>no</twin>
+                        <roomInfo>
+                            <maxAdult>250</maxAdult>
+                            <maxExtraBed>0</maxExtraBed>
+                            <maxChildren>120</maxChildren>
+                        </roomInfo>
+                        <roomCapacityInfo>
+                            <roomPaxCapacity>250</roomPaxCapacity>
+                            <allowedAdultsWithoutChildren>250</allowedAdultsWithoutChildren>
+                            <allowedAdultsWithChildren>250</allowedAdultsWithChildren>
+                            <maxExtraBed>0</maxExtraBed>
+                        </roomCapacityInfo>
+                    </roomType>
+                    <roomType runno="60" roomtypecode="55513455">
+                        <name>Basic Double Advance Purchase</name>
+                        <twin>no</twin>
+                        <roomInfo>
+                            <maxAdult>250</maxAdult>
+                            <maxExtraBed>0</maxExtraBed>
+                            <maxChildren>120</maxChildren>
+                        </roomInfo>
+                        <roomCapacityInfo>
+                            <roomPaxCapacity>250</roomPaxCapacity>
+                            <allowedAdultsWithoutChildren>250</allowedAdultsWithoutChildren>
+                            <allowedAdultsWithChildren>250</allowedAdultsWithChildren>
+                            <maxExtraBed>0</maxExtraBed>
+                        </roomCapacityInfo>
+                    </roomType>
+                    <roomType runno="61" roomtypecode="56047625">
+                        <name>Standard Double</name>
+                        <twin>no</twin>
+                        <roomInfo>
+                            <maxAdult>250</maxAdult>
+                            <maxExtraBed>0</maxExtraBed>
+                            <maxChildren>120</maxChildren>
+                        </roomInfo>
+                        <roomCapacityInfo>
+                            <roomPaxCapacity>250</roomPaxCapacity>
+                            <allowedAdultsWithoutChildren>250</allowedAdultsWithoutChildren>
+                            <allowedAdultsWithChildren>250</allowedAdultsWithChildren>
+                            <maxExtraBed>0</maxExtraBed>
+                        </roomCapacityInfo>
+                    </roomType>
+                    <roomType runno="62" roomtypecode="57405775">
+                        <name>Double room - Budget</name>
+                        <twin>no</twin>
+                        <roomInfo>
+                            <maxAdult>250</maxAdult>
+                            <maxExtraBed>0</maxExtraBed>
+                            <maxChildren>120</maxChildren>
+                        </roomInfo>
+                        <roomCapacityInfo>
+                            <roomPaxCapacity>250</roomPaxCapacity>
+                            <allowedAdultsWithoutChildren>250</allowedAdultsWithoutChildren>
+                            <allowedAdultsWithChildren>250</allowedAdultsWithChildren>
+                            <maxExtraBed>0</maxExtraBed>
+                        </roomCapacityInfo>
+                    </roomType>
+                    <roomType runno="63" roomtypecode="57405785">
+                        <name>Double room - Single use</name>
+                        <twin>no</twin>
+                        <roomInfo>
+                            <maxAdult>250</maxAdult>
+                            <maxExtraBed>0</maxExtraBed>
+                            <maxChildren>120</maxChildren>
+                        </roomInfo>
+                        <roomCapacityInfo>
+                            <roomPaxCapacity>250</roomPaxCapacity>
+                            <allowedAdultsWithoutChildren>250</allowedAdultsWithoutChildren>
+                            <allowedAdultsWithChildren>250</allowedAdultsWithChildren>
+                            <maxExtraBed>0</maxExtraBed>
+                        </roomCapacityInfo>
+                    </roomType>
+                    <roomType runno="64" roomtypecode="57405795">
+                        <name>Single room - Budget</name>
+                        <twin>no</twin>
+                        <roomInfo>
+                            <maxAdult>250</maxAdult>
+                            <maxExtraBed>0</maxExtraBed>
+                            <maxChildren>120</maxChildren>
+                        </roomInfo>
+                        <roomCapacityInfo>
+                            <roomPaxCapacity>250</roomPaxCapacity>
+                            <allowedAdultsWithoutChildren>250</allowedAdultsWithoutChildren>
+                            <allowedAdultsWithChildren>250</allowedAdultsWithChildren>
+                            <maxExtraBed>0</maxExtraBed>
+                        </roomCapacityInfo>
+                    </roomType>
+                    <roomType runno="65" roomtypecode="57405805">
+                        <name>Twin/Double room - Budget</name>
+                        <twin>no</twin>
+                        <roomInfo>
+                            <maxAdult>250</maxAdult>
+                            <maxExtraBed>0</maxExtraBed>
+                            <maxChildren>120</maxChildren>
+                        </roomInfo>
+                        <roomCapacityInfo>
+                            <roomPaxCapacity>250</roomPaxCapacity>
+                            <allowedAdultsWithoutChildren>250</allowedAdultsWithoutChildren>
+                            <allowedAdultsWithChildren>250</allowedAdultsWithChildren>
+                            <maxExtraBed>0</maxExtraBed>
+                        </roomCapacityInfo>
+                    </roomType>
+                    <roomType runno="66" roomtypecode="57405815">
+                        <name>Twin room - Single use</name>
+                        <twin>no</twin>
+                        <roomInfo>
+                            <maxAdult>250</maxAdult>
+                            <maxExtraBed>0</maxExtraBed>
+                            <maxChildren>120</maxChildren>
+                        </roomInfo>
+                        <roomCapacityInfo>
+                            <roomPaxCapacity>250</roomPaxCapacity>
+                            <allowedAdultsWithoutChildren>250</allowedAdultsWithoutChildren>
+                            <allowedAdultsWithChildren>250</allowedAdultsWithChildren>
+                            <maxExtraBed>0</maxExtraBed>
+                        </roomCapacityInfo>
+                    </roomType>
+                    <roomType runno="67" roomtypecode="5925495">
+                        <name>1 DOUBLE BED</name>
+                        <twin>no</twin>
+                        <roomInfo>
+                            <maxAdult>4</maxAdult>
+                            <maxExtraBed>0</maxExtraBed>
+                            <maxChildren>3</maxChildren>
+                        </roomInfo>
+                        <roomCapacityInfo>
+                            <roomPaxCapacity>4</roomPaxCapacity>
+                            <allowedAdultsWithoutChildren>4</allowedAdultsWithoutChildren>
+                            <allowedAdultsWithChildren>3</allowedAdultsWithChildren>
+                            <maxExtraBed>0</maxExtraBed>
+                        </roomCapacityInfo>
+                    </roomType>
+                    <roomType runno="68" roomtypecode="62190865">
+                        <name>Twin Room, 2 Twin Beds</name>
+                        <twin>no</twin>
+                        <roomInfo>
+                            <maxAdult>250</maxAdult>
+                            <maxExtraBed>0</maxExtraBed>
+                            <maxChildren>120</maxChildren>
+                        </roomInfo>
+                        <roomCapacityInfo>
+                            <roomPaxCapacity>250</roomPaxCapacity>
+                            <allowedAdultsWithoutChildren>250</allowedAdultsWithoutChildren>
+                            <allowedAdultsWithChildren>250</allowedAdultsWithChildren>
+                            <maxExtraBed>0</maxExtraBed>
+                        </roomCapacityInfo>
+                    </roomType>
+                    <roomType runno="69" roomtypecode="64781715">
+                        <name>Basic Flex</name>
+                        <twin>no</twin>
+                        <roomInfo>
+                            <maxAdult>4</maxAdult>
+                            <maxExtraBed>0</maxExtraBed>
+                            <maxChildren>0</maxChildren>
+                        </roomInfo>
+                        <roomCapacityInfo>
+                            <roomPaxCapacity>4</roomPaxCapacity>
+                            <allowedAdultsWithoutChildren>4</allowedAdultsWithoutChildren>
+                            <allowedAdultsWithChildren>4</allowedAdultsWithChildren>
+                            <maxExtraBed>0</maxExtraBed>
+                        </roomCapacityInfo>
+                    </roomType>
+                    <roomType runno="70" roomtypecode="64781725">
+                        <name>Standard + Breakfast Flex</name>
+                        <twin>no</twin>
+                        <roomInfo>
+                            <maxAdult>3</maxAdult>
+                            <maxExtraBed>0</maxExtraBed>
+                            <maxChildren>1</maxChildren>
+                        </roomInfo>
+                        <roomCapacityInfo>
+                            <roomPaxCapacity>3</roomPaxCapacity>
+                            <allowedAdultsWithoutChildren>3</allowedAdultsWithoutChildren>
+                            <allowedAdultsWithChildren>4</allowedAdultsWithChildren>
+                            <maxExtraBed>0</maxExtraBed>
+                        </roomCapacityInfo>
+                    </roomType>
+                    <roomType runno="71" roomtypecode="64781735">
+                        <name>Standard Flex</name>
+                        <twin>no</twin>
+                        <roomInfo>
+                            <maxAdult>4</maxAdult>
+                            <maxExtraBed>0</maxExtraBed>
+                            <maxChildren>0</maxChildren>
+                        </roomInfo>
+                        <roomCapacityInfo>
+                            <roomPaxCapacity>4</roomPaxCapacity>
+                            <allowedAdultsWithoutChildren>4</allowedAdultsWithoutChildren>
+                            <allowedAdultsWithChildren>4</allowedAdultsWithChildren>
+                            <maxExtraBed>0</maxExtraBed>
+                        </roomCapacityInfo>
+                    </roomType>
+                    <roomType runno="72" roomtypecode="66786345">
+                        <name>Economy Room</name>
+                        <twin>no</twin>
+                        <roomInfo>
+                            <maxAdult>250</maxAdult>
+                            <maxExtraBed>0</maxExtraBed>
+                            <maxChildren>120</maxChildren>
+                        </roomInfo>
+                        <roomCapacityInfo>
+                            <roomPaxCapacity>250</roomPaxCapacity>
+                            <allowedAdultsWithoutChildren>250</allowedAdultsWithoutChildren>
+                            <allowedAdultsWithChildren>250</allowedAdultsWithChildren>
+                            <maxExtraBed>0</maxExtraBed>
+                        </roomCapacityInfo>
+                    </roomType>
+                    <roomType runno="73" roomtypecode="66786355">
+                        <name>Room</name>
+                        <twin>no</twin>
+                        <roomInfo>
+                            <maxAdult>250</maxAdult>
+                            <maxExtraBed>0</maxExtraBed>
+                            <maxChildren>120</maxChildren>
+                        </roomInfo>
+                        <roomCapacityInfo>
+                            <roomPaxCapacity>250</roomPaxCapacity>
+                            <allowedAdultsWithoutChildren>250</allowedAdultsWithoutChildren>
+                            <allowedAdultsWithChildren>250</allowedAdultsWithChildren>
+                            <maxExtraBed>0</maxExtraBed>
+                        </roomCapacityInfo>
+                    </roomType>
+                    <roomType runno="74" roomtypecode="7149988">
+                        <name>2 SINGLE BEDS</name>
+                        <twin>no</twin>
+                        <roomInfo>
+                            <maxAdult>4</maxAdult>
+                            <maxExtraBed>0</maxExtraBed>
+                            <maxChildren>3</maxChildren>
+                        </roomInfo>
+                        <roomCapacityInfo>
+                            <roomPaxCapacity>4</roomPaxCapacity>
+                            <allowedAdultsWithoutChildren>4</allowedAdultsWithoutChildren>
+                            <allowedAdultsWithChildren>3</allowedAdultsWithChildren>
+                            <maxExtraBed>0</maxExtraBed>
+                        </roomCapacityInfo>
+                    </roomType>
+                    <roomType runno="75" roomtypecode="84888145">
+                        <name>Standard Twin NEW</name>
+                        <twin>no</twin>
+                        <roomInfo>
+                            <maxAdult>250</maxAdult>
+                            <maxExtraBed>0</maxExtraBed>
+                            <maxChildren>120</maxChildren>
+                        </roomInfo>
+                        <roomCapacityInfo>
+                            <roomPaxCapacity>250</roomPaxCapacity>
+                            <allowedAdultsWithoutChildren>250</allowedAdultsWithoutChildren>
+                            <allowedAdultsWithChildren>250</allowedAdultsWithChildren>
+                            <maxExtraBed>0</maxExtraBed>
+                        </roomCapacityInfo>
+                    </roomType>
+                    <roomType runno="76" roomtypecode="9399768">
+                        <name>Standard Special</name>
+                        <twin>no</twin>
+                        <roomInfo>
+                            <maxAdult>2</maxAdult>
+                            <maxExtraBed>0</maxExtraBed>
+                            <maxChildren>1</maxChildren>
+                        </roomInfo>
+                        <roomCapacityInfo>
+                            <roomPaxCapacity>2</roomPaxCapacity>
+                            <allowedAdultsWithoutChildren>2</allowedAdultsWithoutChildren>
+                            <allowedAdultsWithChildren>2</allowedAdultsWithChildren>
+                            <maxExtraBed>0</maxExtraBed>
+                        </roomCapacityInfo>
+                    </roomType>
+                    <roomType runno="77" roomtypecode="9399778">
+                        <name>Non Refundable Leisure</name>
+                        <twin>no</twin>
+                        <roomInfo>
+                            <maxAdult>2</maxAdult>
+                            <maxExtraBed>0</maxExtraBed>
+                            <maxChildren>1</maxChildren>
+                        </roomInfo>
+                        <roomCapacityInfo>
+                            <roomPaxCapacity>2</roomPaxCapacity>
+                            <allowedAdultsWithoutChildren>2</allowedAdultsWithoutChildren>
+                            <allowedAdultsWithChildren>2</allowedAdultsWithChildren>
+                            <maxExtraBed>0</maxExtraBed>
+                        </roomCapacityInfo>
+                    </roomType>
+                    <roomType runno="78" roomtypecode="9399798">
+                        <name>Leisure Triple</name>
+                        <twin>no</twin>
+                        <roomInfo>
+                            <maxAdult>3</maxAdult>
+                            <maxExtraBed>0</maxExtraBed>
+                            <maxChildren>3</maxChildren>
+                        </roomInfo>
+                        <roomCapacityInfo>
+                            <roomPaxCapacity>4</roomPaxCapacity>
+                            <allowedAdultsWithoutChildren>3</allowedAdultsWithoutChildren>
+                            <allowedAdultsWithChildren>3</allowedAdultsWithChildren>
+                            <maxExtraBed>0</maxExtraBed>
+                        </roomCapacityInfo>
+                    </roomType>
+                    <roomType runno="79" roomtypecode="9399808">
+                        <name>Suite</name>
+                        <twin>no</twin>
+                        <roomInfo>
+                            <maxAdult>2</maxAdult>
+                            <maxExtraBed>0</maxExtraBed>
+                            <maxChildren>2</maxChildren>
+                        </roomInfo>
+                        <roomCapacityInfo>
+                            <roomPaxCapacity>3</roomPaxCapacity>
+                            <allowedAdultsWithoutChildren>2</allowedAdultsWithoutChildren>
+                            <allowedAdultsWithChildren>2</allowedAdultsWithChildren>
+                            <maxExtraBed>0</maxExtraBed>
+                        </roomCapacityInfo>
+                    </roomType>
+                    <roomType runno="80" roomtypecode="98026675">
+                        <name>Triple</name>
+                        <twin>no</twin>
+                        <roomInfo>
+                            <maxAdult>250</maxAdult>
+                            <maxExtraBed>0</maxExtraBed>
+                            <maxChildren>120</maxChildren>
+                        </roomInfo>
+                        <roomCapacityInfo>
+                            <roomPaxCapacity>250</roomPaxCapacity>
+                            <allowedAdultsWithoutChildren>250</allowedAdultsWithoutChildren>
+                            <allowedAdultsWithChildren>250</allowedAdultsWithChildren>
+                            <maxExtraBed>0</maxExtraBed>
+                        </roomCapacityInfo>
+                    </roomType>
+                    <roomType runno="81" roomtypecode="98027205">
+                        <name>Twin</name>
+                        <twin>no</twin>
+                        <roomInfo>
+                            <maxAdult>250</maxAdult>
+                            <maxExtraBed>0</maxExtraBed>
+                            <maxChildren>120</maxChildren>
+                        </roomInfo>
+                        <roomCapacityInfo>
+                            <roomPaxCapacity>250</roomPaxCapacity>
+                            <allowedAdultsWithoutChildren>250</allowedAdultsWithoutChildren>
+                            <allowedAdultsWithChildren>250</allowedAdultsWithChildren>
+                            <maxExtraBed>0</maxExtraBed>
+                        </roomCapacityInfo>
+                    </roomType>
+                    <roomType runno="82" roomtypecode="98027215">
+                        <name>Double</name>
+                        <twin>no</twin>
+                        <roomInfo>
+                            <maxAdult>250</maxAdult>
+                            <maxExtraBed>0</maxExtraBed>
+                            <maxChildren>120</maxChildren>
+                        </roomInfo>
+                        <roomCapacityInfo>
+                            <roomPaxCapacity>250</roomPaxCapacity>
+                            <allowedAdultsWithoutChildren>250</allowedAdultsWithoutChildren>
+                            <allowedAdultsWithChildren>250</allowedAdultsWithChildren>
+                            <maxExtraBed>0</maxExtraBed>
+                        </roomCapacityInfo>
+                    </roomType>
+                    <roomType runno="83" roomtypecode="98039085">
+                        <name>Single</name>
+                        <twin>no</twin>
+                        <roomInfo>
+                            <maxAdult>250</maxAdult>
+                            <maxExtraBed>0</maxExtraBed>
+                            <maxChildren>120</maxChildren>
+                        </roomInfo>
+                        <roomCapacityInfo>
+                            <roomPaxCapacity>250</roomPaxCapacity>
+                            <allowedAdultsWithoutChildren>250</allowedAdultsWithoutChildren>
+                            <allowedAdultsWithChildren>250</allowedAdultsWithChildren>
+                            <maxExtraBed>0</maxExtraBed>
+                        </roomCapacityInfo>
+                    </roomType>
+                </room>
+            </rooms>
+        </hotel>
+    </hotels>
+    <successful>TRUE</successful>
+</result>

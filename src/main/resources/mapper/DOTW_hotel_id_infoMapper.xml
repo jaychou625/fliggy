@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.webbeds.fliggy.mapper.DOTW_hotel_id_infoMapper">
+
+    <resultMap id="DOTW_hotel_id_info_ResultMap" type="com.webbeds.fliggy.entity.DOTW_hotel_id_info">
+        <!--        <id column="aew_info_seq" property="aewInfoSeq" javaType="java.lang.Integer" jdbcType="INTEGER"/>-->
+        <result column="hotel_id" property="hotel_id" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result column="hotel_name" property="hotel_name" javaType="java.lang.String" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <select id="findAll" resultMap="DOTW_hotel_id_info_ResultMap">
+        select * from dotw_hotel_id_info
+    </select>
+
+    <!--    <select id="find" resultMap="aewInfoResultMap" parameterType="java.lang.Integer">-->
+    <!--        SELECT * FROM AP_AEW_INFO-->
+    <!--    </select>-->
+
+</mapper>

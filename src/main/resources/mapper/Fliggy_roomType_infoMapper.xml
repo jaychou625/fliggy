@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.webbeds.fliggy.mapper.Fliggy_roomType_infoMapper">
+
+    <resultMap id="Fliggy_roomType_info_ResultMap" type="com.webbeds.fliggy.entity.Fliggy_roomType_info">
+        <!--        <id column="aew_info_seq" property="aewInfoSeq" javaType="java.lang.Integer" jdbcType="INTEGER"/>-->
+        <result column="outer_id" property="outer_id" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result column="name" property="name" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result column="max_occupancy" property="max_occupancy" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result column="area" property="area" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result column="floor" property="floor" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result column="bed_type" property="bed_type" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result column="bed_size" property="bed_size" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result column="internet" property="internet" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result column="service" property="service" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result column="extend" property="extend" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result column="window_type" property="window_type" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result column="srid" property="srid" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result column="out_hid" property="out_hid" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result column="vendor" property="vendor" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result column="pics" property="pics" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result column="name_e" property="name_e" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result column="operator" property="operator" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result column="connection_type" property="connection_type" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result column="name_before" property="name_before" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result column="name_after" property="name_after" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result column="name_final" property="name_final" javaType="java.lang.String" jdbcType="VARCHAR"/>
+    </resultMap>
+
+<!--    <select id="findAll" resultMap="Fliggy_hotel_info_ResultMap">-->
+<!--        SELECT * FROM all_country_code-->
+<!--    </select>-->
+
+        <select id="searchDuplicate" resultType="java.lang.Integer" parameterType="com.webbeds.fliggy.entity.Fliggy_roomType_info">
+            SELECT count(*) FROM fliggy_roomtype_info
+            WHERE out_hid = #{out_hid} and name_before = #{name_before}
+        </select>
+
+        <insert id="add" parameterType="com.webbeds.fliggy.entity.Fliggy_roomType_info">
+            INSERT INTO fliggy_roomtype_info(outer_id,name,max_occupancy,area,floor,bed_type,bed_size,internet,service,extend,window_type,srid,out_hid,vendor,pics,name_e,operator,connection_type,name_before,name_after,name_final)
+            VALUES (#{outer_id},#{name},#{max_occupancy},#{area},#{floor},#{bed_type},#{bed_size},#{internet},#{service},#{extend},#{window_type},#{srid},#{out_hid},#{vendor},#{pics},#{name_e},#{operator},#{connection_type},#{name_before},#{name_after},#{name_final})
+        </insert>
+<!--        <update id="" parameterType="com.webbeds.fliggy.entity.Fliggy_hotel_info">-->
+
+<!--        </update>-->
+
+</mapper>

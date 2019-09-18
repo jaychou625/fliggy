@@ -219,13 +219,17 @@ public class HotelInfoAddTask {
             JSONArray rooms = result.getJSONObject("hotels").getJSONObject("hotel").getJSONObject("rooms").getJSONObject("room").getJSONArray("roomType");
             for(int roomsIndex = 0; roomsIndex < rooms.size(); roomsIndex++){
                 Fliggy_roomType_info fliggy_roomType_info = getRoomInfoByJSONObject(rooms.getJSONObject(roomsIndex),hid);
-                fliggy_roomTpye_infoService.add(fliggy_roomType_info);
+                if(fliggy_roomTpye_infoService.searchRoomByRid(fliggy_roomType_info) == 0){
+                    fliggy_roomTpye_infoService.add(fliggy_roomType_info);
+                }
             }
         }else{
-            //获取房型信息
+            //添加房型信息
             JSONObject room = result.getJSONObject("hotels").getJSONObject("hotel").getJSONObject("rooms").getJSONObject("room").getJSONObject("roomType");
             Fliggy_roomType_info fliggy_roomType_info = getRoomInfoByJSONObject(room,hid);
-            fliggy_roomTpye_infoService.add(fliggy_roomType_info);
+            if(fliggy_roomTpye_infoService.searchRoomByRid(fliggy_roomType_info) == 0){
+                fliggy_roomTpye_infoService.add(fliggy_roomType_info);
+            }
         }
     }
 
@@ -393,9 +397,9 @@ public class HotelInfoAddTask {
         String nameTotal = jsonObject.getString("name");
         /**
          * 截取关键字，Room、Dorm、Bungalow、Dormitory、Suite、Villa、Twin、APARTMENT
-         * 28位同名房型匹配类型，30位同名房型序号（防重复）
+         * 27位同名房型匹配类型，30位同名房型序号（防重复）
          */
-        if(nameTotal.length() > 28){
+        if(nameTotal.length() > 27){
             String[] rootRoomType = new String[]{"Room","Dorm","Bungalow","Dormitory","Suite","Villa","Twin","Apartment","Queen","Double","Bed","House"};
             boolean flag = true;
             List<Integer> indexList = new ArrayList<>();
@@ -407,7 +411,7 @@ public class HotelInfoAddTask {
                 }
                 if(subIndex > -1){
                     int subLength = subIndex + rootRoomType[i].length();
-                    if(subLength <= 28){
+                    if(subLength <= 27){
                         indexList.add(subLength);
                         flag = false;
                     }else{
@@ -458,7 +462,7 @@ public class HotelInfoAddTask {
         Integer codeNo = fliggy_roomTpye_infoService.searchDuplicate(fliggy_roomType_info) + 1;
         if(flag){
 
-            finalName = fliggy_roomType_info.getName_before() + "0" + codeNo;
+            finalName = fliggy_roomType_info.getName_before() + " 0" + codeNo;
         }else{
             //添加房型细节内容入库
             Fliggy_roomtype_sub_sort fliggy_roomtype_sub_sort = getFliggy_roomtype_sub_sort(fliggy_roomType_info);
@@ -466,7 +470,7 @@ public class HotelInfoAddTask {
                 fliggy_roomTpye_sub_sortService.add(fliggy_roomtype_sub_sort);
             }
             Integer subCodeNo = Integer.parseInt(fliggy_roomTpye_sub_sortService.searchSub_idBySub_strAndHid(fliggy_roomtype_sub_sort),16);
-            finalName = fliggy_roomType_info.getName_before() + subCodeNo + codeNo;
+            finalName = fliggy_roomType_info.getName_before() + " " + subCodeNo + codeNo;
         }
         return finalName;
     }

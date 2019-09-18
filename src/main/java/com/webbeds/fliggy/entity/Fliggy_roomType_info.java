@@ -2,6 +2,8 @@ package com.webbeds.fliggy.entity;
 
 import lombok.*;
 
+import java.util.Date;
+
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
@@ -27,4 +29,8 @@ public class Fliggy_roomType_info {
     @Getter @Setter private String name_before;
     @Getter @Setter private String name_after;
     @Getter @Setter private String name_final;
+    @Getter @Setter private String state;
+    @Getter @Setter private Date insertDate;
+    @Getter @Setter private String error_msg;
+    @Getter @Setter private String mapping;
 }

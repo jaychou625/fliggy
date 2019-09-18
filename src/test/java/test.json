@@ -1,65 +1,27 @@
 {
-  "xhotel_add_response": {
-    "xhotel": {
-      "address": "Hakuraa Club, Meemu Atoll",
-      "city": 903767,
-      "country": "Maldives",
-      "district": 0,
-      "domestic": 1,
-      "hid": 25698001402,
-      "latitude": "2.853666",
-      "longitude": "73.539273",
+  "xhotel_roomtype_add_response": {
+    "xroomtype": {
+      "bed_type": "大床/双床",
+      "hid": 128991522880,
       "match_status": 5,
-      "name": "CINNAMON HAKURAA HURAA MALDIVES(Ex. CHAAYA LAGOON HAKURAA HURAA)",
-      "name_e": "CINNAMON HAKURAA HURAA MALDIVES(Ex. CHAAYA LAGOON HAKURAA HURAA)",
-      "outer_id": "100502",
-      "position_type": "G",
-      "province": 0,
-      "s_hotel": {
-        "address": "address1211",
-        "business": "1234,39276",
-        "city": 330600,
-        "country": "China",
-        "created_time": "2015-03-03 12:59:50",
-        "district": 0,
-        "domestic": 0,
-        "extend": "test|test|updated latlong by gmap|update latlong by gmap",
-        "fax": "",
-        "latitude": "30.234234",
-        "longitude": "98.234234",
-        "modified_time": "2019-07-17 21:34:18",
-        "name": "默认的标准酒店(测试精卫监控)",
+      "max_occupancy": 2,
+      "name": "GARDEN TERRACE01",
+      "name_e": "GARDEN TERRACE01",
+      "outer_id": "94804",
+      "rid": 571413492880,
+      "s_roomtype": {
+        "area": "",
+        "bed": "[]",
+        "created_time": "2014-11-08 01:16: 14",
+        "modified_time": "2017-06-01 20: 56: 56",
+        "name": "其他",
         "pic_url": "",
-        "position_type": 0,
-        "province": 330000,
-        "room_facilities": "{"
-        电视
-        ":true,"
-        浴缸
-        ":true,"
-        吹风机
-        ":true,"
-        液晶电视/等离子电视
-        ":true,"
-        拖鞋
-        ":true,"
-        24小时热水
-        ":true,"
-        空调
-        ":true,"
-        电热水壶
-        ":true,"
-        卫星频道/有线电视
-        ":true}",
-        "shid": 1,
-        "status": 1,
-        "tel": "1234",
-        "type": "商务型酒店",
-        "used_name": "默认的标准酒店(测试精卫监控)44444"
+        "shid": 50419194,
+        "srid": 51718735,
+        "status": -4
       },
-      "status": 0,
-      "tel": "960-3313738"
+      "status": 0
     },
-    "request_id": "113hm7cnbpx96"
+    "request_id": "exz2271n8gns"
   }
 }

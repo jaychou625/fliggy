@@ -27,23 +27,35 @@
         <result column="name_before" property="name_before" javaType="java.lang.String" jdbcType="VARCHAR"/>
         <result column="name_after" property="name_after" javaType="java.lang.String" jdbcType="VARCHAR"/>
         <result column="name_final" property="name_final" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result column="state" property="state" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result column="insertDate" property="insertDate" javaType="java.util.Date" jdbcType="TIMESTAMP"/>
+        <result column="error_msg" property="error_msg" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result column="mapping" property="mapping" javaType="java.lang.String" jdbcType="VARCHAR"/>
     </resultMap>
 
-<!--    <select id="findAll" resultMap="Fliggy_hotel_info_ResultMap">-->
-<!--        SELECT * FROM all_country_code-->
-<!--    </select>-->
+        <select id="searchRoomByHid" resultMap="Fliggy_roomType_info_ResultMap">
+            SELECT * FROM fliggy_roomtype_info
+            where out_hid = #{hid}
+        </select>
 
         <select id="searchDuplicate" resultType="java.lang.Integer" parameterType="com.webbeds.fliggy.entity.Fliggy_roomType_info">
             SELECT count(*) FROM fliggy_roomtype_info
             WHERE out_hid = #{out_hid} and name_before = #{name_before}
         </select>
 
-        <insert id="add" parameterType="com.webbeds.fliggy.entity.Fliggy_roomType_info">
-            INSERT INTO fliggy_roomtype_info(outer_id,name,max_occupancy,area,floor,bed_type,bed_size,internet,service,extend,window_type,srid,out_hid,vendor,pics,name_e,operator,connection_type,name_before,name_after,name_final)
-            VALUES (#{outer_id},#{name},#{max_occupancy},#{area},#{floor},#{bed_type},#{bed_size},#{internet},#{service},#{extend},#{window_type},#{srid},#{out_hid},#{vendor},#{pics},#{name_e},#{operator},#{connection_type},#{name_before},#{name_after},#{name_final})
-        </insert>
-<!--        <update id="" parameterType="com.webbeds.fliggy.entity.Fliggy_hotel_info">-->
+        <select id="searchRoomByRid" resultType="java.lang.Integer" parameterType="com.webbeds.fliggy.entity.Fliggy_roomType_info">
+            SELECT count(*) FROM fliggy_roomtype_info
+            WHERE outer_id = #{outer_id}
+        </select>
 
-<!--        </update>-->
+        <insert id="add" parameterType="com.webbeds.fliggy.entity.Fliggy_roomType_info">
+            INSERT INTO fliggy_roomtype_info(outer_id,name,max_occupancy,area,floor,bed_type,bed_size,internet,service,extend,window_type,srid,out_hid,vendor,pics,name_e,operator,connection_type,name_before,name_after,name_final,state,insertDate,error_msg,mapping)
+            VALUES (#{outer_id},#{name},#{max_occupancy},#{area},#{floor},#{bed_type},#{bed_size},#{internet},#{service},#{extend},#{window_type},#{srid},#{out_hid},#{vendor},#{pics},#{name_e},#{operator},#{connection_type},#{name_before},#{name_after},#{name_final},#{state},#{insertDate},#{error_msg},#{mapping})
+        </insert>
+
+        <update id="updateStateAndDate" parameterType="com.webbeds.fliggy.entity.Fliggy_roomType_info">
+            UPDATE fliggy_roomtype_info SET state = #{state}, insertDate =  #{insertDate},error_msg = #{error_msg},mapping = #{mapping}
+            where outer_id = #{outer_id}
+        </update>
 
 </mapper>

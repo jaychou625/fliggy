@@ -58,6 +58,8 @@ public class Fliggy_hotel_info {
     @Getter @Setter private String batch_id;
     @Getter @Setter private String state;
     @Getter @Setter private Date insertDate;
+    @Getter @Setter private String error_msg;
+    @Getter @Setter private String mapping;
 
 
 

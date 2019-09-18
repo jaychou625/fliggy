@@ -5,6 +5,7 @@ import com.webbeds.fliggy.mapper.Fliggy_roomType_infoMapper;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * DOTW新增房型信息service类
@@ -31,6 +32,33 @@ public class Fliggy_roomTpye_infoService {
      */
     public Integer searchDuplicate(Fliggy_roomType_info fliggy_roomType_info){
         return fliggy_roomType_infoMapper.searchDuplicate(fliggy_roomType_info);
+    }
+
+    /**
+     * 根据酒店查询酒店对应房型
+     * @param hid
+     * @return
+     */
+    public List<Fliggy_roomType_info> searchRoomByHid(String hid){
+        return fliggy_roomType_infoMapper.searchRoomByHid(hid);
+    }
+
+    /**
+     * 根据房型id查询房型数量
+     * @param fliggy_roomType_info
+     * @return
+     */
+    public Integer searchRoomByRid(Fliggy_roomType_info fliggy_roomType_info){
+        return fliggy_roomType_infoMapper.searchRoomByRid(fliggy_roomType_info);
+    }
+
+    /**
+     * 更新房型状态信息，0：未添加入飞猪。1：已添加入飞猪
+     * @param fliggy_roomType_info
+     * @return
+     */
+    public boolean updateStateAndDate(Fliggy_roomType_info fliggy_roomType_info){
+        return fliggy_roomType_infoMapper.updateStateAndDate(fliggy_roomType_info);
     }
 
 }

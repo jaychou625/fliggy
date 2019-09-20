@@ -24,4 +24,18 @@ public class DOTW_hotel_infoService {
     public List<DOTW_hotel_info> findAll(){
         return dotw_hotel_infoMapper.findAll();
     }
+
+    /**
+     * 添加dotw酒店
+     * @param dotw_hotel_info
+     * @return
+     */
+    public boolean add(DOTW_hotel_info dotw_hotel_info){
+        return dotw_hotel_infoMapper.add(dotw_hotel_info);
+    }
+
+    public Integer searchByHid(String hid){
+        return dotw_hotel_infoMapper.searchByHid(hid);
+    }
+
 }

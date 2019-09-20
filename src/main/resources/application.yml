@@ -2,24 +2,22 @@ server:
   port: 9090
 spring:
   application:
-    name: airport-platform
-#  thymeleaf:
-#    cache: false
-#    check-template-location: true
-#    enabled: true
-#    encoding: UTF-8
-#    prefix: classpath:/templates/
-#    mode: HTML
-#    servlet:
-#      content-type: text/html
-#    suffix: .html
-#  resources:
-#    chain:
-#      strategy:
-#        content:
-#          enabled: true
-#          paths: /js/own/**
-#  redis:
+    name: webbeds-fliggy
+  thymeleaf:
+    cache: false
+    check-template-location: true
+    enabled: true
+    encoding: UTF-8
+    prefix: classpath:/templates/
+    mode: HTML
+    servlet:
+      content-type: text/html
+    suffix: .html
+
+  resources:
+    static-locations: classpath:/templates/,classpath:/META-INF/resources/,classpath:/resources/,classpath:/static/,classpath:/public/
+
+  #  redis:
 #    host: localhost
 #    port: 6379
 #    password:
@@ -49,6 +47,8 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
     password: root
+  mvc:
+    static-path-pattern: classpath:/static/js/,classpath:/templates/,classpath:/static/css/
 #    druid:
 #      filter: stat
 #      initial-size: 10

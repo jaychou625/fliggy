@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head xmlns:th="http://www.thymeleaf.org" th:fragment="resources">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=
+    , initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>main</title>
+    <link rel="stylesheet" th:href="@{/static/css/bootstrap.css}">
+    <script th:src="@{/static/js/jquery-1.9.1.js}" type="text/javascript"></script>
+    <script th:src="@{/static/js/bootstrap.js}" type="text/javascript"></script>
+</head>
+<body>
+    <h1 class="text-center">
+        查询页面功能页面
+    </h1>
+    <div class="text-center" style="margin-top: 30px;">
+        <a href="/downloadExcelReport?diarycontent=hotel.xls" id="hotel" class="btn btn-primary btn-lg">点我下载酒店匹配report</a>
+    </div>
+    <div class="text-center" style="margin-top: 30px;">
+        <a href="/downloadExcelReport?diarycontent=roomType.xls" id="roomType" class="btn btn-primary btn-lg">点我下载房型匹配report</a>
+    </div>
+
+</body>
+</html>

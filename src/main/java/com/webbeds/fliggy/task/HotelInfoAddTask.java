@@ -15,6 +15,7 @@ import com.webbeds.fliggy.service.DOTW.Fliggy_roomTpye_sub_sortService;
 import com.webbeds.fliggy.utils.Common;
 import com.webbeds.fliggy.utils.Fliggy_interface_util;
 import net.sf.json.xml.XMLSerializer;
+import org.apache.commons.codec.binary.Hex;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.BufferedReader;
@@ -449,6 +450,7 @@ public class HotelInfoAddTask {
             fliggy_roomType_info.setName_final(getFinalName(fliggy_roomType_info,true));
         }
 
+        fliggy_roomType_info.setState("0");
         return  fliggy_roomType_info;
     }
 
@@ -469,8 +471,8 @@ public class HotelInfoAddTask {
             if(fliggy_roomtype_sub_sort.getSub_id() != null){
                 fliggy_roomTpye_sub_sortService.add(fliggy_roomtype_sub_sort);
             }
-            Integer subCodeNo = Integer.parseInt(fliggy_roomTpye_sub_sortService.searchSub_idBySub_strAndHid(fliggy_roomtype_sub_sort),16);
-            finalName = fliggy_roomType_info.getName_before() + " " + subCodeNo + codeNo;
+            Integer subCodeNo = Integer.parseInt(fliggy_roomTpye_sub_sortService.searchSub_idBySub_strAndHid(fliggy_roomtype_sub_sort));
+            finalName = fliggy_roomType_info.getName_before() + " " + Integer.toHexString(subCodeNo) + Integer.toHexString(codeNo);
         }
         return finalName;
     }

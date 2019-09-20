@@ -59,4 +59,12 @@ public class Fliggy_hotel_infoService {
     public boolean updateStateAndDate(Fliggy_hotel_info fliggy_hotel_info){
         return fliggy_hotel_infoMapper.updateStateAndDate(fliggy_hotel_info);
     }
+
+    /**
+     * 查询所有加入飞猪库的酒店信息
+     * @return
+     */
+    public List<Fliggy_hotel_info> searchAllHotelByState(){
+        return fliggy_hotel_infoMapper.searchAllHotelByState();
+    }
 }

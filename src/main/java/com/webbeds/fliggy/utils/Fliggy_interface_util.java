@@ -104,9 +104,13 @@ public class Fliggy_interface_util {
         req.setDomestic(1L);
         req.setCountry(fliggy_hotel_info.getCountry());
         req.setCity(fliggy_hotel_info.getCity().longValue());
-        req.setAddress(fliggy_hotel_info.getAddress());
-        req.setLongitude(fliggy_hotel_info.getLongitude());
-        req.setLatitude(fliggy_hotel_info.getLatitude());
+        if(fliggy_hotel_info.getAddress().length() > 120){
+            req.setAddress(fliggy_hotel_info.getAddress().substring(0,120));
+        }else{
+            req.setAddress(fliggy_hotel_info.getAddress());
+        }
+//        req.setLongitude(fliggy_hotel_info.getLongitude());
+//        req.setLatitude(fliggy_hotel_info.getLatitude());
         req.setPositionType("G");
         req.setTel(fliggy_hotel_info.getTel());
         req.setVendor("DOTW");
@@ -119,6 +123,9 @@ public class Fliggy_interface_util {
             e.printStackTrace();
         }
         res = JSON.toJSONString(rsp.getBody());
+        if(rsp.getMsg() != null && !rsp.getMsg().equals("")){
+            res = rsp.getMsg();
+        }
         return res;
     }
 
@@ -145,6 +152,9 @@ public class Fliggy_interface_util {
             e.printStackTrace();
         }
         res = JSON.toJSONString(rsp.getBody());
+        if(rsp.getMsg() != null && !rsp.getMsg().equals("")){
+            res = rsp.getMsg();
+        }
         return res;
     }
 

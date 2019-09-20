@@ -76,6 +76,11 @@
             SELECT * FROM fliggy_hotel_information
         </select>
 
+        <select id="searchAllHotelByState" resultMap="Fliggy_hotel_info_ResultMap">
+            SELECT * FROM fliggy_hotel_information
+            WHERE state = "1"
+        </select>
+
         <update id="updateCity" parameterType="com.webbeds.fliggy.entity.Fliggy_hotel_info">
             UPDATE fliggy_hotel_information SET city = #{city}
             where outer_id = #{outer_id}

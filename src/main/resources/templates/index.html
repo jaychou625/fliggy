@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head xmlns:th="http://www.thymeleaf.org" th:fragment="resources">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=
+    , initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>main</title>
+    <link rel="stylesheet" th:href="@{/static/css/bootstrap.css}">
+    <script th:src="@{/static/js/jquery-1.9.1.js}" type="text/javascript"></script>
+    <script th:src="@{/static/js/bootstrap.js}" type="text/javascript"></script>
+</head>
+<body>
+    <h1 class="text-center">
+        恭喜你，插入数据成功！
+    </h1>
+    <div class="text-center" style="margin-top: 30px;">
+        <a href="/addHotelInfo2LocalAnd2StepTwo" class="btn btn-primary btn-lg">Step 1:添加酒店信息入本地数据库并上传定位信息入飞猪数据库（）</a>
+    </div>
+</body>
+</html>

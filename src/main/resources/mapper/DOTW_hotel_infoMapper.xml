@@ -24,8 +24,14 @@
         select * from dotw_fullhotel_info
     </select>
 
-    <!--    <select id="find" resultMap="aewInfoResultMap" parameterType="java.lang.Integer">-->
-    <!--        SELECT * FROM AP_AEW_INFO-->
-    <!--    </select>-->
+    <insert id="add" parameterType="com.webbeds.fliggy.entity.DOTW_hotel_info">
+        INSERT INTO dotw_fullhotel_info(country,city,hotelCode,hotelName,starRating,reservationTelephone,hotelAddress,latitude,longitude,chainName,brandName,new_Property)
+        VALUES (#{country},#{city},#{hotelCode},#{hotelName},#{starRating},#{reservationTelephone},#{hotelAddress},#{latitude},#{longitude},#{chainName},#{brandName},#{new_Property})
+    </insert>
+
+    <select id="searchByHid" parameterType="java.lang.String" resultType="java.lang.Integer">
+        select count(*) from dotw_fullhotel_info
+        where hotelCode = #{hid}
+    </select>
 
 </mapper>

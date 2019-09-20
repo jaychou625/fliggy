@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head xmlns:th="http://www.thymeleaf.org" th:fragment="resources">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=
+    , initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>main</title>
+    <link rel="stylesheet" th:href="@{/static/css/bootstrap.css}">
+    <script th:src="@{/static/js/jquery-1.9.1.js}" type="text/javascript"></script>
+    <script th:src="@{/static/js/bootstrap.js}" type="text/javascript"></script>
+</head>
+<body>
+    <h1  class="text-center">
+        插入数据进本地数据库完毕，请等待数分钟后执行后续操作
+    </h1>
+    <div class="text-center" style="margin-top: 30px;">
+        <a href="/updateHotelIntoFliggy" class="btn btn-primary btn-lg">Step 2:插入数据入飞猪本地库</a>
+    </div>
+</body>
+</html>

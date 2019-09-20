@@ -95,6 +95,7 @@ public class Hotel_info_controller {
 //                    System.out.println("酒店添加成功");
                     fliggy_hotel_info.setInsertDate(new Date());
                     fliggy_hotel_info.setState("1");
+                    fliggy_hotel_info.setError_msg("");
                     fliggy_hotel_infoService.updateStateAndDate(fliggy_hotel_info);
                     //添加酒店对应房型信息入库
                     List<Fliggy_roomType_info> roomList = fliggy_roomTpye_infoService.searchRoomByHid(fliggy_hotel_info.getOuter_id());
@@ -104,6 +105,7 @@ public class Hotel_info_controller {
                             System.out.println("房型添加成功");
                             fliggy_roomType_info.setInsertDate(new Date());
                             fliggy_roomType_info.setState("1");
+                            fliggy_roomType_info.setError_msg("");
                             fliggy_roomTpye_infoService.updateStateAndDate(fliggy_roomType_info);
                         }else{
                             System.out.println("房型添加失败");
@@ -115,11 +117,11 @@ public class Hotel_info_controller {
                     }
 
                 }else{
-//                    System.out.println("酒店添加失败");
+                    System.out.println("酒店添加失败");
                     String error_msg = res;
                     fliggy_hotel_info.setError_msg(error_msg);
                     fliggy_hotel_info.setState("2");
-                    fliggy_hotel_infoService.updateStateAndDate(fliggy_hotel_info);
+                     fliggy_hotel_infoService.updateStateAndDate(fliggy_hotel_info);
                 }
             }
         }
@@ -131,7 +133,7 @@ public class Hotel_info_controller {
      */
     @RequestMapping("/searchHotel")
     public void searchHotel(){
-        List<Fliggy_hotel_info> list = fliggy_hotel_infoService.searchAllHotel();
+        List<Fliggy_hotel_info> list = fliggy_hotel_infoService.searchAllHotelByState();
         List<JSONObject> listHotelInfo = new ArrayList<>();
         List<JSONObject> listRoomInfo = new ArrayList<>();
         for(Fliggy_hotel_info fliggy_hotel_info : list){

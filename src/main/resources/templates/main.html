@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head xmlns:th="http://www.thymeleaf.org" th:fragment="resources">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=
+    , initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>main</title>
+    <link rel="stylesheet" th:href="@{/static/css/bootstrap.css}">
+    <script th:src="@{/static/js/jquery-1.9.1.js}" type="text/javascript"></script>
+    <script th:src="@{/static/js/bootstrap.js}" type="text/javascript"></script>
+</head>
+<body>
+<header>
+    <h1 class="text-center">
+        文件提交页面
+    </h1>
+</header>
+<form id="form" action="/fileInputMethod" method="POST" style="width: 50%; margin:0 auto;" enctype="multipart/form-data">
+    <div class="form-group">
+        <label for="file">文件提交</label>
+        <input type="file" id="file" name="file">
+        <p class="help-block">选择需要上传的酒店xls文件</p>
+    </div>
+    <div class="form-group">
+        <input id="submit" type="submit" class="btn btn-primary btn-lg" style="width: 100%" />
+    </div>
+</form>
+
+<script>
+    $(function(){
+        $("#form").submit(function(){
+            // 非空验证
+            if($("#file").val() != "" ){
+                // $.ajax({
+                //     url:"/fileInputMethod",
+                //     type:'post',
+                //     data:{"file":$('#file').val()}, // "id=asdasd&s=000&name=1233"
+                //     success:function() {
+                //         alert('成功')
+                //     }
+                // });
+                return true
+            }else{
+                alert("请先选择需要上传的xls文件");
+                $("#file").click();
+                return false
+            }
+        })
+    })
+</script>
+</body>
+</html>

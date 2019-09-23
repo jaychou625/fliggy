@@ -200,7 +200,7 @@ public class Common {
         //fileName = new String(fileName.getBytes("iso8859-1"),"UTF-8");
         //上传的文件都是保存在D:\fileupload\目录下的子目录当中
         String fileSaveRootPath="C:\\";
-        System.out.println(URLDecoder.decode(request.getParameter("diarycontent"),"utf-8"));
+//        System.out.println(URLDecoder.decode(request.getParameter("diarycontent"),"utf-8"));
         //通过文件名找出文件的所在目录
         //String path = findFileSavePathByFileName(fileName,fileSaveRootPath);
         //String path = fileSaveRootPath;

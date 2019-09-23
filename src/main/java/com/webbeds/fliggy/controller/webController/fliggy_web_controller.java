@@ -7,7 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 /**
- * 飞猪页面路由控制器
+ * 飞猪项目页面路由控制器
  */
 @Controller
 public class fliggy_web_controller {

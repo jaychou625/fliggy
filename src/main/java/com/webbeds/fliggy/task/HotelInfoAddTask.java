@@ -205,6 +205,8 @@ public class HotelInfoAddTask {
                 if(count == 0){
                     Fliggy_hotel_info fliggy_hotel_info = getInfoByJSONObject(result.getJSONObject("hotels").getJSONArray("hotel").getJSONObject(i),dotw_hotel_info);
                     fliggyhotelinfoService.add(fliggy_hotel_info);
+                }else{
+//                    fliggyhotelinfoService.updateInfo(hid);
                 }
             }
         }else{
@@ -212,6 +214,8 @@ public class HotelInfoAddTask {
             if(count == 0){
                 Fliggy_hotel_info fliggy_hotel_info = getInfoByJSONObject(result.getJSONObject("hotels").getJSONObject("hotel"),dotw_hotel_info);
                 fliggyhotelinfoService.add(fliggy_hotel_info);
+            }else{
+//                fliggyhotelinfoService.updateInfo(hid);
             }
         }
 
@@ -400,8 +404,8 @@ public class HotelInfoAddTask {
          * 截取关键字，Room、Dorm、Bungalow、Dormitory、Suite、Villa、Twin、APARTMENT
          * 27位同名房型匹配类型，30位同名房型序号（防重复）
          */
-        if(nameTotal.length() > 27){
-            String[] rootRoomType = new String[]{"Room","Dorm","Bungalow","Dormitory","Suite","Villa","Twin","Apartment","Queen","Double","Bed","House"};
+        if(nameTotal.length() > 25){
+            String[] rootRoomType = new String[]{"Room","Dorm","Bungalow","Dormitory","Suite","Villa","Twin","Apartment","Queen","Double","Bed","House","Single","Standard","Deluxe","Executive"};
             boolean flag = true;
             List<Integer> indexList = new ArrayList<>();
             Map<Integer,String> indexListReverse = new HashMap<Integer,String>();
@@ -412,7 +416,7 @@ public class HotelInfoAddTask {
                 }
                 if(subIndex > -1){
                     int subLength = subIndex + rootRoomType[i].length();
-                    if(subLength <= 27){
+                    if(subLength <= 25){
                         indexList.add(subLength);
                         flag = false;
                     }else{

@@ -2,6 +2,7 @@ package com.webbeds.fliggy.config;
 
 import com.webbeds.fliggy.task.HotelInfoAddTask;
 import com.webbeds.fliggy.utils.Common;
+import com.webbeds.fliggy.utils.DOTW_interface_util;
 import com.webbeds.fliggy.utils.Fliggy_interface_util;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -20,5 +21,10 @@ public class UtilsConfig {
     @Bean
     public Fliggy_interface_util fliggy_interface_util(){
         return new Fliggy_interface_util();
+    }
+
+    @Bean
+    public DOTW_interface_util dotw_interface_util(){
+        return new DOTW_interface_util();
     }
 }

@@ -64,7 +64,49 @@ public class Fliggy_hotel_infoService {
      * 查询所有加入飞猪库的酒店信息
      * @return
      */
-    public List<Fliggy_hotel_info> searchAllHotelByState(){
-        return fliggy_hotel_infoMapper.searchAllHotelByState();
+    public List<Fliggy_hotel_info> searchAllHotelByState(String state){
+        return fliggy_hotel_infoMapper.searchAllHotelByState(state);
     }
+
+    /**
+     * //更新酒店信息
+     * @param hid
+     * @return
+     */
+    public boolean updateInfo(String hid){
+        return fliggy_hotel_infoMapper.updateInfo(hid);
+    }
+
+    /**
+     * 获取酒店信息（根据酒店所在城市批次号）
+     * @return
+     */
+    public List<Fliggy_hotel_info> searchHotelByBatchId(){
+        return fliggy_hotel_infoMapper.searchHotelByBatchId();
+    }
+
+    /**
+     *  更新酒店城市处理批次信息
+     */
+    public boolean updateBatchId(Fliggy_hotel_info fliggy_hotel_info){
+        return fliggy_hotel_infoMapper.updateBatchId(fliggy_hotel_info);
+    }
+
+    /**
+     * 根据未更新城市id查询酒店信息
+     * @return
+     */
+    public List<Fliggy_hotel_info> searchAllHotelByCity(){
+        return fliggy_hotel_infoMapper.searchAllHotelByCity();
+    }
+
+    /**
+     * 更新酒店是否有价
+     * @param fliggy_hotel_info
+     * @return
+     */
+    public boolean updateHavePrice(Fliggy_hotel_info fliggy_hotel_info){
+        return fliggy_hotel_infoMapper.updateHavePrice(fliggy_hotel_info);
+    }
+
 }

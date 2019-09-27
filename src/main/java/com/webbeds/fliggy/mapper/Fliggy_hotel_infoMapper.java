@@ -26,5 +26,21 @@ public interface Fliggy_hotel_infoMapper {
     boolean updateStateAndDate(Fliggy_hotel_info fliggy_hotel_info);
 
     //获取所有已添加入飞猪库的酒店信息
-    List<Fliggy_hotel_info> searchAllHotelByState();
+    List<Fliggy_hotel_info> searchAllHotelByState(String state);
+
+    //更新酒店信息
+    boolean updateInfo(String hid);
+
+    //获取酒店信息（根据酒店所在城市批次号）
+    List<Fliggy_hotel_info> searchHotelByBatchId();
+
+    //更新酒店城市处理批次信息
+    boolean updateBatchId(Fliggy_hotel_info fliggy_hotel_info);
+
+    //获取所有需要更新酒店所在城市的酒店信息
+    List<Fliggy_hotel_info> searchAllHotelByCity();
+
+    //更新酒店是否有价
+    boolean updateHavePrice(Fliggy_hotel_info fliggy_hotel_info);
+
 }

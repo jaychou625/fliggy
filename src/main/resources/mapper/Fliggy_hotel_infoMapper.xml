@@ -52,6 +52,8 @@
         <result column="insertDate" property="insertDate" javaType="java.util.Date" jdbcType="TIMESTAMP"/>
         <result column="error_msg" property="error_msg" javaType="java.lang.String" jdbcType="VARCHAR"/>
         <result column="mapping" property="mapping" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result column="have_price" property="have_price" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result column="have_price_date" property="have_price_date" javaType="java.util.Date" jdbcType="TIMESTAMP"/>
     </resultMap>
 
 <!--    <select id="findAll" resultMap="Fliggy_hotel_info_ResultMap">-->
@@ -63,8 +65,8 @@
     <!--    </select>-->
 
         <insert id="add" parameterType="com.webbeds.fliggy.entity.Fliggy_hotel_info">
-            INSERT INTO fliggy_hotel_information(outer_id,hotel_name,used_name,domestic,country,province,city,district,business,address,longitude,latitude,position_type,tel,extend,shid,vendor,star,opening_time,decorate_time,floors,rooms,description,hotel_policies,hotel_facilities,service,room_facilities,pics,brand,postal_code,booking_notice,credit_card_types,orbit_track,name_e,supplier,settlement_currency,standard_amuse_facilities,standard_room_facilities,standard_hotel_service,standard_hotel_facilities,standard_booking_notice,batch_id,state,insertDate,error_msg,mapping)
-            VALUES (#{outer_id}, #{hotel_name}, #{used_name}, #{domestic}, #{country}, #{province},#{city},#{district},#{business},#{address},#{longitude},#{latitude},#{position_type},#{tel},#{extend},#{shid},#{vendor},#{star},#{opening_time},#{decorate_time},#{floors},#{rooms},#{description},#{hotel_policies},#{hotel_facilities},#{service},#{room_facilities},#{pics},#{brand},#{postal_code},#{booking_notice},#{credit_card_types},#{orbit_track},#{name_e},#{supplier},#{settlement_currency},#{standard_amuse_facilities},#{standard_room_facilities},#{standard_hotel_service},#{standard_hotel_facilities},#{standard_booking_notice},#{batch_id},#{state},#{insertDate},#{error_msg},#{mapping})
+            INSERT INTO fliggy_hotel_information(outer_id,hotel_name,used_name,domestic,country,province,city,district,business,address,longitude,latitude,position_type,tel,extend,shid,vendor,star,opening_time,decorate_time,floors,rooms,description,hotel_policies,hotel_facilities,service,room_facilities,pics,brand,postal_code,booking_notice,credit_card_types,orbit_track,name_e,supplier,settlement_currency,standard_amuse_facilities,standard_room_facilities,standard_hotel_service,standard_hotel_facilities,standard_booking_notice,batch_id,state,insertDate,error_msg,mapping,have_price,have_price_date)
+            VALUES (#{outer_id}, #{hotel_name}, #{used_name}, #{domestic}, #{country}, #{province},#{city},#{district},#{business},#{address},#{longitude},#{latitude},#{position_type},#{tel},#{extend},#{shid},#{vendor},#{star},#{opening_time},#{decorate_time},#{floors},#{rooms},#{description},#{hotel_policies},#{hotel_facilities},#{service},#{room_facilities},#{pics},#{brand},#{postal_code},#{booking_notice},#{credit_card_types},#{orbit_track},#{name_e},#{supplier},#{settlement_currency},#{standard_amuse_facilities},#{standard_room_facilities},#{standard_hotel_service},#{standard_hotel_facilities},#{standard_booking_notice},#{batch_id},#{state},#{insertDate},#{error_msg},#{mapping},#{have_price},#{have_price_date})
         </insert>
 
         <select id="findHotelCountById" resultType="java.lang.Integer">
@@ -76,9 +78,9 @@
             SELECT * FROM fliggy_hotel_information
         </select>
 
-        <select id="searchAllHotelByState" resultMap="Fliggy_hotel_info_ResultMap">
+        <select id="searchAllHotelByState" resultMap="Fliggy_hotel_info_ResultMap" parameterType="java.lang.String">
             SELECT * FROM fliggy_hotel_information
-            WHERE state = "1"
+            WHERE state = #{state}
         </select>
 
         <update id="updateCity" parameterType="com.webbeds.fliggy.entity.Fliggy_hotel_info">
@@ -88,6 +90,31 @@
 
         <update id="updateStateAndDate" parameterType="com.webbeds.fliggy.entity.Fliggy_hotel_info">
             UPDATE fliggy_hotel_information SET state = #{state}, insertDate =  #{insertDate}, error_msg = #{error_msg},mapping = #{mapping}
+            where outer_id = #{outer_id}
+        </update>
+
+        <update id="updateInfo" parameterType="java.lang.String">
+            UPDATE fliggy_hotel_information SET state = "0",insertDate = null,error_msg = "",mapping = ""
+            where outer_id = #{hid}
+        </update>
+
+        <select id="searchHotelByBatchId" resultMap="Fliggy_hotel_info_ResultMap">
+            SELECT * FROM fliggy_hotel_information
+            where batch_id is null
+        </select>
+
+        <update id="updateBatchId" parameterType="com.webbeds.fliggy.entity.Fliggy_hotel_info">
+            UPDATE fliggy_hotel_information SET batch_id = #{batch_id}
+            where outer_id = #{outer_id}
+        </update>
+
+        <select id="searchAllHotelByCity" resultMap="Fliggy_hotel_info_ResultMap">
+            SELECT * FROM fliggy_hotel_information
+            WHERE state = "0" and city = 0 and batch_id is not null
+        </select>
+
+        <update id="updateHavePrice" parameterType="com.webbeds.fliggy.entity.Fliggy_hotel_info">
+            UPDATE fliggy_hotel_information SET have_price = #{have_price},have_price_date = #{have_price_date}
             where outer_id = #{outer_id}
         </update>
 

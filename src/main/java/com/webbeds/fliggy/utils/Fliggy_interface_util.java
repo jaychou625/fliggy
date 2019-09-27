@@ -65,7 +65,13 @@ public class Fliggy_interface_util {
         }
         String jsonString = rsp.getBody();
         JSONObject obj = JSON.parseObject(jsonString);
-        return obj.getJSONObject("xhotel_city_coordinates_batch_upload_response").getString("batch_id");
+        String str = obj.toString();
+        if(str.indexOf("xhotel_city_coordinates_batch_upload_response") != -1){
+            str = obj.getJSONObject("xhotel_city_coordinates_batch_upload_response").getString("batch_id");
+        }else{
+            str = null;
+        }
+        return str;
     }
 
     /**

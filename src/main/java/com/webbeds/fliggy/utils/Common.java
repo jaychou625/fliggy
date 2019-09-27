@@ -16,14 +16,18 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 /**
  * 通用工具类
  */
 public class Common {
+    //返回房型关键字数组
+    public String[] getRoomType(){
+        return new String[]{"Suite","Palace","CAPUSLE","Maison","Exclusive","City","Mit","Quarduple","Varanda","Privilege","Cottage","Ridge","Prestige","Yurt","Japanese","Floor","Oasis","Apartamento","Poolside","Hillside","Bird","Vintage","Sis","Cottage","Familiar","Grand","Riverside","Tower","Grande","Loft","View","Pavilion","Premier","Home","Minimum","Business","Room","Gsl","Private","Family","Renovated","Doble","Comfort","Quad","Maisonette","Pavillion","Residence","Balcony","Studio","Beachfront","Classic","Oceanfront","Front","Ocean","Garden","Advantage","Chateau","King","Dorm","Bungalow","Dormitory","Duplex","Semi","SemiDBL ","DBL","Villa","Twin","Apartment","Queen","Double","Bed","House","Single","Standard","Deluxe","Executive","Triple","Premium","Superior","Club"};
+    }
+
     //首字母转大写
     public String firstCharacterUpper(String str){
         return str.substring(0,1).toUpperCase() + str.substring(1).toLowerCase();
@@ -33,6 +37,12 @@ public class Common {
     public Integer getCityIdByCityName(String cityName){
         Integer cityId = 0;
         switch (cityName){
+            case "NEW TERRITORIES" :
+                cityId = 810100;
+                break;
+            case "KOWLOON" :
+                cityId = 810100;
+                break;
             case "HUALIEN" :
                 cityId = 712600;
                 break;
@@ -56,6 +66,33 @@ public class Common {
                 break;
             case "SHANGHAI" :
                 cityId = 310100;
+                break;
+            case "CHIAYI" :
+                cityId = 710900;
+                break;
+            case "HENGCHUN" :
+                cityId = 712400;
+                break;
+            case "NANTOU CITY" :
+                cityId = 710600;
+                break;
+            case "YILAN - TAIWAN" :
+                cityId = 711200;
+                break;
+            case "YILAN" :
+                cityId = 711200;
+                break;
+            case "JIAOXI - YILAN" :
+                cityId = 711200;
+                break;
+            case "SUAO" :
+                cityId = 711200;
+                break;
+            case "TAOYUAN" :
+                cityId = 711400;
+                break;
+            case "TAITUNG" :
+                cityId = 711400;
                 break;
             default:
                 cityId = 0;
@@ -92,7 +129,11 @@ public class Common {
 
             for (String s : keys) {
                 HSSFCell cell = row.createCell(rowNo++);
-                cell.setCellValue(jsonObject.getString(s));
+                if(jsonObject.getString(s).length() > 32000){
+                    cell.setCellValue(jsonObject.getString(s).substring(0,32000));
+                }else{
+                    cell.setCellValue(jsonObject.getString(s));
+                }
             }
             rowNo = 0;
 
@@ -230,6 +271,55 @@ public class Common {
         in.close();
         //关闭输出流
         out.close();
+    }
+
+    //根据字符串截取合适的长度
+    public String subStringSpecial(String totalName){
+        String[] totalNameArr = totalName.split(" ");
+        String beforeName = "";
+        String[] rootRoomType = getRoomType();
+        for(int i = 0; i < rootRoomType.length;i++) {
+            int subIndex = totalName.indexOf(rootRoomType[i]) > -1 ? totalName.indexOf(rootRoomType[i]) : totalName.indexOf(rootRoomType[i].toUpperCase());
+            if (subIndex == -1) {
+                subIndex = totalName.indexOf(rootRoomType[i].toLowerCase());
+                if(subIndex != -1){
+                    beforeName = rootRoomType[i];
+                    return beforeName;
+                }
+            }else{
+                beforeName = rootRoomType[i];
+                return beforeName;
+            }
+        }
+        for(int i = totalNameArr.length - 1; i >= 0; i--){
+            beforeName = "";
+            for(int j = 0; j < i + 1; j++){
+                beforeName += totalNameArr[j] + " ";
+            }
+            beforeName = beforeName.trim();
+            if(beforeName.length() <= 25){
+                break;
+            }else{
+                beforeName = "";
+            }
+        }
+
+        return beforeName;
+    }
+
+    //根据当前时间获取若干天后是几号
+    public String dateFormat(int day){
+        //获取当前日期
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        Date today = new Date();
+        String endDate = sdf.format(today);//当前日期
+        //获取三十天前日期
+        Calendar theCa = Calendar.getInstance();
+        theCa.setTime(today);
+        theCa.add(theCa.DATE, day);//最后一个数字30可改，30天的意思
+        Date start = theCa.getTime();
+        String startDate = sdf.format(start);//三十天之前日期
+        return startDate;
     }
 
 }

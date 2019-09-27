@@ -6,6 +6,7 @@ import com.webbeds.fliggy.entity.FR_hotels.FR_hotels_info;
 import com.webbeds.fliggy.entity.Fliggy_hotel_info;
 import com.webbeds.fliggy.service.DOTW.FR_hotel.FR_hotels_infoService;
 import com.webbeds.fliggy.service.DOTW.Fliggy_hotel_infoService;
+import com.webbeds.fliggy.utils.Common;
 import net.sf.json.xml.XMLSerializer;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.LineIterator;
@@ -27,14 +28,15 @@ import java.io.IOException;
 public class FliggyApplication {
 
 
-    @Autowired
-    public Fliggy_hotel_infoService fliggyhotelinfoService;
-
-
     public static void main(String[] args) {
         SpringApplication.run(FliggyApplication.class, args);
-//        List<All_country_code> list = this.allCountry_codeService.findAll();
-//        System.out.println(list);
+    }
+
+    @Test
+    public void contextLoads() {
+        Common common = new Common();
+        String str = common.subStringSpecial("SANCTUARY BEACH POOL VILLA");
+        System.out.println("输出：" + str);
     }
 
 

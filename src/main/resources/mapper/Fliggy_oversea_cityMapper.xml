@@ -20,7 +20,7 @@
 
     <select id="findCountryIdByName" resultType="java.lang.String">
         select country_id from fliggy_oversea_city
-        where country_en_name like "%"#{countryName}"%"
+        where country_en_name = #{countryName}
         group by country_en_name
     </select>
 

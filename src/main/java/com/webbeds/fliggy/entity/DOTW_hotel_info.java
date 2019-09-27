@@ -21,4 +21,5 @@ public class DOTW_hotel_info {
     @Setter @Getter private String chainName;
     @Setter @Getter private String brandName;
     @Setter @Getter private String new_Property;
+    @Setter @Getter private String isUpdate;
 }

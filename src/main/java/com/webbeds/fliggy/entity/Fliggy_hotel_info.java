@@ -60,7 +60,8 @@ public class Fliggy_hotel_info {
     @Getter @Setter private Date insertDate;
     @Getter @Setter private String error_msg;
     @Getter @Setter private String mapping;
-
+    @Getter @Setter private String have_price;
+    @Getter @Setter private Date have_price_date;
 
 
 }

@@ -121,7 +121,7 @@ public class Fliggy_interface_util {
         req.setTel(fliggy_hotel_info.getTel());
         req.setVendor("DOTW");
         req.setNameE(fliggy_hotel_info.getHotel_name());
-//        req.setSupplier("DOTW");
+        req.setSupplier("DOTW");
         XhotelAddResponse rsp = null;
         try {
             rsp = client.execute(req, sessionKey);
@@ -130,7 +130,7 @@ public class Fliggy_interface_util {
         }
         res = JSON.toJSONString(rsp.getBody());
         if(rsp.getMsg() != null && !rsp.getMsg().equals("")){
-            res = rsp.getMsg();
+            res = rsp.getSubMsg();
         }
         return res;
     }
@@ -159,7 +159,7 @@ public class Fliggy_interface_util {
         }
         res = JSON.toJSONString(rsp.getBody());
         if(rsp.getMsg() != null && !rsp.getMsg().equals("")){
-            res = rsp.getMsg();
+            res = rsp.getSubMsg();
         }
         return res;
     }

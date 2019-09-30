@@ -43,4 +43,7 @@ public interface Fliggy_hotel_infoMapper {
     //更新酒店是否有价
     boolean updateHavePrice(Fliggy_hotel_info fliggy_hotel_info);
 
+    //获取所有无价的酒店列表
+    List<Fliggy_hotel_info> searchAllHotelByHavePrice(String havePrice);
+
 }

@@ -109,4 +109,13 @@ public class Fliggy_hotel_infoService {
         return fliggy_hotel_infoMapper.updateHavePrice(fliggy_hotel_info);
     }
 
+    /**
+     * 根据是否有价参数查询酒店信息
+     * @param havePrice
+     * @return
+     */
+    public List<Fliggy_hotel_info> searchAllHotelByHavePrice(String havePrice){
+        return fliggy_hotel_infoMapper.searchAllHotelByHavePrice(havePrice);
+    }
+
 }

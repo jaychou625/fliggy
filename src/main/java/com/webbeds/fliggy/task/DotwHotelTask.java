@@ -402,7 +402,7 @@ public class DotwHotelTask {
         fliggy_hotel_info.setOrbit_track(orbit_track);
         String name_e = "";
         fliggy_hotel_info.setName_e(name_e);
-        String supplier = "";
+        String supplier = "DOTW";
         fliggy_hotel_info.setSupplier(supplier);
         String settlement_currency = "";
         fliggy_hotel_info.setSettlement_currency(settlement_currency);
@@ -517,7 +517,7 @@ public class DotwHotelTask {
         Integer codeNo = fliggy_roomTpye_infoService.searchDuplicate(fliggy_roomType_info) + 1;
         if(flag){
 
-            finalName = fliggy_roomType_info.getName_before() + " 0" + codeNo;
+            finalName = fliggy_roomType_info.getName_before() + " 00" + Integer.toHexString(codeNo);
         }else{
             //添加房型细节内容入库
             Fliggy_roomtype_sub_sort fliggy_roomtype_sub_sort = getFliggy_roomtype_sub_sort(fliggy_roomType_info);

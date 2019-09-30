@@ -2,14 +2,23 @@ package com.webbeds.fliggy.utils;
 
 import com.alibaba.fastjson.JSONObject;
 import com.webbeds.fliggy.entity.DOTW_hotel_info;
+import com.webbeds.fliggy.entity.Fliggy_hotel_info;
+import com.webbeds.fliggy.entity.Fliggy_interface.City_coordinates;
+import com.webbeds.fliggy.entity.Fliggy_roomType_info;
+import com.webbeds.fliggy.service.DOTW.Fliggy_hotel_infoService;
+import com.webbeds.fliggy.service.DOTW.Fliggy_oversea_cityService;
+import com.webbeds.fliggy.service.DOTW.Fliggy_roomTpye_infoService;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.formula.functions.T;
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -22,7 +31,24 @@ import java.util.*;
 /**
  * 通用工具类
  */
+@Slf4j
 public class Common {
+
+    @Autowired
+    DOTW_interface_util dotw_interface_util;
+
+    @Autowired
+    Fliggy_hotel_infoService fliggy_hotel_infoService;
+
+    @Autowired
+    Fliggy_interface_util fliggy_interface_util;
+
+    @Autowired
+    Fliggy_roomTpye_infoService fliggy_roomTpye_infoService;
+
+    @Autowired
+    Fliggy_oversea_cityService fliggy_oversea_cityService;
+
     //返回房型关键字数组
     public String[] getRoomType(){
         return new String[]{"Suite","Palace","CAPUSLE","Maison","Exclusive","City","Mit","Quarduple","Varanda","Privilege","Cottage","Ridge","Prestige","Yurt","Japanese","Floor","Oasis","Apartamento","Poolside","Hillside","Bird","Vintage","Sis","Cottage","Familiar","Grand","Riverside","Tower","Grande","Loft","View","Pavilion","Premier","Home","Minimum","Business","Room","Gsl","Private","Family","Renovated","Doble","Comfort","Quad","Maisonette","Pavillion","Residence","Balcony","Studio","Beachfront","Classic","Oceanfront","Front","Ocean","Garden","Advantage","Chateau","King","Dorm","Bungalow","Dormitory","Duplex","Semi","SemiDBL ","DBL","Villa","Twin","Apartment","Queen","Double","Bed","House","Single","Standard","Deluxe","Executive","Triple","Premium","Superior","Club"};
@@ -31,6 +57,22 @@ public class Common {
     //首字母转大写
     public String firstCharacterUpper(String str){
         return str.substring(0,1).toUpperCase() + str.substring(1).toLowerCase();
+    }
+
+    //根据长度分割list
+    public List<List<Fliggy_hotel_info>> splitList(List<Fliggy_hotel_info> list , int groupSize){
+        int length = list.size();
+        // 计算可以分成多少组
+        int num = ( length + groupSize - 1 )/groupSize ; // TODO
+        List<List<Fliggy_hotel_info>> newList = new ArrayList<>(num);
+        for (int i = 0; i < num; i++) {
+            // 开始位置
+            int fromIndex = i * groupSize;
+            // 结束位置
+            int toIndex = (i+1) * groupSize < length ? ( i+1 ) * groupSize : length ;
+            newList.add(list.subList(fromIndex,toIndex)) ;
+        }
+        return  newList ;
     }
 
     //特殊，根据特殊城市名获取城市对应的id
@@ -129,10 +171,12 @@ public class Common {
 
             for (String s : keys) {
                 HSSFCell cell = row.createCell(rowNo++);
-                if(jsonObject.getString(s).length() > 32000){
-                    cell.setCellValue(jsonObject.getString(s).substring(0,32000));
-                }else{
-                    cell.setCellValue(jsonObject.getString(s));
+                if(s != "" && s != null){
+                    if(jsonObject.getString(s).length() > 32000){
+                        cell.setCellValue(jsonObject.getString(s).substring(0,32000));
+                    }else{
+                        cell.setCellValue(jsonObject.getString(s));
+                    }
                 }
             }
             rowNo = 0;
@@ -320,6 +364,221 @@ public class Common {
         Date start = theCa.getTime();
         String startDate = sdf.format(start);//三十天之前日期
         return startDate;
+    }
+
+    //更新飞猪城市id方法
+    public void updateCityId(List<Fliggy_hotel_info> list){
+        for (Fliggy_hotel_info fliggy_hotel_info : list){
+            if(fliggy_interface_util.coordinates_batch_download(fliggy_hotel_info.getBatch_id()) != null){
+                Integer cityId = Integer.valueOf(fliggy_interface_util.coordinates_batch_download(fliggy_hotel_info.getBatch_id()));
+                fliggy_hotel_info.setCity(cityId);
+                fliggy_hotel_infoService.updateCity(fliggy_hotel_info);
+            }else{
+                log.warn("没有找到cityid的国家名：" + fliggy_hotel_info.getCountry() + "酒店名：" + fliggy_hotel_info.getHotel_name());
+            }
+        }
+    }
+
+    //添加酒店入飞猪库方法
+    public void add2Fliggy(List<Fliggy_hotel_info> list){
+        for (Fliggy_hotel_info fliggy_hotel_info : list){
+            /**
+             * step 1：添加酒店信息（添加成功后，更新对应本地数据库的state信息为1，insertDate为入库时间）
+             * step 2：酒店添加成功后添加对应酒店的房型信息
+             */
+            if(fliggy_hotel_info.getCity() != 0){
+                String res = fliggy_interface_util.xhotel_add(fliggy_hotel_info);
+                if(res != null && res.indexOf("xhotel_add_response") != -1){
+//                    System.out.println("酒店添加成功");
+                    fliggy_hotel_info.setInsertDate(new Date());
+                    fliggy_hotel_info.setState("1");
+                    fliggy_hotel_info.setError_msg("");
+                    fliggy_hotel_infoService.updateStateAndDate(fliggy_hotel_info);
+                    //添加酒店对应房型信息入库
+                    List<Fliggy_roomType_info> roomList = fliggy_roomTpye_infoService.searchRoomByHid(fliggy_hotel_info.getOuter_id());
+                    for(Fliggy_roomType_info fliggy_roomType_info : roomList){
+                        String resRoom = fliggy_interface_util.xRoomType_add(fliggy_roomType_info);
+                        if(resRoom != null && resRoom.indexOf("xhotel_roomtype_add_response") != -1){
+//                            System.out.println("房型添加成功");
+                            fliggy_roomType_info.setInsertDate(new Date());
+                            fliggy_roomType_info.setState("1");
+                            fliggy_roomType_info.setError_msg("");
+                            fliggy_roomTpye_infoService.updateStateAndDate(fliggy_roomType_info);
+                        }else{
+//                            System.out.println("房型添加失败");
+                            String error_msg = resRoom;
+                            fliggy_roomType_info.setError_msg(error_msg);
+                            fliggy_roomType_info.setState("2");
+                            fliggy_roomTpye_infoService.updateStateAndDate(fliggy_roomType_info);
+                        }
+                    }
+
+                }else{
+                    System.out.println("酒店添加失败");
+                    String error_msg = res;
+                    fliggy_hotel_info.setError_msg(error_msg);
+                    fliggy_hotel_info.setState("2");
+                    fliggy_hotel_infoService.updateStateAndDate(fliggy_hotel_info);
+                }
+            }
+        }
+    }
+
+    //有价查询方法(初步查询，当前日期后30，60,90天是否有价)
+    public void searchHotelPrice(List<Fliggy_hotel_info> list){
+        List<Fliggy_hotel_info> listNoPrice = new ArrayList<>();
+        String fromDate = "";
+        String toDate = "";
+        JSONObject jsonObject = null;
+        int count = 0;
+        //第一轮随机搜索当前日期30,60,90天后是否有价
+        for(Fliggy_hotel_info fliggy_hotel_info : list){
+            //查询30天是否有价
+            fromDate = dateFormat(30);
+            toDate = dateFormat(31);
+            jsonObject = dotw_interface_util.getPriceInDotwByHotelId(fliggy_hotel_info.getOuter_id(),fromDate,toDate);
+            count = Integer.valueOf(jsonObject.getJSONObject("hotels").getString("@count"));
+            /**
+             * count=0未找到有价信息，>0找到有价信息
+             */
+            if(count > 0){
+                fliggy_hotel_info.setHave_price("1");
+                fliggy_hotel_info.setHave_price_date(new Date());
+                fliggy_hotel_infoService.updateHavePrice(fliggy_hotel_info);
+                continue;
+            }else{
+                fromDate = dateFormat(60);
+                toDate = dateFormat(61);
+                jsonObject = dotw_interface_util.getPriceInDotwByHotelId(fliggy_hotel_info.getOuter_id(),fromDate,toDate);
+                count = Integer.valueOf(jsonObject.getJSONObject("hotels").getString("@count"));
+                if(count > 0){
+                    fliggy_hotel_info.setHave_price("2");
+                    fliggy_hotel_info.setHave_price_date(new Date());
+                    fliggy_hotel_infoService.updateHavePrice(fliggy_hotel_info);
+                    continue;
+                }else{
+                    fromDate = dateFormat(90);
+                    toDate = dateFormat(91);
+                    jsonObject = dotw_interface_util.getPriceInDotwByHotelId(fliggy_hotel_info.getOuter_id(),fromDate,toDate);
+                    count = Integer.valueOf(jsonObject.getJSONObject("hotels").getString("@count"));
+                    if(count > 0){
+                        fliggy_hotel_info.setHave_price("3");
+                        fliggy_hotel_info.setHave_price_date(new Date());
+                        fliggy_hotel_infoService.updateHavePrice(fliggy_hotel_info);
+                        continue;
+                    }else{
+                        fliggy_hotel_info.setHave_price("-1");
+                        fliggy_hotel_info.setHave_price_date(new Date());
+                        fliggy_hotel_infoService.updateHavePrice(fliggy_hotel_info);
+                        listNoPrice.add(fliggy_hotel_info);
+                    }
+                }
+            }
+
+        }
+//        return listNoPrice;
+    }
+
+    //有价查询方法-second(当前日期后的30天进行每日询价)
+    public void searchHotelPriceAgain(List<Fliggy_hotel_info> list){
+        String fromDate = "";
+        String toDate = "";
+        JSONObject jsonObject = null;
+        int count = 0;
+        //第二轮询价进行每天的搜索
+        for(Fliggy_hotel_info fliggy_hotel_info : list) {
+            for(int i = 1; i <= 30; i++){
+                //查询30天是否有价
+                fromDate = dateFormat(i);
+                toDate = dateFormat(i + 1);
+                jsonObject = dotw_interface_util.getPriceInDotwByHotelId(fliggy_hotel_info.getOuter_id(), fromDate, toDate);
+                count = Integer.valueOf(jsonObject.getJSONObject("hotels").getString("@count"));
+                if(count > 0){
+                    fliggy_hotel_info.setHave_price("1");
+                    fliggy_hotel_info.setHave_price_date(new Date());
+                    fliggy_hotel_infoService.updateHavePrice(fliggy_hotel_info);
+                    log.info("找到价格咯,酒店名：" + fliggy_hotel_info.getHotel_name() + "有价日期为：" + fromDate);
+                    break;
+                }
+            }
+        }
+    }
+
+
+
+    //查询插入结果并生成结果集excel
+    public void searchAndReport(List<Fliggy_hotel_info> list){
+        List<JSONObject> listHotelInfo = new ArrayList<>();
+        List<JSONObject> listRoomInfo = new ArrayList<>();
+        for(Fliggy_hotel_info fliggy_hotel_info : list){
+            JSONObject temp = fliggy_interface_util.xHotelSearch(fliggy_hotel_info.getOuter_id());
+            if(temp != null && temp.getJSONObject("xhotel_get_response") != null){
+                listHotelInfo.add(temp.getJSONObject("xhotel_get_response").getJSONObject("xhotel"));
+                fliggy_hotel_info.setMapping(temp.getJSONObject("xhotel_get_response").getJSONObject("xhotel").getString("data_confirm_str"));
+                fliggy_hotel_infoService.updateStateAndDate(fliggy_hotel_info);
+            }
+            //查询房型
+            List<Fliggy_roomType_info> roomList = fliggy_roomTpye_infoService.searchRoomByHid(fliggy_hotel_info.getOuter_id());
+            for(Fliggy_roomType_info fliggy_roomType_info : roomList){
+                JSONObject tempRoom = fliggy_interface_util.xRoomSearch(fliggy_roomType_info.getOuter_id());
+                if(tempRoom != null && tempRoom.getJSONObject("xhotel_roomtype_get_response") != null){
+                    listRoomInfo.add(tempRoom.getJSONObject("xhotel_roomtype_get_response").getJSONObject("xroomtype"));
+                    fliggy_roomType_info.setMapping(tempRoom.getJSONObject("xhotel_roomtype_get_response").getJSONObject("xroomtype").getString("data_confirm_str"));
+                    fliggy_roomTpye_infoService.updateStateAndDate(fliggy_roomType_info);
+                }
+            }
+        }
+        //最后输出
+        JSONToExcel(listHotelInfo,"hotel");
+        JSONToExcel(listRoomInfo,"roomType");
+    }
+
+    //删除飞猪库的房型和酒店（慎用）
+    public void delHotelAndRoom(List<Fliggy_hotel_info> list){
+        /**
+         * step 1：删除房型信息
+         * step 2：删除酒店信息
+         */
+        for (Fliggy_hotel_info fliggy_hotel_info : list){
+            List<Fliggy_roomType_info> roomList = fliggy_roomTpye_infoService.searchRoomByHid(fliggy_hotel_info.getOuter_id());
+            for(Fliggy_roomType_info fliggy_roomType_info : roomList){
+                fliggy_interface_util.xRoomDel(fliggy_roomType_info.getOuter_id());
+                fliggy_roomType_info.setState("0");
+                fliggy_roomType_info.setInsertDate(null);
+                fliggy_roomTpye_infoService.updateStateAndDate(fliggy_roomType_info);
+            }
+            fliggy_interface_util.xHotelDel(fliggy_hotel_info.getOuter_id());
+            fliggy_hotel_info.setState("0");
+            fliggy_hotel_info.setInsertDate(null);
+            fliggy_hotel_infoService.updateStateAndDate(fliggy_hotel_info);
+        }
+    }
+
+    /**
+     * 更新阿里酒店所在城市的批次号（有些在添加酒店时没加上的给加上批次号）
+     */
+    public void updateCityBatch(List<Fliggy_hotel_info> list){
+        for(Fliggy_hotel_info fliggy_hotel_info : list){
+            //根据飞猪城市协议接口先上传酒店经纬度信息再下载对应的酒店id;
+            City_coordinates city_coordinates = new City_coordinates();
+            String countryId = fliggy_oversea_cityService.findCountryIdByName(fliggy_hotel_info.getCountry());
+            if(countryId != null){
+                city_coordinates.setCountryId(Long.valueOf(countryId));
+            }else{
+                if(fliggy_hotel_info.getCountry().equals("TAIWAN") || fliggy_hotel_info.getCountry().equals("MACAU") || fliggy_hotel_info.getCountry().equals("HONG KONG") || fliggy_hotel_info.getCountry().equals("CHINA")){
+
+                }else{
+                    System.out.println(fliggy_hotel_info.getCountry());
+                }
+                city_coordinates.setCountryId(0L);
+            }
+            city_coordinates.setLatitude(fliggy_hotel_info.getLatitude());
+            city_coordinates.setLongitude(fliggy_hotel_info.getLongitude());
+            city_coordinates.setOuterId(fliggy_hotel_info.getOuter_id());
+            String batch_id = fliggy_interface_util.city_coordinates_batch_upload(city_coordinates);
+            fliggy_hotel_info.setBatch_id(batch_id);
+            fliggy_hotel_infoService.updateBatchId(fliggy_hotel_info);
+        }
     }
 
 }

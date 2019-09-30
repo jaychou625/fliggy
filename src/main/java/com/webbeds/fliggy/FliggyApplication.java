@@ -6,6 +6,7 @@ import com.webbeds.fliggy.entity.FR_hotels.FR_hotels_info;
 import com.webbeds.fliggy.entity.Fliggy_hotel_info;
 import com.webbeds.fliggy.service.DOTW.FR_hotel.FR_hotels_infoService;
 import com.webbeds.fliggy.service.DOTW.Fliggy_hotel_infoService;
+import com.webbeds.fliggy.thread.SearchPriceThread;
 import com.webbeds.fliggy.utils.Common;
 import net.sf.json.xml.XMLSerializer;
 import org.apache.commons.io.FileUtils;
@@ -20,6 +21,8 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Date;
+import java.util.List;
 
 @SpringBootApplication
 @EnableScheduling
@@ -27,6 +30,11 @@ import java.io.IOException;
 @MapperScan("com.webbeds.fliggy.mapper")
 public class FliggyApplication {
 
+    @Autowired
+    Fliggy_hotel_infoService fliggy_hotel_infoService;
+
+    @Autowired
+    Common common;
 
     public static void main(String[] args) {
         SpringApplication.run(FliggyApplication.class, args);
@@ -34,9 +42,7 @@ public class FliggyApplication {
 
     @Test
     public void contextLoads() {
-        Common common = new Common();
-        String str = common.subStringSpecial("SANCTUARY BEACH POOL VILLA");
-        System.out.println("输出：" + str);
+
     }
 
 

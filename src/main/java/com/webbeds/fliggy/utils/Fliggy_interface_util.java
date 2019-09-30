@@ -29,7 +29,7 @@ public class Fliggy_interface_util {
     //secret
     private final String secret = "91c56c1988556d2a8c053c730f74e286";
     //sessionKey
-    private final String sessionKey = "6101730ee845c089e1d56504a71b87755b4ff61a659da093309205637";
+    private final String sessionKey = "6101317ae675055a1fb83cf2711704e90ed9e7b8fb137bf3309205637";
 
     //沙箱接口调用地址
     private final String urlS = "http://gw.api.tbsandbox.com/router/rest";
@@ -181,8 +181,10 @@ public class Fliggy_interface_util {
         } catch (ApiException e) {
             e.printStackTrace();
         }
+        if(rsp.getBody().indexOf("!DOCTYPE html") != -1){
+            System.out.println(rsp.getBody());
+        }
         res = JSON.parseObject(rsp.getBody());
-//        System.out.println(rsp.getBody());
 
         return res;
     }
@@ -199,8 +201,10 @@ public class Fliggy_interface_util {
         } catch (ApiException e) {
             e.printStackTrace();
         }
+        if(rsp.getBody().indexOf("!DOCTYPE html") != -1){
+            System.out.println(rsp.getBody());
+        }
         res = JSON.parseObject(rsp.getBody());
-//        System.out.println(rsp.getBody());
         return res;
     }
 

@@ -230,7 +230,7 @@ public class Hotel_info_controller {
      */
     @RequestMapping("/testThread")
     public void testThread(){
-//
+        fliggy_interface_util.xRoomSearch("81441195");
     }
 
 }

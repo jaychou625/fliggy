@@ -46,6 +46,7 @@ public class SearchPriceThread implements Runnable {
             e.printStackTrace();
         }finally {
             latch.countDown(); //这句是关键
+            System.out.println(latch.getCount());
             System.out.println("ok"); //线程都跑完后输出
         }
         Long end = new Date().getTime();

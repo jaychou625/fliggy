@@ -171,7 +171,7 @@ public class Common {
 
             for (String s : keys) {
                 HSSFCell cell = row.createCell(rowNo++);
-                if(s != "" && s != null){
+                if(jsonObject.getString(s) != null){
                     if(jsonObject.getString(s).length() > 32000){
                         cell.setCellValue(jsonObject.getString(s).substring(0,32000));
                     }else{
@@ -489,8 +489,8 @@ public class Common {
         for(Fliggy_hotel_info fliggy_hotel_info : list) {
             for(int i = 1; i <= 30; i++){
                 //查询30天是否有价
-                fromDate = dateFormat(i);
-                toDate = dateFormat(i + 1);
+                fromDate = dateFormat(i + 10);
+                toDate = dateFormat(i + 10 + 1);
                 jsonObject = dotw_interface_util.getPriceInDotwByHotelId(fliggy_hotel_info.getOuter_id(), fromDate, toDate);
                 count = Integer.valueOf(jsonObject.getJSONObject("hotels").getString("@count"));
                 if(count > 0){

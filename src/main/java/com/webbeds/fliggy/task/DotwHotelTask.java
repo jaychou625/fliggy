@@ -79,35 +79,9 @@ public class DotwHotelTask {
                     hotelJSON = jsonObject.getJSONObject("hotels").getJSONObject("hotel");
                     DOTW_hotel_info dotw_hotel_info = dotw_hotel_infoService.searchHotelByHid(hotelJSON.getString("@hotelid"));
                     if(dotw_hotel_info != null){
-                        int count = fliggyhotelinfoService.findHotelCountById(hotelJSON.getString("@hotelid"));
-                        if(count == 0){
-                            JSONObject roomJSON = null;
-                            //添加房型
-                            if(hotelJSON.getJSONObject("rooms").getJSONObject("room").getString("@count").equals("1")){
-                                roomJSON = hotelJSON.getJSONObject("rooms").getJSONObject("room").getJSONObject("roomType");
-                                Fliggy_roomType_info fliggy_roomType_info = getRoomInfoByJSONObject(roomJSON,hotelJSON.getString("@hotelid"));
-                                if(fliggy_roomTpye_infoService.searchRoomByRid(fliggy_roomType_info) == 0){
-                                    fliggy_roomTpye_infoService.add(fliggy_roomType_info);
-                                }
-                            }else{
-                                JSONArray roomArray = hotelJSON.getJSONObject("rooms").getJSONObject("room").getJSONArray("roomType");
-                                for(int roomIndex = 0; roomIndex < roomArray.size();roomIndex++){
-                                    roomJSON = roomArray.getJSONObject(roomIndex);
-                                    Fliggy_roomType_info fliggy_roomType_info = getRoomInfoByJSONObject(roomJSON,hotelJSON.getString("@hotelid"));
-                                    if(fliggy_roomTpye_infoService.searchRoomByRid(fliggy_roomType_info) == 0){
-                                        fliggy_roomTpye_infoService.add(fliggy_roomType_info);
-                                    }
-                                }
-                            }
+                        oprateAddHotelAndRoom2Fliggy(hotelJSON,dotw_hotel_info,listJSON);
+                    }else{
 
-                            //添加酒店
-                            Fliggy_hotel_info fliggy_hotel_info = getInfoByJSONObject(hotelJSON,dotw_hotel_info);
-                            fliggyhotelinfoService.add(fliggy_hotel_info);
-                            dotw_hotel_infoService.updateIsUpdate(hotelJSON.getString("@hotelid"),"1");
-                        }else{
-                            dotw_hotel_infoService.updateIsUpdate(hotelJSON.getString("@hotelid"),"-1");
-                        }
-                        listJSON.add(hotelJSON);
                     }
                 }else{
                     JSONArray hotelArray = jsonObject.getJSONObject("hotels").getJSONArray("hotel");
@@ -115,35 +89,9 @@ public class DotwHotelTask {
                         hotelJSON = hotelArray.getJSONObject(arrIndex);
                         DOTW_hotel_info dotw_hotel_info = dotw_hotel_infoService.searchHotelByHid(hotelJSON.getString("@hotelid"));
                         if(dotw_hotel_info != null){
-                            int count = fliggyhotelinfoService.findHotelCountById(hotelJSON.getString("@hotelid"));
-                            if(count == 0){
-                                JSONObject roomJSON = null;
-                                //添加房型
-                                if(hotelJSON.getJSONObject("rooms").getJSONObject("room").getString("@count").equals("1")){
-                                    roomJSON = hotelJSON.getJSONObject("rooms").getJSONObject("room").getJSONObject("roomType");
-                                    Fliggy_roomType_info fliggy_roomType_info = getRoomInfoByJSONObject(roomJSON,hotelJSON.getString("@hotelid"));
-                                    if(fliggy_roomTpye_infoService.searchRoomByRid(fliggy_roomType_info) == 0){
-                                        fliggy_roomTpye_infoService.add(fliggy_roomType_info);
-                                    }
-                                }else{
-                                    JSONArray roomArray = hotelJSON.getJSONObject("rooms").getJSONObject("room").getJSONArray("roomType");
-                                    for(int roomIndex = 0; roomIndex < roomArray.size();roomIndex++){
-                                        roomJSON = roomArray.getJSONObject(roomIndex);
-                                        Fliggy_roomType_info fliggy_roomType_info = getRoomInfoByJSONObject(roomJSON,hotelJSON.getString("@hotelid"));
-                                        if(fliggy_roomTpye_infoService.searchRoomByRid(fliggy_roomType_info) == 0){
-                                            fliggy_roomTpye_infoService.add(fliggy_roomType_info);
-                                        }
-                                    }
-                                }
+                            oprateAddHotelAndRoom2Fliggy(hotelJSON,dotw_hotel_info,listJSON);
+                        }else{
 
-                                //添加酒店
-                                Fliggy_hotel_info fliggy_hotel_info = getInfoByJSONObject(hotelJSON,dotw_hotel_info);
-                                fliggyhotelinfoService.add(fliggy_hotel_info);
-                                dotw_hotel_infoService.updateIsUpdate(hotelJSON.getString("@hotelid"),"1");
-                            }else{
-                                dotw_hotel_infoService.updateIsUpdate(hotelJSON.getString("@hotelid"),"-1");
-                            }
-                            listJSON.add(hotelJSON);
                         }
                     }
                 }
@@ -158,6 +106,45 @@ public class DotwHotelTask {
 
         return listJSON;
     }
+
+    /**
+     * 添加酒店和房型入本地飞猪库
+     * @param hotelJSON
+     * @param dotw_hotel_info
+     * @param listJSON
+     */
+    public void oprateAddHotelAndRoom2Fliggy(JSONObject hotelJSON,DOTW_hotel_info dotw_hotel_info,List<JSONObject> listJSON){
+        int count = fliggyhotelinfoService.findHotelCountById(hotelJSON.getString("@hotelid"));
+        if(count == 0){
+            JSONObject roomJSON = null;
+            //添加房型
+            if(hotelJSON.getJSONObject("rooms").getJSONObject("room").getString("@count").equals("1")){
+                roomJSON = hotelJSON.getJSONObject("rooms").getJSONObject("room").getJSONObject("roomType");
+                Fliggy_roomType_info fliggy_roomType_info = getRoomInfoByJSONObject(roomJSON,hotelJSON.getString("@hotelid"));
+                if(fliggy_roomTpye_infoService.searchRoomByRid(fliggy_roomType_info) == 0){
+                    fliggy_roomTpye_infoService.add(fliggy_roomType_info);
+                }
+            }else{
+                JSONArray roomArray = hotelJSON.getJSONObject("rooms").getJSONObject("room").getJSONArray("roomType");
+                for(int roomIndex = 0; roomIndex < roomArray.size();roomIndex++){
+                    roomJSON = roomArray.getJSONObject(roomIndex);
+                    Fliggy_roomType_info fliggy_roomType_info = getRoomInfoByJSONObject(roomJSON,hotelJSON.getString("@hotelid"));
+                    if(fliggy_roomTpye_infoService.searchRoomByRid(fliggy_roomType_info) == 0){
+                        fliggy_roomTpye_infoService.add(fliggy_roomType_info);
+                    }
+                }
+            }
+
+            //添加酒店
+            Fliggy_hotel_info fliggy_hotel_info = getInfoByJSONObject(hotelJSON,dotw_hotel_info);
+            fliggyhotelinfoService.add(fliggy_hotel_info);
+            dotw_hotel_infoService.updateIsUpdate(hotelJSON.getString("@hotelid"),"1");
+        }else{
+            dotw_hotel_infoService.updateIsUpdate(hotelJSON.getString("@hotelid"),"-1");
+        }
+        listJSON.add(hotelJSON);
+    }
+
 //    /**
 //     * 根据hotelid调用dotw接口获取酒店和房型信息
 //     * @param listTemp
@@ -306,10 +293,10 @@ public class DotwHotelTask {
         //创建实体类
         Fliggy_hotel_info fliggy_hotel_info = new Fliggy_hotel_info();
 //        String hId = jsonObject.getString("@hotelid");
-        fliggy_hotel_info.setOuter_id(dotw_hotel_info.getHotelCode());
-//        String hName = jsonObject.getString("hotelName");
+        fliggy_hotel_info.setOuter_id(dotw_hotel_info.getHotelCode());//finish
+//        String hName = jsonObject.getString("hotelName");//finish
         fliggy_hotel_info.setHotel_name(dotw_hotel_info.getHotelName());
-//        String used_hName = jsonObject.getString("hotelName");
+//        String used_hName = jsonObject.getString("hotelName");//finish
         fliggy_hotel_info.setUsed_name(dotw_hotel_info.getHotelName());
         Integer domestic = dotw_hotel_info.getCountry().equals("CHINA") ? 0 : 1;
         fliggy_hotel_info.setDomestic(domestic);

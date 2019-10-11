@@ -26,27 +26,32 @@ public class SearchPriceThread implements Runnable {
         Long start = new Date().getTime();
         try {
             if(mark.equals("second")){
-                for(Fliggy_hotel_info fliggy_hotel_info : list){
-                    common.searchHotelPriceAgain(list);
-                }
+//                for(Fliggy_hotel_info fliggy_hotel_info : list){
+//                    common.searchHotelPriceAgain(list);
+//                }
+                common.searchHotelPriceAgain(list);
             }else if(mark.equals("first")){
-                for(Fliggy_hotel_info fliggy_hotel_info : list){
-                    common.searchHotelPrice(list);
-                }
+//                for(Fliggy_hotel_info fliggy_hotel_info : list){
+//                    common.searchHotelPrice(list);
+//                }
+//                common.searchHotelPrice(list);
+                common.searchHotelPriceTemp(list,30);
             }else if(mark.equals("addHotel2Fliggy")){
-                for(Fliggy_hotel_info fliggy_hotel_info : list){
-                    common.add2Fliggy(list);
-                }
+//                for(Fliggy_hotel_info fliggy_hotel_info : list){
+//                    common.add2Fliggy(list);
+//                }
+                common.add2Fliggy(list);
             }else if(mark.equals("updateCity")){
-                for(Fliggy_hotel_info fliggy_hotel_info : list){
-                    common.updateCityId(list);
-                }
+//                for(Fliggy_hotel_info fliggy_hotel_info : list){
+//                    common.updateCityId(list);
+//                }
+                common.updateCityId(list);
             }
         }catch (Exception e){
             e.printStackTrace();
         }finally {
             latch.countDown(); //这句是关键
-            System.out.println(latch.getCount());
+//            System.out.println(latch.getCount());
             System.out.println("ok"); //线程都跑完后输出
         }
         Long end = new Date().getTime();

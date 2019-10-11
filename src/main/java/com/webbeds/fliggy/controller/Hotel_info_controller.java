@@ -16,11 +16,15 @@ import com.webbeds.fliggy.thread.SearchPriceThread;
 import com.webbeds.fliggy.utils.Common;
 import com.webbeds.fliggy.utils.DOTW_interface_util;
 import com.webbeds.fliggy.utils.Fliggy_interface_util;
+import com.webbeds.fliggy.utils.IpUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -75,9 +79,11 @@ public class Hotel_info_controller {
         //新接口，调用酒店id，批处理提升效率
         Long start = new Date().getTime();
         List<String> list = dotw_hotel_infoService.findAllId();
+        System.out.println("共有" + list.size() + "条数据");
         List<JSONObject> listJSON = dotwHotelTask.oprate(list,"");
-        common.JSONToExcel(listJSON,"alitrip账户有信息的酒店");
-
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        String date = sdf.format(new Date());
+        common.JSONToExcel(listJSON,"alitrip账户有信息的酒店" + date);
         Long end = new Date().getTime();
         System.out.println("执行完毕，共计消耗：" + (end - start) / 1000 + "S");
     }
@@ -228,9 +234,25 @@ public class Hotel_info_controller {
     /**
      * 测试多线程效率
      */
-    @RequestMapping("/testThread")
-    public void testThread(){
-        fliggy_interface_util.xRoomSearch("81441195");
+    @RequestMapping("/testMethod")
+    public void testMethod(){
+        List<Fliggy_hotel_info> list = fliggy_hotel_infoService.searchAllHotel();
+        List<List<Fliggy_hotel_info>> listThread = common.splitList(list,300);
+        for(List<Fliggy_hotel_info> listTemp : listThread){
+            common.searchHotelPriceTemp(listTemp,30);
+        }
+    }
+
+
+    /**
+     * 获取ip测试
+     * @param request
+     * @return
+     */
+    @RequestMapping(value = "/getIp", method = RequestMethod.GET)
+    public String getIp(HttpServletRequest request) {
+        System.out.println(IpUtils.getIpAddr(request));
+        return IpUtils.getIpAddr(request);
     }
 
 }

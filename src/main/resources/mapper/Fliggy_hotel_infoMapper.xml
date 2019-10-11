@@ -73,7 +73,8 @@
 
     <select id="searchAllHotelByState" resultMap="Fliggy_hotel_info_ResultMap" parameterType="java.lang.String">
         SELECT * FROM fliggy_hotel_information
-        WHERE state = #{state} and have_price != "-1" and have_price != "0"
+        WHERE state = #{state} and city != "0"
+--         and have_price != "-1" and have_price != "0"
     </select>
 
     <update id="updateCity" parameterType="com.webbeds.fliggy.entity.Fliggy_hotel_info">

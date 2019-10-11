@@ -1,5 +1,6 @@
 package com.webbeds.fliggy.utils;
 
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.webbeds.fliggy.entity.DOTW_hotel_info;
 import com.webbeds.fliggy.entity.Fliggy_hotel_info;
@@ -479,6 +480,117 @@ public class Common {
 //        return listNoPrice;
     }
 
+    //有价查询方法(初步查询，当前日期后30，60,90天是否有价)
+    public void searchHotelPriceTemp(List<Fliggy_hotel_info> list,Integer day){
+        List<List<Fliggy_hotel_info>> listThread = splitList(list,30);
+        int count = 0;
+        for(int i = 0; i < listThread.size(); i++){
+            searchPriceMethod(listThread.get(i),new ArrayList<>(),day);
+        }
+
+    }
+
+    //有价查询方法-second(当前日期后的30天进行每日询价)
+    public void searchHotelPriceAgainTemp(List<Fliggy_hotel_info> list){
+
+    }
+
+    //询价方法，可递归
+    public void searchPriceMethod(List<Fliggy_hotel_info> list,List<Fliggy_hotel_info> listHavePrice,Integer day){
+        int count = 0;
+        String fromDate = "";
+        String toDate = "";
+        JSONObject jsonObject = null;
+        //查询30天是否有价
+        fromDate = dateFormat(day);
+        toDate = dateFormat(day + 1);
+        jsonObject = dotw_interface_util.getPriceInDotwByHotelIdTemp(list,fromDate,toDate);
+        count = Integer.valueOf(jsonObject.getJSONObject("hotels").getString("@count"));
+        String state = "-1";
+        if(day == 30){
+            state = "1";
+        }else if(day == 60){
+            state = "2";
+        }else if(day == 90){
+            state = "3";
+        }else{
+            state = "-1";
+        }
+        if(count > 0){
+            //如果查询条目=1只有一条，>1则有多条，一条用object多条用array
+            if(count == 1){
+                //找到有价酒店并添加入库
+                JSONObject jsonObjectTemp = jsonObject.getJSONObject("hotels").getJSONObject("hotel");
+                Fliggy_hotel_info fliggy_hotel_info = new Fliggy_hotel_info();
+                fliggy_hotel_info.setOuter_id(jsonObjectTemp.getString("@hotelid"));
+                fliggy_hotel_info.setHave_price(state);
+                fliggy_hotel_info.setHave_price_date(new Date());
+                //在集合中删除有价酒店并继续后续询价
+                for(int i = 0; i < list.size(); i++){
+                    boolean flag = true;
+                    for(int j = 0; j < listHavePrice.size(); j++){
+                        if(list.get(i).getOuter_id().equals(listHavePrice.get(j).getOuter_id())){
+                            flag = false;
+                            break;
+                        }
+                    }
+                    if(list.get(i).getOuter_id().equals(jsonObjectTemp.getString("@hotelid")) && flag){
+//                        log.warn("酒店：" + list.get(i).getHotel_name() + "在第" + day + "天有价格");
+                        listHavePrice.add(list.get(i));
+//                        fliggy_hotel_infoService.updateHavePrice(fliggy_hotel_info);
+                    }
+                }
+            }else{
+                JSONArray jsonArray = jsonObject.getJSONObject("hotels").getJSONArray("hotel");
+                for(int i = 0; i < jsonArray.size(); i++){
+                    JSONObject jsonObjectTemp = jsonArray.getJSONObject(i);
+                    Fliggy_hotel_info fliggy_hotel_info = new Fliggy_hotel_info();
+                    fliggy_hotel_info.setOuter_id(jsonObjectTemp.getString("@hotelid"));
+                    fliggy_hotel_info.setHave_price(state);
+                    fliggy_hotel_info.setHave_price_date(new Date());
+                    //在集合中删除有价酒店并继续后续询价
+                    for(int j = 0; j < list.size(); j++){
+                        boolean flag = true;
+                        for(int k = 0; k < listHavePrice.size(); k++){
+                            if(list.get(j).getOuter_id().equals(listHavePrice.get(k).getOuter_id())){
+                                flag = false;
+                                break;
+                            }
+                        }
+                        if(list.get(j).getOuter_id().equals(jsonObjectTemp.getString("@hotelid")) && flag){
+//                            log.warn("酒店：" + list.get(j).getHotel_name() + "在第" + day + "天有价格");
+                            listHavePrice.add(list.get(j));
+//                            fliggy_hotel_infoService.updateHavePrice(fliggy_hotel_info);
+                        }
+                    }
+                }
+            }
+        }
+
+        Integer dayTemp = day + 30;
+        //删选出无价酒店列表继续查询60天是否有价,递归查询
+        if(dayTemp <= 90){
+            searchPriceMethod(list,listHavePrice,dayTemp);
+        }else{
+            for(Fliggy_hotel_info fliggy_hotel_infoTemp : list){
+               boolean flag = true;
+               for(Fliggy_hotel_info fliggy_hotel_infoTempHavePrice : listHavePrice){
+                   if(fliggy_hotel_infoTempHavePrice.getOuter_id().equals(fliggy_hotel_infoTemp.getOuter_id())){
+                        flag = false;
+                        break;
+                   }
+               }
+               if(flag){
+                   fliggy_hotel_infoTemp.setHave_price("-1");
+                   fliggy_hotel_infoTemp.setHave_price_date(new Date());
+//                   log.warn("酒店：" + fliggy_hotel_infoTemp.getHotel_name() + "在90天内没价格");
+//                   fliggy_hotel_infoService.updateHavePrice(fliggy_hotel_infoTemp);
+               }
+            }
+        }
+    }
+
+
     //有价查询方法-second(当前日期后的30天进行每日询价)
     public void searchHotelPriceAgain(List<Fliggy_hotel_info> list){
         String fromDate = "";
@@ -529,8 +641,10 @@ public class Common {
             }
         }
         //最后输出
-        JSONToExcel(listHotelInfo,"hotel");
-        JSONToExcel(listRoomInfo,"roomType");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        String date = sdf.format(new Date());
+        JSONToExcel(listHotelInfo,"hotel" + date);
+        JSONToExcel(listRoomInfo,"roomType" + date);
     }
 
     //删除飞猪库的房型和酒店（慎用）

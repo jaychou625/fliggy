@@ -91,7 +91,12 @@ public class Fliggy_interface_util {
             e.printStackTrace();
         }
 //        log.info(rsp.getBody());
-        String cityCode = JSON.parseObject(rsp.getBody()).getJSONObject("xhotel_city_coordinates_batch_download_response").getJSONObject("coordinate_list").getJSONArray("coordinate").getJSONObject(0).getString("city");
+        String cityCode = "0";
+        if(JSON.parseObject(rsp.getBody()).getJSONObject("xhotel_city_coordinates_batch_download_response").getJSONObject("coordinate_list").getJSONArray("coordinate").getJSONObject(0).getString("city") == null){
+            cityCode = "0";
+        }else{
+            cityCode = JSON.parseObject(rsp.getBody()).getJSONObject("xhotel_city_coordinates_batch_download_response").getJSONObject("coordinate_list").getJSONArray("coordinate").getJSONObject(0).getString("city");
+        }
         return cityCode;
     }
 

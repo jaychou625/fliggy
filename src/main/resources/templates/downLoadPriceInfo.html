@@ -12,14 +12,13 @@
 </head>
 <body>
     <h1 class="text-center">
-        查询页面功能页面
+        报表生成页面
     </h1>
     <div class="text-center" style="margin-top: 30px;">
-        <a href="/downloadExcelReport?diarycontent=hotel" id="hotel" class="btn btn-primary btn-lg">点我下载酒店匹配report</a>
+        <a href="/downloadExcelReport?diarycontent=havePriceHotel" + ${account} id="hotel" class="btn btn-primary btn-lg">点我下载该批次有价酒店报表</a>
     </div>
     <div class="text-center" style="margin-top: 30px;">
-        <a href="/downloadExcelReport?diarycontent=roomType" id="roomType" class="btn btn-primary btn-lg">点我下载房型匹配report</a>
+        <a href="/downloadExcelReport?diarycontent=noPriceHotel" id="roomType" class="btn btn-primary btn-lg">点我下载该批次无价酒店报表</a>
     </div>
-
 </body>
 </html>

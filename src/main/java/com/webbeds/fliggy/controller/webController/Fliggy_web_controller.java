@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
  * 飞猪项目页面路由控制器
  */
 @Controller
-public class fliggy_web_controller {
+public class Fliggy_web_controller {
 
     @Autowired
     Hotel_info_controller hotel_info_controller;

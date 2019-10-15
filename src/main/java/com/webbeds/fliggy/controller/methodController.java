@@ -144,4 +144,23 @@ public class methodController {
         modelAndView.setViewName("/searchFliggyHotelInfoSuccess");
         return modelAndView;
     }
+
+    /**
+     * 提交dotw酒店信息链接方法
+     * @param file
+     * @return
+     */
+    @RequestMapping("/searchPriceByHid")
+    public ModelAndView searchPriceByHid(@RequestParam("file") MultipartFile file,@RequestParam("account") String account,@RequestParam("password") String password,@RequestParam("accountId") String accountId,@RequestParam("version") String version) {
+        boolean flag = false;
+        ModelAndView modelAndView = new ModelAndView();
+        flag = common.searchPriceByHidOprate(file,account,password,accountId,version);
+        if(flag){
+            modelAndView.addObject("account",account);
+            modelAndView.setViewName("/downLoadPriceInfo");
+        }else{
+            modelAndView.setViewName("/insertError");
+        }
+        return modelAndView;
+    }
 }

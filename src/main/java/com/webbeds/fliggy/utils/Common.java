@@ -1,5 +1,6 @@
 package com.webbeds.fliggy.utils;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.webbeds.fliggy.entity.DOTW_hotel_info;
@@ -9,7 +10,10 @@ import com.webbeds.fliggy.entity.Fliggy_roomType_info;
 import com.webbeds.fliggy.service.DOTW.Fliggy_hotel_infoService;
 import com.webbeds.fliggy.service.DOTW.Fliggy_oversea_cityService;
 import com.webbeds.fliggy.service.DOTW.Fliggy_roomTpye_infoService;
+import com.webbeds.fliggy.thread.SearchPriceByHidThread;
+import com.webbeds.fliggy.thread.SearchPriceThread;
 import lombok.extern.slf4j.Slf4j;
+import net.sf.json.JSONString;
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
@@ -20,6 +24,7 @@ import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -28,6 +33,7 @@ import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.concurrent.CountDownLatch;
 
 /**
  * 通用工具类
@@ -50,6 +56,16 @@ public class Common {
     @Autowired
     Fliggy_oversea_cityService fliggy_oversea_cityService;
 
+    //全局变量
+    List<JSONObject> havePriceHotel = new ArrayList<>();
+    List<JSONObject> noPriceHotel = new ArrayList<>();
+    List<String> noPriceHid = new ArrayList<>();
+    String account = "";
+    String password = "";
+    String accountId = "";
+    String path = "";
+    String version = "";
+
     //返回房型关键字数组
     public String[] getRoomType(){
         return new String[]{"Suite","Palace","CAPUSLE","Maison","Exclusive","City","Mit","Quarduple","Varanda","Privilege","Cottage","Ridge","Prestige","Yurt","Japanese","Floor","Oasis","Apartamento","Poolside","Hillside","Bird","Vintage","Sis","Cottage","Familiar","Grand","Riverside","Tower","Grande","Loft","View","Pavilion","Premier","Home","Minimum","Business","Room","Gsl","Private","Family","Renovated","Doble","Comfort","Quad","Maisonette","Pavillion","Residence","Balcony","Studio","Beachfront","Classic","Oceanfront","Front","Ocean","Garden","Advantage","Chateau","King","Dorm","Bungalow","Dormitory","Duplex","Semi","SemiDBL ","DBL","Villa","Twin","Apartment","Queen","Double","Bed","House","Single","Standard","Deluxe","Executive","Triple","Premium","Superior","Club"};
@@ -60,12 +76,28 @@ public class Common {
         return str.substring(0,1).toUpperCase() + str.substring(1).toLowerCase();
     }
 
-    //根据长度分割list
+    //根据长度分割list Bean
     public List<List<Fliggy_hotel_info>> splitList(List<Fliggy_hotel_info> list , int groupSize){
         int length = list.size();
         // 计算可以分成多少组
         int num = ( length + groupSize - 1 )/groupSize ; // TODO
         List<List<Fliggy_hotel_info>> newList = new ArrayList<>(num);
+        for (int i = 0; i < num; i++) {
+            // 开始位置
+            int fromIndex = i * groupSize;
+            // 结束位置
+            int toIndex = (i+1) * groupSize < length ? ( i+1 ) * groupSize : length ;
+            newList.add(list.subList(fromIndex,toIndex)) ;
+        }
+        return  newList ;
+    }
+
+    //根据长度分割list String
+    public List<List<String>> splitListString(List<String> list , int groupSize){
+        int length = list.size();
+        // 计算可以分成多少组
+        int num = ( length + groupSize - 1 )/groupSize ; // TODO
+        List<List<String>> newList = new ArrayList<>(num);
         for (int i = 0; i < num; i++) {
             // 开始位置
             int fromIndex = i * groupSize;
@@ -280,6 +312,40 @@ public class Common {
         return list;
     }
 
+    /**
+     * excel转list<String>
+     * @param path
+     * @return
+     * @throws Exception
+     */
+    public List<String> excel2String(String path) throws Exception {
+        InputStream is = new FileInputStream(path);
+        XSSFWorkbook excel = new XSSFWorkbook(is);
+//        HSSFWorkbook excel = new HSSFWorkbook(is);
+        List<String> list = new ArrayList<>();
+
+        // 循环工作表Sheet
+        for (int numSheet = 0; numSheet < excel.getNumberOfSheets(); numSheet++) {
+//            HSSFSheet sheet = excel.getSheetAt(numSheet);
+            XSSFSheet sheet = excel.getSheetAt(numSheet);
+            if (sheet == null)
+                continue;
+            // 循环行Row
+            for (int rowNum = 0; rowNum < sheet.getLastRowNum(); rowNum++) {
+//                HSSFRow row = sheet.getRow(rowNum);
+                XSSFRow row = sheet.getRow(rowNum);
+                if (row == null)
+                    continue;
+                XSSFCell cell = row.getCell(0);
+                if (cell == null)
+                    continue;
+                list.add(cell.getStringCellValue());
+            }
+        }
+
+        return list;
+    }
+
     public void download(HttpServletRequest request, HttpServletResponse response) throws IOException {
         //得到要下载的文件名
         String fileName = URLDecoder.decode(request.getParameter("diarycontent"),"utf-8");
@@ -291,17 +357,19 @@ public class Common {
         //String path = findFileSavePathByFileName(fileName,fileSaveRootPath);
         //String path = fileSaveRootPath;
         //得到要下载的文件
-        File file = new File(fileSaveRootPath + "\\" + fileName);
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        String date = sdf.format(new Date());
+        File file = new File(fileSaveRootPath + "\\" + fileName + date + ".xls");
         //如果文件不存在
         if(!file.exists()){
             request.setAttribute("message", "您要下载的资源已被删除！！");
         }
         //处理文件名
-        String realname = fileName.substring(fileName.indexOf("_")+1);
+        String realname = fileName.substring(fileName.indexOf("_")+1) + date + ".xls";
         //设置响应头，控制浏览器下载该文件
         response.setHeader("content-disposition", "attachment;filename=" + URLEncoder.encode(realname, "UTF-8"));
         //读取要下载的文件，保存到文件输入流
-        FileInputStream in = new FileInputStream(fileSaveRootPath + "\\" + fileName);
+        FileInputStream in = new FileInputStream(fileSaveRootPath + "\\" + fileName + date + ".xls");
         //创建输出流
         OutputStream out = response.getOutputStream();
         //创建缓冲区
@@ -692,6 +760,276 @@ public class Common {
             String batch_id = fliggy_interface_util.city_coordinates_batch_upload(city_coordinates);
             fliggy_hotel_info.setBatch_id(batch_id);
             fliggy_hotel_infoService.updateBatchId(fliggy_hotel_info);
+        }
+    }
+
+    /**
+     * 查询价格处理函数
+     * @param file
+     * @return
+     */
+    public boolean searchPriceByHidOprate(MultipartFile file,String account,String password,String accountId,String version){
+        //获得有价无价酒店集合，用于输出
+        havePriceHotel = new ArrayList<>();
+        noPriceHotel = new ArrayList<>();
+        noPriceHid = new ArrayList<>();
+        this.account = account;
+        this.password = password;
+        this.accountId = accountId;
+        this.path = "http://us.DOTWconnect.com/gateway" + version + ".dotw";
+        this.version = version;
+        boolean flag = false;
+        //读取客户端上传的文件
+        long  startTime=System.currentTimeMillis();
+        System.out.println("fileName："+file.getOriginalFilename() );
+        String path="D:/webbeds/temp/"+file.getOriginalFilename();
+
+        File newFile=new File(path);
+        //通过CommonsMultipartFile的方法直接写文件（注意这个时候）
+        try {
+            file.transferTo(newFile);
+            flag = true;
+        } catch (IOException e) {
+            flag = false;
+            e.printStackTrace();
+        }
+        long  endTime=System.currentTimeMillis();
+        System.out.println("采用file.Transto的运行时间："+String.valueOf(endTime-startTime)+"ms");
+
+        try {
+            //根据上传的excel文件获取酒店ID的list
+            List<String> list = excel2String(path);
+            System.out.println("共计" + list.size() + "条数据");
+            //多线程初次询价
+            List<List<String>> listThread = splitListString(list,1000);
+            CountDownLatch latch = new CountDownLatch(listThread.size());
+            //多线程询价，第一次询价
+            for(List<String> listTemp : listThread){
+                SearchPriceByHidThread searchPriceByHidThread = new SearchPriceByHidThread(listTemp,this,"first",latch);
+                Thread t = new Thread(searchPriceByHidThread);
+                t.start();
+            }
+
+            try {
+                latch.await();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            log.info("第一次询价执行询价结束");
+            //第二次询价，逻辑：从当前日期向后询30天
+            List<List<String>> listThreadSecond = splitListString(noPriceHid,1000);
+            CountDownLatch latchSecond = new CountDownLatch(listThreadSecond.size());
+            for(List<String> listTemp : listThreadSecond){
+                SearchPriceByHidThread searchPriceByHidThread = new SearchPriceByHidThread(listTemp,this,"second",latchSecond);
+                Thread t = new Thread(searchPriceByHidThread);
+                t.start();
+            }
+
+            try {
+                latchSecond.await();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            log.info("第二次询价执行询价结束");
+            flag = true;
+        } catch (Exception e) {
+            flag = false;
+            e.printStackTrace();
+        }
+
+        //根据list生成report
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        String date = sdf.format(new Date());
+        JSONToExcel(havePriceHotel,"havePriceHotelAccount--" + account + date);
+        JSONToExcel(noPriceHotel,"noPriceHotelAccount--" + account + date);
+        return flag;
+    }
+
+    //根据Hid有价查询方法(初步查询，当前日期后30，60,90天是否有价)
+    public void searchHotelPriceByHid(List<String> list,Integer day){
+        List<List<String>> listThread = splitListString(list,30);
+        int count = 0;
+        for(int i = 0; i < listThread.size(); i++){
+            firstSearchPriceByHidMethod(listThread.get(i),new ArrayList<>(),day);
+        }
+
+    }
+
+    //根据Hid有价查询方法(第二次查询，当前日期10天后的30个自然日里是否有价)
+    public void searchHotelPriceByHidSecond(List<String> list){
+        List<List<String>> listThread = splitListString(list,30);
+        int count = 0;
+        for(int i = 0; i < listThread.size(); i++){
+            secondSearchPriceByHidMethod(listThread.get(i),new ArrayList<>(),10);
+        }
+
+    }
+
+    //初次询价方法，可递归(根据Hid)
+    public void firstSearchPriceByHidMethod(List<String> list,List<String> listHavePrice,Integer day){
+        int count = 0;
+        String fromDate = "";
+        String toDate = "";
+        JSONObject jsonObject = null;
+        //查询30天是否有价
+        fromDate = dateFormat(day);
+        toDate = dateFormat(day + 1);
+        jsonObject = dotw_interface_util.getPriceInDotwByHotelIdAndAccount(list,fromDate,toDate,account,password,accountId,path);
+
+        if(version.equals("V3")){
+            count = Integer.valueOf(jsonObject.getJSONObject("hotels").getString("@count"));
+            if(count > 0){
+                //如果查询条目=1只有一条，>1则有多条，一条用object多条用array
+                if(count == 1){
+                    //找到有价酒店并添加入库
+                    JSONObject jsonObjectTemp = jsonObject.getJSONObject("hotels").getJSONObject("hotel");
+                    //在集合中删除有价酒店并继续后续询价
+                    for(int i = 0; i < list.size(); i++){
+                        boolean flag = true;
+                        for(int j = 0; j < listHavePrice.size(); j++){
+                            if(list.get(i).equals(listHavePrice.get(j))){
+                                flag = false;
+                                break;
+                            }
+                        }
+                        if(list.get(i).equals(jsonObjectTemp.getString("@hotelid")) && flag){
+                            log.warn("酒店编号：" + list.get(i) + "在第" + day + "天有价格");
+                            listHavePrice.add(list.get(i));
+                            havePriceHotel.add(jsonObjectTemp);
+//                        fliggy_hotel_infoService.updateHavePrice(fliggy_hotel_info);
+                        }
+                    }
+                }else{
+                    JSONArray jsonArray = jsonObject.getJSONObject("hotels").getJSONArray("hotel");
+                    for(int i = 0; i < jsonArray.size(); i++){
+                        JSONObject jsonObjectTemp = jsonArray.getJSONObject(i);
+                        //在集合中删除有价酒店并继续后续询价
+                        for(int j = 0; j < list.size(); j++){
+                            boolean flag = true;
+                            for(int k = 0; k < listHavePrice.size(); k++){
+                                if(list.get(j).equals(listHavePrice.get(k))){
+                                    flag = false;
+                                    break;
+                                }
+                            }
+                            if(list.get(j).equals(jsonObjectTemp.getString("@hotelid")) && flag){
+                                log.warn("酒店编号：" + list.get(j) + "在第" + day + "天有价格");
+                                listHavePrice.add(list.get(j));
+                                havePriceHotel.add(jsonObjectTemp);
+//                            fliggy_hotel_infoService.updateHavePrice(fliggy_hotel_info);
+                            }
+                        }
+                    }
+                }
+            }
+
+            Integer dayTemp = day + 30;
+            //删选出无价酒店列表继续查询60天是否有价,递归查询
+            if(dayTemp <= 90){
+                firstSearchPriceByHidMethod(list,listHavePrice,dayTemp);
+            }else{
+                for(String fliggy_hotel_infoTemp : list){
+                    boolean flag = true;
+                    for(String fliggy_hotel_infoTempHavePrice : listHavePrice){
+                        if(fliggy_hotel_infoTempHavePrice.equals(fliggy_hotel_infoTemp)){
+                            flag = false;
+                            break;
+                        }
+                    }
+                    if(flag){
+                        log.warn("酒店编号：" + fliggy_hotel_infoTemp + "第一轮询价完毕未找到有效价格");
+//                    JSONObject jsonObject1 = JSON.parseObject("{\"hotelid\":" + fliggy_hotel_infoTemp + "}");
+//                    noPriceHotel.add(jsonObject1);
+                        if(!fliggy_hotel_infoTemp.equals("")){
+                            noPriceHid.add(fliggy_hotel_infoTemp);
+                        }
+//                   fliggy_hotel_infoService.updateHavePrice(fliggy_hotel_infoTemp);
+                    }
+                }
+            }
+        }
+    }
+
+    //第二次询价方法，可递归(根据Hid)
+    public void secondSearchPriceByHidMethod(List<String> list,List<String> listHavePrice,Integer day){
+        int count = 0;
+        String fromDate = "";
+        String toDate = "";
+        JSONObject jsonObject = null;
+        //查询30天是否有价
+        fromDate = dateFormat(day);
+        toDate = dateFormat(day + 1);
+        jsonObject = dotw_interface_util.getPriceInDotwByHotelIdAndAccount(list,fromDate,toDate,account,password,accountId,path);
+        if(version.equals("V3")){
+            count = Integer.valueOf(jsonObject.getJSONObject("hotels").getString("@count"));
+            if(count > 0){
+                //如果查询条目=1只有一条，>1则有多条，一条用object多条用array
+                if(count == 1){
+                    //找到有价酒店并添加入库
+                    JSONObject jsonObjectTemp = jsonObject.getJSONObject("hotels").getJSONObject("hotel");
+                    //在集合中删除有价酒店并继续后续询价
+                    for(int i = 0; i < list.size(); i++){
+                        boolean flag = true;
+                        for(int j = 0; j < listHavePrice.size(); j++){
+                            if(list.get(i).equals(listHavePrice.get(j))){
+                                flag = false;
+                                break;
+                            }
+                        }
+                        if(list.get(i).equals(jsonObjectTemp.getString("@hotelid")) && flag){
+                            log.warn("酒店编号：" + list.get(i) + "在第" + day + "天有价格");
+                            listHavePrice.add(list.get(i));
+                            havePriceHotel.add(jsonObjectTemp);
+//                        fliggy_hotel_infoService.updateHavePrice(fliggy_hotel_info);
+                        }
+                    }
+                }else{
+                    JSONArray jsonArray = jsonObject.getJSONObject("hotels").getJSONArray("hotel");
+                    for(int i = 0; i < jsonArray.size(); i++){
+                        JSONObject jsonObjectTemp = jsonArray.getJSONObject(i);
+                        //在集合中删除有价酒店并继续后续询价
+                        for(int j = 0; j < list.size(); j++){
+                            boolean flag = true;
+                            for(int k = 0; k < listHavePrice.size(); k++){
+                                if(list.get(j).equals(listHavePrice.get(k))){
+                                    flag = false;
+                                    break;
+                                }
+                            }
+                            if(list.get(j).equals(jsonObjectTemp.getString("@hotelid")) && flag){
+                                log.warn("酒店编号：" + list.get(j) + "在第" + day + "天有价格");
+                                listHavePrice.add(list.get(j));
+                                havePriceHotel.add(jsonObjectTemp);
+//                            fliggy_hotel_infoService.updateHavePrice(fliggy_hotel_info);
+                            }
+                        }
+                    }
+                }
+            }
+
+            Integer dayTemp = day + 1;
+            //删选出无价酒店列表继续查询60天是否有价,递归查询
+            if(dayTemp <= 40){
+                secondSearchPriceByHidMethod(list,listHavePrice,dayTemp);
+            }else{
+                for(String fliggy_hotel_infoTemp : list){
+                    boolean flag = true;
+                    for(String fliggy_hotel_infoTempHavePrice : listHavePrice){
+                        if(fliggy_hotel_infoTempHavePrice.equals(fliggy_hotel_infoTemp)){
+                            flag = false;
+                            break;
+                        }
+                    }
+                    if(flag){
+                        log.warn("酒店编号：" + fliggy_hotel_infoTemp + "在90天内未找到有效价格");
+//                    noPriceHotel.add("酒店编号：" + fliggy_hotel_infoTemp + "在90天内没价格。");
+                        JSONObject jsonObject1 = JSON.parseObject("{\"hotelid\":" + fliggy_hotel_infoTemp + "}");
+                        noPriceHotel.add(jsonObject1);
+//                    noPriceHid.add(fliggy_hotel_infoTemp);
+//                   fliggy_hotel_infoService.updateHavePrice(fliggy_hotel_infoTemp);
+                    }
+                }
+            }
         }
     }
 

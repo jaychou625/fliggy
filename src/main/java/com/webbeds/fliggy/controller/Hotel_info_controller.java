@@ -236,11 +236,7 @@ public class Hotel_info_controller {
      */
     @RequestMapping("/testMethod")
     public void testMethod(){
-        List<Fliggy_hotel_info> list = fliggy_hotel_infoService.searchAllHotel();
-        List<List<Fliggy_hotel_info>> listThread = common.splitList(list,300);
-        for(List<Fliggy_hotel_info> listTemp : listThread){
-            common.searchHotelPriceTemp(listTemp,30);
-        }
+       JSONObject json = fliggy_interface_util.xHotelSearch("28744");
     }
 
 

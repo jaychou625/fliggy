@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head xmlns:th="http://www.thymeleaf.org" th:fragment="resources">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=
@@ -15,10 +15,22 @@
         报表生成页面
     </h1>
     <div class="text-center" style="margin-top: 30px;">
-        <a href="/downloadExcelReport?diarycontent=havePriceHotel" + ${account} id="hotel" class="btn btn-primary btn-lg">点我下载该批次有价酒店报表</a>
+        <a th:href="'/downloadExcelReport?diarycontent=havePriceHotelJustOneDayAccount--' + ${account} + '--searchDate--' + ${date} + '--From-' + ${fromDate} + 'To-' + ${toDate}" class="btn btn-primary btn-lg">点我下载该批次有价酒店报表</a>
     </div>
     <div class="text-center" style="margin-top: 30px;">
-        <a href="/downloadExcelReport?diarycontent=noPriceHotel" id="roomType" class="btn btn-primary btn-lg">点我下载该批次无价酒店报表</a>
+        <a th:href="'/downloadExcelReport?diarycontent=noPriceHotelJustOneDayAccount--' + ${account} + '--searchDate--' + ${date} + '--From-' + ${fromDate} + 'To-' + ${toDate}" class="btn btn-primary btn-lg">点我下载该批次无价酒店报表</a>
+    </div>
+    <div class="text-center" style="margin-top: 30px;">
+        <a th:href="'/downloadExcelReport?diarycontent=havePriceHotelPerDayAccount--' + ${account} + '--searchDate--' + ${date} + '--From-' + ${fromDate} + 'To-' + ${toDate}"  class="btn btn-primary btn-lg">点我下载该批次连住（分段每天）有价酒店报表</a>
+    </div>
+    <div class="text-center" style="margin-top: 30px;">
+        <a th:href="'/downloadExcelReport?diarycontent=noPriceHotelPerDayAccount--' + ${account} + '--searchDate--' + ${date} + '--From-' + ${fromDate} + 'To-' + ${toDate}"  class="btn btn-primary btn-lg">点我下载该批次连住（分段每天）无价酒店报表</a>
+    </div>
+    <div class="text-center" style="margin-top: 30px;">
+        <a th:href="'/downloadExcelReport?diarycontent=havePriceHotelEvenDayAccount--' + ${account} + '--searchDate--' + ${date} + '--From-' + ${fromDate} + 'To-' + ${toDate}"  class="btn btn-primary btn-lg">点我下载该批次连住（连住）有价酒店报表</a>
+    </div>
+    <div class="text-center" style="margin-top: 30px;">
+        <a th:href="'/downloadExcelReport?diarycontent=noPriceHotelEvenDayAccount--' + ${account} + '--searchDate--' + ${date} + '--From-' + ${fromDate} + 'To-' + ${toDate}"  class="btn btn-primary btn-lg">点我下载该批次连住（连住）无价酒店报表</a>
     </div>
 </body>
 </html>

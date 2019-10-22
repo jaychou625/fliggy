@@ -1,22 +1,212 @@
 {
-  "@tID": "1570525708105498",
-  "request": {
-    "error": {
-      "code": "26",
-      "postXml": "<?xml version='1.0' encoding='UTF-8'?><customer>    <username>AlitripXML</username>    <password>CD84D683CC5612C69EFE115C80D0B7DC</password>    <id>1494305</id>  <source>1</source>  <product>hotel</product>  <request defaultnamespace='true' command='searchhotels'>    <bookingDetails>      <fromDate>2019-12-07</fromDate>      <toDate>2019-12-08</toDate>      <currency>520</currency>      <rooms no='1'>        <room runno='0'>          <adultsCode>2</adultsCode>          <children no='0'></children>          <rateBasis>-1</rateBasis>          <passengerNationality>168</passengerNationality>          <passengerCountryOfResidence>168</passengerCountryOfResidence>        </room>      </rooms>    </bookingDetails>    <return>      <filters xmlns:a='http://us.dotwconnect.com/xsd/atomicCondition' xmlns:c='http://us.dotwconnect.com/xsd/complexCondition'>        <!--<city>22594</city>-->        <!--Country>171</Country-->        <!--rateTypes>              <rateType>3</rateType>        </rateTypes-->         <c:condition>          <a:condition>            <fieldName>onRequest</fieldName>            <fieldTest>equals</fieldTest>            <fieldValues>              <fieldValue>1</fieldValue>            </fieldValues>          </a:condition>          <operator>AND</operator>          <a:condition>            <fieldName>hotelId</fieldName>            <fieldTest>in</fieldTest>            <fieldValues>            </fieldValues>          </a:condition>        </c:condition>      </filters>    </return>  </request></customer>",
-      "details": "XML request NOT XSD VALID",
-      "extraDetails": {
-        "xsd_error": {
-          "error_message": "Element 'fieldValues': Missing child element(s). Expected is ( fieldValue ).",
-          "@file": "searchhotels.xsd"
-        }
+  "@count": "1",
+  "room": {
+    "@count": "1",
+    "@adults": "2",
+    "@children": "0",
+    "@extrabeds": "0",
+    "roomType": {
+      "specials": {
+        "@count": "0"
+      },
+      "rateBases": {
+        "@count": "2",
+        "rateBasis": [
+          {
+            "@allNights": "1",
+            "cancellationRules": {
+              "@count": "4",
+              "rule": [
+                {
+                  "toDate": "2019-10-16 11:59:59",
+                  "toDateDetails": "Wed, 16 Oct 2019 11:59:59",
+                  "amendCharge": {
+                    "#text": "0",
+                    "formatted": "0.00"
+                  },
+                  "cancelCharge": {
+                    "#text": "0",
+                    "formatted": "0.00"
+                  },
+                  "@runno": "0"
+                },
+                {
+                  "fromDate": "2019-10-16 12:00:00",
+                  "toDate": "2019-10-17 05:59:59",
+                  "toDateDetails": "Thu, 17 Oct 2019 05:59:59",
+                  "amendCharge": {
+                    "#text": "71.1646",
+                    "formatted": "71.16"
+                  },
+                  "fromDateDetails": "Wed, 16 Oct 2019 12:00:00",
+                  "cancelCharge": {
+                    "#text": "71.1646",
+                    "formatted": "71.16"
+                  },
+                  "@runno": "1"
+                },
+                {
+                  "fromDate": "2019-10-17 06:00:00",
+                  "cancelRestricted": "true",
+                  "amendRestricted": "true",
+                  "fromDateDetails": "Thu, 17 Oct 2019 06:00:00",
+                  "@runno": "2"
+                },
+                {
+                  "charge": {
+                    "#text": "71.1646",
+                    "formatted": "71.16"
+                  },
+                  "noShowPolicy": "true",
+                  "@runno": "3"
+                }
+              ]
+            },
+            "@description": "Breakfast",
+            "minStay": [],
+            "dateApplyMinStay": [],
+            "onRequest": "0",
+            "allowsSpecialRequests": "true",
+            "allowsBeddingPreference": "true",
+            "withinCancellationDeadline": "no",
+            "dates": {
+              "date": {
+                "@day": "17 Oct 2019",
+                "including": {
+                  "includedMeal": {
+                    "mealType": {
+                      "#text": "Breakfast",
+                      "@code": "1331"
+                    },
+                    "mealName": "Breakfast",
+                    "@runno": "0"
+                  },
+                  "@count": "1"
+                },
+                "price": {
+                  "#text": "71.1646",
+                  "formatted": "71.16"
+                },
+                "@wday": "Thu",
+                "freeStay": "no",
+                "dayOnRequest": "0",
+                "@datetime": "2019-10-17",
+                "@runno": "0"
+              },
+              "@count": "1"
+            },
+            "allowsExtraMeals": "true",
+            "tariffNotes": "Rate Notes:Hotel Tariff Notes:No show and early departure will be subjected to 100% charge. No date, name and room change allowed.Bookings including children will be based on sharing parents bedding, no separate bed for children is provided unless otherwise stated.",
+            "rateType": {
+              "@currencyid": "520",
+              "@description": "",
+              "#text": "1",
+              "@currencyshort": "USD"
+            },
+            "passengerNamesRequiredForBooking": "1",
+            "total": {
+              "#text": "71.1646",
+              "formatted": "71.16"
+            },
+            "isBookable": "yes",
+            "leftToSell": "5",
+            "@id": "1331",
+            "allocationDetails": "1571194322001129B1000B0",
+            "@runno": "0",
+            "status": "unchecked"
+          },
+          {
+            "@allNights": "1",
+            "cancellationRules": {
+              "@count": "2",
+              "rule": [
+                {
+                  "fromDate": "2019-10-16 02:52:02",
+                  "cancelRestricted": "true",
+                  "amendRestricted": "true",
+                  "fromDateDetails": "Wed, 16 Oct 2019 02:52:02",
+                  "@runno": "0"
+                },
+                {
+                  "charge": {
+                    "#text": "65.2342",
+                    "formatted": "65.23"
+                  },
+                  "noShowPolicy": "true",
+                  "@runno": "1"
+                }
+              ]
+            },
+            "@description": "Breakfast",
+            "minStay": [],
+            "dateApplyMinStay": [],
+            "onRequest": "0",
+            "allowsSpecialRequests": "true",
+            "allowsBeddingPreference": "true",
+            "withinCancellationDeadline": "yes",
+            "dates": {
+              "date": {
+                "@day": "17 Oct 2019",
+                "including": {
+                  "includedMeal": {
+                    "mealType": {
+                      "#text": "Breakfast",
+                      "@code": "1331"
+                    },
+                    "mealName": "Breakfast",
+                    "@runno": "0"
+                  },
+                  "@count": "1"
+                },
+                "price": {
+                  "#text": "65.2342",
+                  "formatted": "65.23"
+                },
+                "@wday": "Thu",
+                "freeStay": "no",
+                "dayOnRequest": "0",
+                "@datetime": "2019-10-17",
+                "@runno": "0"
+              },
+              "@count": "1"
+            },
+            "allowsExtraMeals": "true",
+            "tariffNotes": "Rate Notes:Hotel Tariff Notes:No show and early departure will be subjected to 100% charge. No date, name and room change allowed.Bookings including children will be based on sharing parents bedding, no separate bed for children is provided unless otherwise stated.",
+            "rateType": {
+              "@currencyid": "520",
+              "@description": "",
+              "#text": "1",
+              "@currencyshort": "USD"
+            },
+            "passengerNamesRequiredForBooking": "1",
+            "total": {
+              "#text": "65.2342",
+              "formatted": "65.23"
+            },
+            "isBookable": "yes",
+            "leftToSell": "5",
+            "@id": "1331",
+            "allocationDetails": "1571194322001129B1000B1",
+            "@runno": "1",
+            "status": "unchecked"
+          }
+        ]
+      },
+      "name": "Standart Room",
+      "@roomtypecode": "6618035",
+      "twin": "no",
+      "@runno": "0",
+      "roomInfo": {
+        "maxAdult": "3",
+        "maxAdultWithChildren": "2",
+        "maxOccupancy": "3",
+        "maxChildAge": "12",
+        "minChildAge": "0",
+        "maxExtraBed": "0",
+        "maxChildren": "1"
       }
     },
-    "successful": "FALSE"
-  },
-  "@ip": "180.169.247.254",
-  "@version": "3.0",
-  "@elapsedTime": "0.0041329860687256",
-  "@command": "searchhotels",
-  "@date": "2019-10-08 09:08:28"
+    "@runno": "0",
+    "@childrenages": ""
+  }
 }

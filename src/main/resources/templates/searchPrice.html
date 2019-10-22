@@ -7,8 +7,12 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>main</title>
     <link rel="stylesheet" th:href="@{/static/css/bootstrap.css}">
+    <link rel="stylesheet" th:href="@{/static/js/skin/WdatePicker.css}">
+    <link rel="stylesheet" th:href="@{/static/js/skin/default/datepicker.css}">
     <script th:src="@{/static/js/jquery-1.9.1.js}" type="text/javascript"></script>
     <script th:src="@{/static/js/bootstrap.js}" type="text/javascript"></script>
+    <script th:src="@{/static/js/wdatePicker.js}" type="text/javascript"></script>
+    <script th:src="@{/static/js/lang/zh-cn.js}" type="text/javascript"></script>
     <style>
         #loading{
             display: none;
@@ -59,6 +63,13 @@
         </select>
     </div>
     <div class="form-group">
+        <label>选择要查询的日期范围</label>
+        FROM:
+        <input name="fromDate" id="fromDate" class="form-control fromDate" placeholder="check-in" style="width: 30%; display: inline-block;">
+        TO:
+        <input name="toDate" id="toDate" class="form-control toDate" placeholder="check-out" style="width: 30%; display: inline-block;">
+    </div>
+    <div class="form-group">
         <input id="submit" type="submit" class="btn btn-primary btn-lg" style="width: 100%" />
     </div>
 
@@ -73,6 +84,44 @@
         //     console.log(11111);
         //     $("#loading").css("display","flex")
         // })
+        var fromDate = "";
+        $(".fromDate").click(function(){
+            WdatePicker({
+                el:this,
+                dateFmt:'yyyy-MM-dd',
+                minDate:"%y-%M-%d",
+                onpicked:function(){
+                    fromDate = new Date($(".fromDate").val());
+                    fromDate = fromDate.getTime() + 1000*60*60*24;
+                    fromDate = new Date(fromDate);
+                    fromDate = fromDate.getFullYear() + "-" + (fromDate.getMonth() + 1) + "-" + fromDate.getDate();
+                    $(".toDate").click();
+                }
+            })
+        });
+
+        $(".toDate").click(function(){
+            if(fromDate == ""){
+                fromDate = "%y-%M-{%d + 1}";
+            }
+            WdatePicker({
+                el:this,
+                dateFmt:'yyyy-MM-dd',
+                minDate: fromDate,
+                // onpicked:function(){
+                //     // fromDate = new Date($(".fromDate").val());
+                //     // fromDate = fromDate.getTime() + 1000*60*60*24;
+                //     // fromDate = new Date(fromDate);
+                //     // fromDate = fromDate.getFullYear() + "-" + (fromDate.getMonth() + 1) + "-" + fromDate.getDate();
+                //     // $(".toDate").click();
+                //     if($(".fromDate").val() == ""){
+                //         temp = "%y-%M-%d";
+                //         console.log(temp)
+                //         $(".fromDate").val(temp);
+                //     }
+                // }
+            })
+        });
 
         $("#form").submit(function(){
             var flag = false;
@@ -112,6 +161,26 @@
             }else{
                 alert("请填写companyCode");
                 $("#accountId").focus();
+                flag = false;
+                return false;
+            }
+
+            // 非空验证
+            if($("#fromDate").val() != "" ){
+                flag = true;
+            }else{
+                alert("请填写checkIn日期");
+                $("#fromDate").focus();
+                flag = false;
+                return false;
+            }
+
+            // 非空验证
+            if($("#toDate").val() != "" ){
+                flag = true;
+            }else{
+                alert("请填写checkIn日期");
+                $("#toDate").focus();
                 flag = false;
                 return false;
             }

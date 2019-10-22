@@ -19,7 +19,8 @@ spring:
     suffix: .html
 
   resources:
-    static-locations: classpath:/templates/,classpath:/META-INF/resources/,classpath:/resources/,classpath:/static/,classpath:/public/
+    static-locations: classpath:/META-INF/resources/,classpath:/resources/,classpath:/static/,classpath:/public/
+#    static-locations: classpath:/templates/,classpath:/META-INF/resources/,classpath:/resources/,classpath:/static/,classpath:/public/
 
   #  redis:
 #    host: localhost
@@ -53,7 +54,7 @@ spring:
     password: root
   mvc:
 #    static-path-pattern: classpath:/static/js/,classpath:/templates/,classpath:/static/css/
-    static-path-pattern: /templates/**,classpath:/static/js/,classpath:/static/css/
+    static-path-pattern: /templates/**,classpath:/static/js/**,classpath:/static/css/**
 #    druid:
 #      filter: stat
 #      initial-size: 10

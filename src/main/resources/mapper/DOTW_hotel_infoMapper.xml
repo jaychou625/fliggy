@@ -51,4 +51,9 @@
         where hotelCode = #{hid}
     </update>
 
+    <select id="searchFullHotelByHid" resultType="java.lang.String">
+        select hotelName from dotw_fit_all_hotel
+        where hotelCode = #{hid}
+    </select>
+
 </mapper>

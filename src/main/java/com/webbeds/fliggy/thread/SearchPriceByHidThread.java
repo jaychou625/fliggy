@@ -1,7 +1,9 @@
 package com.webbeds.fliggy.thread;
 
 import com.webbeds.fliggy.entity.Fliggy_hotel_info;
+import com.webbeds.fliggy.entity.search_dotw.Search_info;
 import com.webbeds.fliggy.utils.Common;
+import com.webbeds.fliggy.utils.searchUtils.SearchUtils;
 
 import java.util.Date;
 import java.util.List;
@@ -10,24 +12,26 @@ import java.util.concurrent.CountDownLatch;
 public class SearchPriceByHidThread implements Runnable {
 
     public List<String> list;
-    public Common common;
+    public SearchUtils searchUtils;
     public String mark;
     public CountDownLatch latch;
+    public Search_info search_info;
 
-    public SearchPriceByHidThread(List<String> list, Common common, String mark, CountDownLatch latch){
+    public SearchPriceByHidThread(List<String> list, SearchUtils searchUtils, String mark, CountDownLatch latch, Search_info search_info){
         this.list = list;
-        this.common = common;
+        this.searchUtils = searchUtils;
         this.mark = mark;
         this.latch = latch;
+        this.search_info = search_info;
     }
     @Override
     public void run() {
         Long start = new Date().getTime();
         try {
            if(mark.equals("first")){
-                common.searchHotelPriceByHid(list,30);
+               searchUtils.searchHotelPriceByHid(list,search_info);
             }else if(mark.equals("second")){
-               common.searchHotelPriceByHidSecond(list);
+               searchUtils.searchHotelPriceByHidFullDay(list,search_info);
            }
         }catch (Exception e){
             e.printStackTrace();

@@ -482,7 +482,7 @@ public class DOTW_interface_util {
                 "    </bookingDetails>\n" +
                 "    <return>\n");
                 if(path.indexOf("V3") != -1){
-                    sb.append("<getRooms>true</getRooms>");
+                    sb.append("      <getRooms>true</getRooms>\n");
                 }
                 sb.append("      <filters xmlns:a='http://us.dotwconnect.com/xsd/atomicCondition' xmlns:c='http://us.dotwconnect.com/xsd/complexCondition'>\n" +
                         "        <!--<city>22594</city>-->\n" +

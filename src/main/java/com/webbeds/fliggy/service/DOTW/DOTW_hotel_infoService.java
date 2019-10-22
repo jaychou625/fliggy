@@ -69,4 +69,11 @@ public class DOTW_hotel_infoService {
         return dotw_hotel_infoMapper.updateIsUpdate(hid,state);
     }
 
+    /**
+     * 根据酒店id查询全局酒店
+     */
+    public String searchFullHotelByHid(String hid){
+        return dotw_hotel_infoMapper.searchFullHotelByHid(hid);
+    }
+
 }

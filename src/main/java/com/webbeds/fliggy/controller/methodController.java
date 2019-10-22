@@ -3,6 +3,7 @@ package com.webbeds.fliggy.controller;
 import com.webbeds.fliggy.entity.DOTW_hotel_info;
 import com.webbeds.fliggy.service.DOTW.DOTW_hotel_infoService;
 import com.webbeds.fliggy.utils.Common;
+import com.webbeds.fliggy.utils.searchUtils.SearchUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
@@ -17,6 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -35,6 +37,9 @@ public class methodController {
 
     @Autowired
     Hotel_info_controller hotel_info_controller;
+
+    @Autowired
+    SearchUtils searchUtils;
 
     /**
      * 提交dotw酒店信息链接方法
@@ -151,12 +156,17 @@ public class methodController {
      * @return
      */
     @RequestMapping("/searchPriceByHid")
-    public ModelAndView searchPriceByHid(@RequestParam("file") MultipartFile file,@RequestParam("account") String account,@RequestParam("password") String password,@RequestParam("accountId") String accountId,@RequestParam("version") String version) {
+    public ModelAndView searchPriceByHid(@RequestParam("file") MultipartFile file,@RequestParam("account") String account,@RequestParam("password") String password,@RequestParam("accountId") String accountId,@RequestParam("version") String version,@RequestParam("fromDate") String fromDate,@RequestParam("toDate") String toDate) {
         boolean flag = false;
         ModelAndView modelAndView = new ModelAndView();
-        flag = common.searchPriceByHidOprate(file,account,password,accountId,version);
+        flag = searchUtils.searchPriceByHidOprate(file,account,password,accountId,version,fromDate,toDate);
         if(flag){
             modelAndView.addObject("account",account);
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            String date = sdf.format(new Date());
+            modelAndView.addObject("date",date);
+            modelAndView.addObject("fromDate",fromDate);
+            modelAndView.addObject("toDate",toDate);
             modelAndView.setViewName("/downLoadPriceInfo");
         }else{
             modelAndView.setViewName("/insertError");

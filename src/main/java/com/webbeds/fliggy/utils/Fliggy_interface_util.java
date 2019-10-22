@@ -40,6 +40,15 @@ public class Fliggy_interface_util {
     //sessionKey
     private final String sessionKeyS = "61028252845fcd5ace28881ff5ee2301313dcfa6f6456423686530402";
 
+    //沙箱接口调用地址
+    private final String urlS2 = "http://gw.api.tbsandbox.com/router/rest";
+    //appkey
+    private final String appkeyS2 = "1024713184";
+    //secret
+    private final String secretS2 = "sandbox88edd90e462a79ed5cdbf2154";
+    //sessionKey
+    private final String sessionKeyS2 = "6101202c1d1d06f080e67019948c9145cb00d93064f83f365753805";
+
 
     /**
      * 根据酒店经纬度添加酒店位置信息

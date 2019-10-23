@@ -151,7 +151,7 @@ public class methodController {
     }
 
     /**
-     * 提交dotw酒店信息链接方法
+     * 酒店查价专用方法
      * @param file
      * @return
      */

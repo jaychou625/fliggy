@@ -176,11 +176,15 @@ public class Common {
         return cityId;
     }
 
-    //将JSON对象转换成excel并输出
+    /**
+     * 将JSON对象转换成excel并输出,2003版本，最多支持65535条单表数据
+     */
     public void JSONToExcel(List<JSONObject> list,String fileName){
         Set<String> keys = null;
         // 创建HSSFWorkbook对象
         HSSFWorkbook wb = new HSSFWorkbook();
+        int size = list.size();
+
         // 创建HSSFSheet对象
         HSSFSheet sheet = wb.createSheet("sheet0");
 
@@ -212,13 +216,6 @@ public class Common {
                             cell.setCellValue(jsonObject.getString(s));
                         }
                     }
-                }else{
-                    String hid = jsonObject.getString("hotel_id");
-                    if(hid != null){
-                        System.out.println("当前行为空："  + hid);
-                    }else{
-                        System.out.println("当前行为空一无所有");
-                    }
                 }
             }
             rowNo = 0;
@@ -229,6 +226,67 @@ public class Common {
         FileOutputStream output = null;
         try {
             output = new FileOutputStream("d://search-report/" + fileName + ".xls");
+            wb.write(output);
+            wb.close();
+            output.flush();
+            output.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 将JSON对象转换成excel并输出,2007版本，最多支持100W条单表数据
+     */
+    public void JSONToExcel2007(List<JSONObject> list,String fileName){
+        Set<String> keys = null;
+        // 创建HSSFWorkbook对象
+        XSSFWorkbook wb = new XSSFWorkbook();
+        int size = list.size();
+
+        // 创建HSSFSheet对象
+        XSSFSheet sheet = wb.createSheet("sheet0");
+
+        String str = null;
+        int roleNo = 0;
+        int rowNo = 0;
+        for (JSONObject jsonObject : list) {
+            // 创建HSSFRow对象
+            XSSFRow row = sheet.createRow(roleNo++);
+            // 创建HSSFCell对象
+            if (keys == null) {
+                //标题
+                keys = jsonObject.keySet();
+                for (String s : keys) {
+                    XSSFCell cell = row.createCell(rowNo++);
+                    cell.setCellValue(s);
+                }
+                rowNo = 0;
+                row = sheet.createRow(roleNo++);
+            }
+
+            for (String s : keys) {
+                XSSFCell cell = row.createCell(rowNo++);
+                if(s != null && jsonObject != null){
+                    if(jsonObject.getString(s) != null){
+                        if(jsonObject.getString(s).length() > 32000){
+                            cell.setCellValue(jsonObject.getString(s).substring(0,32000));
+                        }else{
+                            cell.setCellValue(jsonObject.getString(s));
+                        }
+                    }
+                }
+            }
+            rowNo = 0;
+
+        }
+
+        // 输出Excel文件
+        FileOutputStream output = null;
+        try {
+            output = new FileOutputStream("d://search-report/" + fileName + ".xlsx");
             wb.write(output);
             wb.close();
             output.flush();

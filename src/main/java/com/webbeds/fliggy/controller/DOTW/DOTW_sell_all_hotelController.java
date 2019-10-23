@@ -35,7 +35,13 @@ public class DOTW_sell_all_hotelController {
     @RequestMapping(value = "/notEmptyOprate",params = "state",method = RequestMethod.GET)
     public List<JSONObject> notEmptyOprate(String state){
         Long start = new Date().getTime();
-        List<String> list = dotw_sell_all_hotelService.findAllHotelByState(state);
+//        List<String> list = dotw_sell_all_hotelService.findAllHotelByState(state);
+        List<String> list = null;
+        try {
+            list = common.excel2String("C:\\工作簿2.xlsx");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         List<JSONObject> listJSON = dotwHotelTask.oprate(list,state);
 
         common.JSONToExcel(listJSON,state);

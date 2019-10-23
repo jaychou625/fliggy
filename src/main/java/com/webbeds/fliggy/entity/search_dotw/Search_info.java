@@ -40,4 +40,6 @@ public class Search_info {
     String toDate;
     @Getter @Setter
     List<String> mark;//用于标记需要删除的酒店id
+    @Getter @Setter
+    Integer requestCount;//记录请求数量
 }

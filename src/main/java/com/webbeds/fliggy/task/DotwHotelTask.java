@@ -416,6 +416,7 @@ public class DotwHotelTask {
      */
     private Fliggy_roomType_info getRoomInfoByJSONObject(JSONObject jsonObject, String hid){
         Fliggy_roomType_info fliggy_roomType_info = new Fliggy_roomType_info();
+        fliggy_roomType_info.setVendor("DOTW");
         fliggy_roomType_info.setOut_hid(hid);
         fliggy_roomType_info.setOuter_id(jsonObject.getString("@roomtypecode"));
         fliggy_roomType_info.setName(jsonObject.getString("name"));

@@ -21,7 +21,7 @@ public class Fliggy_roomType_info {
     @Getter @Setter private String window_type;
     @Getter @Setter private String srid;
     @Getter @Setter private String out_hid;
-    @Getter @Setter private String vendor = "DOTW";
+    @Getter @Setter private String vendor;
     @Getter @Setter private String pics;
     @Getter @Setter private String name_e;
     @Getter @Setter private String operator;

@@ -75,6 +75,8 @@ public class SearchUtils {
      * @return
      */
     public boolean searchPriceByHidOprate(MultipartFile file,String account,String password,String accountId,String version,String fromDate,String toDate){
+        long start = new Date().getTime();
+        long end = new Date().getTime();
         addMealMap();
         Search_info search_info = new Search_info();
         //获得有价无价酒店集合，用于输出
@@ -85,6 +87,7 @@ public class SearchUtils {
         search_info.setNoPriceHotel(new ArrayList<>());
         search_info.setHavePriceHotelFullDay(new ArrayList<>());
         search_info.setNoPriceHotelFullDay(new ArrayList<>());
+        search_info.setRequestCount(0);
         search_info.setMark(new ArrayList<>());
         search_info.setAccount(account);
         search_info.setPassword(password);
@@ -149,7 +152,8 @@ public class SearchUtils {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            log.info("第二次连查询价执行询价结束");
+            end = new Date().getTime();
+            log.info("第二次连查询价执行询价结束,共计请求次数：" + search_info.getRequestCount() + "次，请求共计用时：" + ((end - start) / 1000) + "秒");
 
             flag = true;
         } catch (Exception e) {
@@ -157,20 +161,23 @@ public class SearchUtils {
             e.printStackTrace();
         }
         //询价完毕后，删除对应的无连住房的内容
+        System.out.println("开始完善report内容");
+        start = new Date().getTime();
         for(String str : search_info.getMark()){
 //            System.out.println("未能形成连住的酒店id：" + str);
             for (int i = 0; i < search_info.getHavePriceHotel().size(); i++){
                 JSONObject obj = search_info.getHavePriceHotel().get(i);
-                if(str.equals(obj.getString("hotel_id"))){
+                if(obj.get("hotel_id") != null && str.equals(obj.getString("hotel_id"))){
                     search_info.getHavePriceHotel().remove(obj);
                 }
             }
         }
         //为没有一天有价的列表添加内容
         for(String str : list){
+            //JUSTONEDAY
             boolean noPriceJustOneDayMark = true;
             for(JSONObject obj : search_info.getHavePriceHotelJustOneDay()){
-                if(str.equals(obj.getString("hotel_id"))){
+                if(obj.get("hotel_id") != null && str.equals(obj.getString("hotel_id"))){
                     noPriceJustOneDayMark = false;
                     break;
                 }
@@ -179,23 +186,40 @@ public class SearchUtils {
                 JSONObject temp = JSON.parseObject("{\"hotel_id\":" + str + "}");
                 search_info.getNoPriceHotelJustOneDay().add(temp);
             }
-        }
 
+            //PERDAY
+            boolean noPricePerDayMark = true;
+            for(JSONObject obj : search_info.getHavePriceHotel()){
+                if(obj.get("hotel_id") != null && str.equals(obj.getString("hotel_id"))){
+                    noPricePerDayMark = false;
+                    break;
+                }
+            }
+            if(noPricePerDayMark){
+                JSONObject temp = JSON.parseObject("{\"hotel_id\":" + str + "}");
+                search_info.getNoPriceHotel().add(temp);
+            }
+        }
+        end = new Date().getTime();
+        System.out.println("完善report内容结束，开始生成report 共用时：" + ((end - start) / 1000) + "秒");
         //根据list生成report
+        start = new Date().getTime();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         String date = sdf.format(new Date());
         String fileName = "havePriceHotelJustOneDayAccount--" + account + "--searchDate--" + date + "--From-" + fromDate + "To-" + toDate;
-        common.JSONToExcel(search_info.getHavePriceHotelJustOneDay(),fileName);
+        common.JSONToExcel2007(search_info.getHavePriceHotelJustOneDay(),fileName);
         fileName = "noPriceHotelJustOneDayAccount--" + account + "--searchDate--" + date + "--From-" + fromDate + "To-" + toDate;
-        common.JSONToExcel(search_info.getNoPriceHotelJustOneDay(),fileName);
-        fileName = "havePriceHotelPerDayAccount--" + account + "--searchDate--" + date + "--From-" + fromDate + "To-" + toDate;
-        common.JSONToExcel(search_info.getHavePriceHotel(),fileName);
-        fileName = "noPriceHotelPerDayAccount--" + account + "--searchDate--" + date + "--From-" + fromDate + "To-" + toDate;
-        common.JSONToExcel(search_info.getNoPriceHotel(),fileName);
-        fileName = "havePriceHotelEvenDayAccount--" + account + "--searchDate--" + date + "--From-" + fromDate + "To-" + toDate;
-        common.JSONToExcel(search_info.getHavePriceHotelFullDay(),fileName);
-        fileName = "noPriceHotelEvenDayAccount--" + account + "--searchDate--" + date + "--From-" + fromDate + "To-" + toDate;
-        common.JSONToExcel(search_info.getNoPriceHotelFullDay(),fileName);
+        common.JSONToExcel2007(search_info.getNoPriceHotelJustOneDay(),fileName);
+//        fileName = "havePriceHotelPerDayAccount--" + account + "--searchDate--" + date + "--From-" + fromDate + "To-" + toDate;
+//        common.JSONToExcel(search_info.getHavePriceHotel(),fileName);
+//        fileName = "noPriceHotelPerDayAccount--" + account + "--searchDate--" + date + "--From-" + fromDate + "To-" + toDate;
+//        common.JSONToExcel(search_info.getNoPriceHotel(),fileName);
+//        fileName = "havePriceHotelEvenDayAccount--" + account + "--searchDate--" + date + "--From-" + fromDate + "To-" + toDate;
+//        common.JSONToExcel(search_info.getHavePriceHotelFullDay(),fileName);
+//        fileName = "noPriceHotelEvenDayAccount--" + account + "--searchDate--" + date + "--From-" + fromDate + "To-" + toDate;
+//        common.JSONToExcel(search_info.getNoPriceHotelFullDay(),fileName);
+        end = new Date().getTime();
+        System.out.println("生成report结束，共用时：" + ((end - start) / 1000) + "秒");
         return flag;
     }
 
@@ -204,7 +228,7 @@ public class SearchUtils {
         List<List<String>> listThread = new ArrayList<>();
         //单次请求dotw数量控制，目前是100个id一次查询
         if(list.size() > 1){
-            int length = list.size() >= 100 ? 100 : list.size();
+            int length = list.size() >= 50 ? 50 : list.size();
             listThread = common.splitListString(list,length);
         }else{
             listThread.add(list);
@@ -221,7 +245,7 @@ public class SearchUtils {
         List<List<String>> listThread = new ArrayList<>();
         //单次请求dotw数量控制，目前是100个id一次查询
         if(list.size() > 1){
-            int length = list.size() >= 100 ? 100 : list.size();
+            int length = list.size() >= 50 ? 50 : list.size();
             listThread = common.splitListString(list,length);
         }else{
             listThread.add(list);
@@ -341,7 +365,7 @@ public class SearchUtils {
         JSONObject jsonObject = null;
 
         jsonObject = dotw_interface_util.getPriceInDotwByHotelIdAndAccount(list,search_info.getFromDate(),search_info.getToDate(),search_info.getAccount(),search_info.getPassword(),search_info.getAccountId(),search_info.getPath());
-
+        search_info.setRequestCount(search_info.getRequestCount() + 1);
         if(search_info.getVersion().equals("V3")){
             count = Integer.valueOf(jsonObject.getJSONObject("hotels").getString("@count"));
             if(count > 0){
@@ -534,7 +558,7 @@ public class SearchUtils {
             fromDate = dateFormat(day + index,search_info.getFromDate());
             toDate = dateFormat(day + 1 + index,search_info.getFromDate());
             jsonObject = dotw_interface_util.getPriceInDotwByHotelIdAndAccount(list,fromDate,toDate,search_info.getAccount(),search_info.getPassword(),search_info.getAccountId(),search_info.getPath());
-
+            search_info.setRequestCount(search_info.getRequestCount() + 1);
             if(search_info.getVersion().equals("V3")){
                 count = Integer.valueOf(jsonObject.getJSONObject("hotels").getString("@count"));
                 if(count > 0){
@@ -651,8 +675,8 @@ public class SearchUtils {
             if(listHavePriceDays.get(indexHavePriceDays) < days){
                 String hotelId = list.get(indexHavePriceDays);
                 //增加无房酒店列表
-                JSONObject noPriceHotel = JSON.parseObject("{\"hotel_id\":" + hotelId + "}");
-                search_info.getNoPriceHotel().add(noPriceHotel);
+//                JSONObject noPriceHotel = JSON.parseObject("{\"hotel_id\":" + hotelId + "}");
+//                search_info.getNoPriceHotel().add(noPriceHotel);
 //                //删除原来有房列表信息里房屋不足天数的内容
 //                Iterator<JSONObject> iterator = search_info.getHavePriceHotel().iterator();
 //                while (iterator.hasNext()){
@@ -665,10 +689,12 @@ public class SearchUtils {
 //                List<Integer> mark = new ArrayList<>();
                 for(int indexHavePriceList = 0; indexHavePriceList < search_info.getHavePriceHotel().size();indexHavePriceList++){
                     JSONObject havePriceJSON = search_info.getHavePriceHotel().get(indexHavePriceList);
-                    if(hotelId.equals(havePriceJSON.getString("hotel_id"))){
-                        search_info.getMark().add(hotelId);
+                    if(havePriceJSON.get("hotel_id") != null){
+                        if(hotelId.equals(havePriceJSON.getString("hotel_id"))){
+                            search_info.getMark().add(hotelId);
 //                        mark.add(indexHavePriceList);
 //                        search_info.getHavePriceHotel().remove(havePriceJSON);
+                        }
                     }
                 }
 //                for(int markIndex = 0; markIndex < mark.size(); markIndex++){
@@ -831,7 +857,7 @@ public class SearchUtils {
                             room_rate.setCancel_after(rateBasesObj.getJSONObject("cancellationRules").getJSONArray("rule").getJSONObject(1).getString("fromDate"));
                         }else {
                             room_rate.setCancel_before("不可免费取消");
-                            room_rate.setCancel_after(rateBasesObj.getJSONObject("cancellationRules").getJSONArray("rule").getJSONObject(0).getString("fromDate"));
+//                            room_rate.setCancel_after(rateBasesObj.getJSONObject("cancellationRules").getJSONArray("rule").getJSONObject(0).getString("fromDate"));
                         }
 
                         room_rates.add(room_rate);
@@ -851,7 +877,7 @@ public class SearchUtils {
                         room_rate.setCancel_after(rateBasesObj.getJSONObject("cancellationRules").getJSONArray("rule").getJSONObject(1).getString("fromDate"));
                     }else {
                         room_rate.setCancel_before("不可免费取消");
-                        room_rate.setCancel_after(rateBasesObj.getJSONObject("cancellationRules").getJSONArray("rule").getJSONObject(0).getString("fromDate"));
+//                        room_rate.setCancel_after(rateBasesObj.getJSONObject("cancellationRules").getJSONArray("rule").getJSONObject(0).getString("fromDate"));
                     }
 
                     room_rates.add(room_rate);
@@ -886,7 +912,7 @@ public class SearchUtils {
                             room_rate.setCancel_after(rateBasesObj.getJSONObject("cancellationRules").getJSONArray("rule").getJSONObject(1).getString("fromDate"));
                         }else {
                             room_rate.setCancel_before("不可免费取消");
-                            room_rate.setCancel_after(rateBasesObj.getJSONObject("cancellationRules").getJSONArray("rule").getJSONObject(0).getString("fromDate"));
+//                            room_rate.setCancel_after(rateBasesObj.getJSONObject("cancellationRules").getJSONArray("rule").getJSONObject(0).getString("fromDate"));
                         }
 
                         room_rates.add(room_rate);
@@ -906,7 +932,7 @@ public class SearchUtils {
                         room_rate.setCancel_after(rateBasesObj.getJSONObject("cancellationRules").getJSONArray("rule").getJSONObject(1).getString("fromDate"));
                     }else {
                         room_rate.setCancel_before("不可免费取消");
-                        room_rate.setCancel_after(rateBasesObj.getJSONObject("cancellationRules").getJSONArray("rule").getJSONObject(0).getString("fromDate"));
+//                        room_rate.setCancel_after(rateBasesObj.getJSONObject("cancellationRules").getJSONArray("rule").getJSONObject(0).getString("fromDate"));
                     }
 
                     room_rates.add(room_rate);

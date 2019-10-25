@@ -117,6 +117,7 @@ public class SearchUtils {
             //根据上传的excel文件获取酒店ID的list
             list = common.excel2String(path);
             System.out.println("共计" + list.size() + "条数据");
+//            searchHotelPriceByHid(list,search_info);
             //多线程初次询价
             List<List<String>> listThread = new ArrayList<>();
             if(list.size() > 29){
@@ -138,22 +139,23 @@ public class SearchUtils {
                 e.printStackTrace();
             }
             log.info("第一次分段询价执行询价结束");
+            log.info("询价执行询价结束,共计请求次数：" + search_info.getRequestCount() + "次，请求共计用时：" + ((end - start) / 1000) + "秒");
 
-            CountDownLatch latchFullDay = new CountDownLatch(listThread.size());
-            //多线程询价，连住查询
-            for(List<String> listTemp : listThread){
-                SearchPriceByHidThread searchPriceByHidThread = new SearchPriceByHidThread(listTemp,this,"second",latchFullDay,search_info);
-                Thread t = new Thread(searchPriceByHidThread);
-                t.start();
-            }
-
-            try {
-                latchFullDay.await();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            end = new Date().getTime();
-            log.info("第二次连查询价执行询价结束,共计请求次数：" + search_info.getRequestCount() + "次，请求共计用时：" + ((end - start) / 1000) + "秒");
+//            CountDownLatch latchFullDay = new CountDownLatch(listThread.size());
+//            //多线程询价，连住查询
+//            for(List<String> listTemp : listThread){
+//                SearchPriceByHidThread searchPriceByHidThread = new SearchPriceByHidThread(listTemp,this,"second",latchFullDay,search_info);
+//                Thread t = new Thread(searchPriceByHidThread);
+//                t.start();
+//            }
+//
+//            try {
+//                latchFullDay.await();
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//            }
+//            end = new Date().getTime();
+//            log.info("第二次连查询价执行询价结束,共计请求次数：" + search_info.getRequestCount() + "次，请求共计用时：" + ((end - start) / 1000) + "秒");
 
             flag = true;
         } catch (Exception e) {
@@ -187,18 +189,18 @@ public class SearchUtils {
                 search_info.getNoPriceHotelJustOneDay().add(temp);
             }
 
-            //PERDAY
-            boolean noPricePerDayMark = true;
-            for(JSONObject obj : search_info.getHavePriceHotel()){
-                if(obj.get("hotel_id") != null && str.equals(obj.getString("hotel_id"))){
-                    noPricePerDayMark = false;
-                    break;
-                }
-            }
-            if(noPricePerDayMark){
-                JSONObject temp = JSON.parseObject("{\"hotel_id\":" + str + "}");
-                search_info.getNoPriceHotel().add(temp);
-            }
+//            //PERDAY
+//            boolean noPricePerDayMark = true;
+//            for(JSONObject obj : search_info.getHavePriceHotel()){
+//                if(obj.get("hotel_id") != null && str.equals(obj.getString("hotel_id"))){
+//                    noPricePerDayMark = false;
+//                    break;
+//                }
+//            }
+//            if(noPricePerDayMark){
+//                JSONObject temp = JSON.parseObject("{\"hotel_id\":" + str + "}");
+//                search_info.getNoPriceHotel().add(temp);
+//            }
         }
         end = new Date().getTime();
         System.out.println("完善report内容结束，开始生成report 共用时：" + ((end - start) / 1000) + "秒");
@@ -235,7 +237,7 @@ public class SearchUtils {
         }
         int count = 0;
         for(int i = 0; i < listThread.size(); i++){
-            searchPerDay(listThread.get(i),new ArrayList<>(),search_info,0);
+            searchJustOneDay(listThread.get(i),new ArrayList<>(),search_info,0);
         }
 
     }
@@ -524,6 +526,142 @@ public class SearchUtils {
     }
 
     /**
+     * 分段询价方法，非递归(根据Hid)，查询有价率，只要一天有价,
+     * @param list
+     * @param listHavePrice
+     * @param search_info
+     * @param day
+     */
+    public void searchJustOneDay(List<String> list,List<String> listHavePrice,Search_info search_info,Integer day){
+        //当前list有房天数集合
+        List<Integer> listHavePriceDays = new ArrayList<>();
+        //初始化
+        for(String str : list){
+            listHavePriceDays.add(0);
+        }
+        //获取共要查询多少天
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        Date d1 = null;
+        Date d2 = null;
+        try {
+            d1 = df.parse(search_info.getToDate());
+            d2 = df.parse(search_info.getFromDate());
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        long diff = d1.getTime() - d2.getTime();//这样得到的差值是毫秒级别
+        long days = diff / (1000 * 60 * 60 * 24);
+//        System.out.println("共查询：" + days + "天");
+        for(int index = 0; index < days; index++){
+            int count = 0;
+            String fromDate = "";
+            String toDate = "";
+            JSONObject jsonObject = null;
+            fromDate = dateFormat(day + index,search_info.getFromDate());
+            toDate = dateFormat(day + 1 + index,search_info.getFromDate());
+//            long start = new Date().getTime();
+            jsonObject = dotw_interface_util.getPriceInDotwByHotelIdAndAccount(list,fromDate,toDate,search_info.getAccount(),search_info.getPassword(),search_info.getAccountId(),search_info.getPath());
+//            long end = new Date().getTime();
+//            System.out.println("单次请求dotw接口耗时：" + ((end - start) / 1000) + "秒");
+            search_info.setRequestCount(search_info.getRequestCount() + 1);
+            if(search_info.getVersion().equals("V3")){
+                count = Integer.valueOf(jsonObject.getJSONObject("hotels").getString("@count"));
+                if(count > 0){
+                    //如果查询条目=1只有一条，>1则有多条，一条用object多条用array
+                    if(count == 1){
+                        //找到有价酒店并添加入库
+                        JSONObject jsonObjectTemp = jsonObject.getJSONObject("hotels").getJSONObject("hotel");
+//                        search_info.getHavePriceHotel().add(jsonObjectTemp);
+                        Have_price_hotel have_price_hotel = getBeanByJSON(jsonObjectTemp,search_info.getVersion(),search_info,fromDate,toDate);
+                        JSONObject have_price_hotelJSON = JSON.parseObject(JSON.toJSONString(have_price_hotel));
+                        search_info.getHavePriceHotel().add(have_price_hotelJSON);
+                        //增加一步，增加连查有房天数
+                        for(int indexList = 0; indexList < list.size(); indexList++){
+                            if(list.get(indexList).equals(jsonObjectTemp.getString("@hotelid"))){
+                                //有且只有一天房价的酒店id
+                                if(listHavePriceDays.get(indexList) == 0){
+                                    String hotelId = jsonObjectTemp.getString("@hotelid");
+                                    JSONObject temp = JSON.parseObject("{\"hotel_id\":" + hotelId + "}");
+                                    search_info.getHavePriceHotelJustOneDay().add(temp);
+                                }
+                                listHavePriceDays.set(indexList,listHavePriceDays.get(indexList) + 1);
+                            }
+                        }
+                    }else{
+                        JSONArray jsonArray = jsonObject.getJSONObject("hotels").getJSONArray("hotel");
+                        for(int i = 0; i < jsonArray.size(); i++){
+                            JSONObject jsonObjectTemp = jsonArray.getJSONObject(i);
+//                            search_info.getHavePriceHotel().add(jsonObjectTemp);
+                            Have_price_hotel have_price_hotel = getBeanByJSON(jsonObjectTemp,search_info.getVersion(),search_info,fromDate,toDate);
+                            JSONObject have_price_hotelJSON = JSON.parseObject(JSON.toJSONString(have_price_hotel));
+                            search_info.getHavePriceHotel().add(have_price_hotelJSON);
+                            //增加一步，增加连查有房天数
+                            for(int indexList = 0; indexList < list.size(); indexList++){
+                                if(list.get(indexList).equals(jsonObjectTemp.getString("@hotelid"))){
+                                    //有且只有一天房价的酒店id
+                                    if(listHavePriceDays.get(indexList) == 0){
+                                        String hotelId = jsonObjectTemp.getString("@hotelid");
+                                        JSONObject temp = JSON.parseObject("{\"hotel_id\":" + hotelId + "}");
+                                        search_info.getHavePriceHotelJustOneDay().add(temp);
+                                    }
+                                    listHavePriceDays.set(indexList,listHavePriceDays.get(indexList) + 1);
+                                }
+                            }
+                        }
+                    }
+                }
+            }else if(search_info.getVersion().equals("V4")){
+                //V4有些许不同
+                Object tempObj = jsonObject.get("hotels");
+                if(tempObj instanceof JSONObject){
+                    JSONObject hotelObj = jsonObject.getJSONObject("hotels");
+                    //找到有价酒店并添加入库
+                    JSONObject jsonObjectTemp = jsonObject.getJSONObject("hotels").getJSONObject("hotel");
+//                    search_info.getHavePriceHotel().add(jsonObjectTemp);
+                    Have_price_hotel have_price_hotel = getBeanByJSON(jsonObjectTemp,search_info.getVersion(),search_info,fromDate,toDate);
+                    JSONObject have_price_hotelJSON = JSON.parseObject(JSON.toJSONString(have_price_hotel));
+                    search_info.getHavePriceHotel().add(have_price_hotelJSON);
+                    //增加一步，增加连查有房天数
+                    for(int indexList = 0; indexList < list.size(); indexList++){
+                        if(list.get(indexList).equals(jsonObjectTemp.getString("@hotelid"))){
+                            //有且只有一天房价的酒店id
+                            if(listHavePriceDays.get(indexList) == 0){
+                                String hotelId = jsonObjectTemp.getString("@hotelid");
+                                JSONObject temp = JSON.parseObject("{\"hotel_id\":" + hotelId + "}");
+                                search_info.getHavePriceHotelJustOneDay().add(temp);
+                            }
+                            listHavePriceDays.set(indexList,listHavePriceDays.get(indexList) + 1);
+                        }
+                    }
+                }else if(tempObj instanceof JSONArray){
+                    JSONArray jsonArray = jsonObject.getJSONArray("hotels");
+                    for(int i = 0; i < jsonArray.size(); i++){
+                        JSONObject jsonObjectTemp = jsonArray.getJSONObject(i);
+//                        search_info.getHavePriceHotel().add(jsonObjectTemp);
+                        Have_price_hotel have_price_hotel = getBeanByJSON(jsonObjectTemp,search_info.getVersion(),search_info,fromDate,toDate);
+                        JSONObject have_price_hotelJSON = JSON.parseObject(JSON.toJSONString(have_price_hotel));
+                        search_info.getHavePriceHotel().add(have_price_hotelJSON);
+                        //增加一步，增加连查有房天数
+                        for(int indexList = 0; indexList < list.size(); indexList++){
+                            if(list.get(indexList).equals(jsonObjectTemp.getString("@hotelid"))){
+                                //有且只有一天房价的酒店id
+                                if(listHavePriceDays.get(indexList) == 0){
+                                    String hotelId = jsonObjectTemp.getString("@hotelid");
+                                    JSONObject temp = JSON.parseObject("{\"hotel_id\":" + hotelId + "}");
+                                    search_info.getHavePriceHotelJustOneDay().add(temp);
+                                }
+                                listHavePriceDays.set(indexList,listHavePriceDays.get(indexList) + 1);
+                            }
+                        }
+                    }
+
+                }
+            }
+            log.info("已请求次数：" + search_info.getRequestCount() + "次");
+        }
+    }
+
+    /**
      * 分段询价方法，非递归(根据Hid),
      * @param list
      * @param listHavePrice
@@ -557,7 +695,10 @@ public class SearchUtils {
             JSONObject jsonObject = null;
             fromDate = dateFormat(day + index,search_info.getFromDate());
             toDate = dateFormat(day + 1 + index,search_info.getFromDate());
+            long start = new Date().getTime();
             jsonObject = dotw_interface_util.getPriceInDotwByHotelIdAndAccount(list,fromDate,toDate,search_info.getAccount(),search_info.getPassword(),search_info.getAccountId(),search_info.getPath());
+            long end = new Date().getTime();
+            System.out.println("单次请求dotw接口耗时：" + ((end - start) / 1000) + "秒");
             search_info.setRequestCount(search_info.getRequestCount() + 1);
             if(search_info.getVersion().equals("V3")){
                 count = Integer.valueOf(jsonObject.getJSONObject("hotels").getString("@count"));

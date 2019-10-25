@@ -167,7 +167,7 @@ public class methodController {
             modelAndView.addObject("date",date);
             modelAndView.addObject("fromDate",fromDate);
             modelAndView.addObject("toDate",toDate);
-            modelAndView.setViewName("/downLoadPriceInfo");
+            modelAndView.setViewName("downLoadPriceInfo");
         }else{
             modelAndView.setViewName("/insertError");
         }

@@ -28,7 +28,7 @@
 
     <select id="findAllId" resultType="java.lang.String">
         select hotelCode from dotw_fullhotel_info
-        where isUpdate = "0" and reservationTelephone is not null
+        where isUpdate is null and reservationTelephone is not null
     </select>
 
     <insert id="add" parameterType="com.webbeds.fliggy.entity.DOTW_hotel_info">

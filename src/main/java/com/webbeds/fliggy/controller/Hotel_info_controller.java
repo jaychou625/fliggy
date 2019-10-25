@@ -237,6 +237,7 @@ public class Hotel_info_controller {
     @RequestMapping("/testMethod")
     public void testMethod(){
        JSONObject json = fliggy_interface_util.xHotelSearch("28744");
+       System.out.println(json.toString());
     }
 
 

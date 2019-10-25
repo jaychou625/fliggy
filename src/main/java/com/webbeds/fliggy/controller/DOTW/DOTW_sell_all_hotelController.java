@@ -38,13 +38,13 @@ public class DOTW_sell_all_hotelController {
 //        List<String> list = dotw_sell_all_hotelService.findAllHotelByState(state);
         List<String> list = null;
         try {
-            list = common.excel2String("C:\\工作簿2.xlsx");
+            list = common.excel2String("C:\\search-report\\havePrice.xlsx");
         } catch (Exception e) {
             e.printStackTrace();
         }
         List<JSONObject> listJSON = dotwHotelTask.oprate(list,state);
 
-        common.JSONToExcel(listJSON,state);
+        common.JSONToExcel2007(listJSON,state);
 
         Long end = new Date().getTime();
         System.out.println("执行完毕，共计消耗：" + (end - start) / 1000 + "S");

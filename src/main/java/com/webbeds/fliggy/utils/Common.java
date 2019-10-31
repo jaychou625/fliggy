@@ -169,6 +169,8 @@ public class Common {
             case "TAITUNG" :
                 cityId = 711400;
                 break;
+            case "TAINAN":
+                cityId = 710300;
             default:
                 cityId = 0;
                 break;
@@ -318,7 +320,7 @@ public class Common {
             if (sheet == null)
                 continue;
             // 循环行Row
-            for (int rowNum = 1; rowNum < sheet.getLastRowNum(); rowNum++) {
+            for (int rowNum = 1; rowNum <= sheet.getLastRowNum(); rowNum++) {
 //                HSSFRow row = sheet.getRow(rowNum);
                 XSSFRow row = sheet.getRow(rowNum);
                 if (row == null)
@@ -783,26 +785,28 @@ public class Common {
         JSONToExcel(listRoomInfo,"roomType" + date);
     }
 
-    //删除飞猪库的房型和酒店（慎用）
-    public void delHotelAndRoom(List<Fliggy_hotel_info> list){
-        /**
-         * step 1：删除房型信息
-         * step 2：删除酒店信息
-         */
-        for (Fliggy_hotel_info fliggy_hotel_info : list){
-            List<Fliggy_roomType_info> roomList = fliggy_roomTpye_infoService.searchRoomByHid(fliggy_hotel_info.getOuter_id());
-            for(Fliggy_roomType_info fliggy_roomType_info : roomList){
-                fliggy_interface_util.xRoomDel(fliggy_roomType_info.getOuter_id());
-                fliggy_roomType_info.setState("0");
-                fliggy_roomType_info.setInsertDate(null);
-                fliggy_roomTpye_infoService.updateStateAndDate(fliggy_roomType_info);
-            }
-            fliggy_interface_util.xHotelDel(fliggy_hotel_info.getOuter_id());
-            fliggy_hotel_info.setState("0");
-            fliggy_hotel_info.setInsertDate(null);
-            fliggy_hotel_infoService.updateStateAndDate(fliggy_hotel_info);
-        }
-    }
+//    //删除飞猪库的房型和酒店（慎用）
+//    public void delHotelAndRoom(List<Fliggy_hotel_info> list){
+//        /**
+//         * step 1：删除房型信息
+//         * step 2：删除酒店信息
+//         */
+//        for (Fliggy_hotel_info fliggy_hotel_info : list){
+//            List<Fliggy_roomType_info> roomList = fliggy_roomTpye_infoService.searchRoomByHid(fliggy_hotel_info.getOuter_id());
+//            for(Fliggy_roomType_info fliggy_roomType_info : roomList){
+//                fliggy_interface_util.xRoomDel(fliggy_roomType_info.getOuter_id());
+//                fliggy_roomType_info.setState("0");
+//                fliggy_roomType_info.setInsertDate(null);
+//                fliggy_roomType_info.setError_msg(null);
+//                fliggy_roomTpye_infoService.updateStateAndDate(fliggy_roomType_info);
+//            }
+////            fliggy_interface_util.xHotelDel(fliggy_hotel_info.getOuter_id());
+//            fliggy_hotel_info.setState("0");
+//            fliggy_hotel_info.setInsertDate(null);
+//            fliggy_hotel_info.setError_msg(null);
+//            fliggy_hotel_infoService.updateStateAndDate(fliggy_hotel_info);
+//        }
+//    }
 
     /**
      * 更新阿里酒店所在城市的批次号（有些在添加酒店时没加上的给加上批次号）

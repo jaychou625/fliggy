@@ -129,9 +129,6 @@ public class methodController {
     public ModelAndView updateHotelIntoFliggy(){
         ModelAndView modelAndView = new ModelAndView();
         hotel_info_controller.updateCity();
-        //todo:增加dotw询价步骤
-//        hotel_info_controller.searchPrice();
-//        hotel_info_controller.searchPriceAgain();
         hotel_info_controller.addHotelAndRoom();
         modelAndView.setViewName("/updateHotelIntoFliggySuccess");
         return modelAndView;

@@ -22,12 +22,18 @@ public class DOTW_interface_util {
 
     @Getter @Setter
     private String path = "http://us.DOTWconnect.com/gatewayV3.dotw";
+//    @Getter @Setter
+//    private String account = "AlitripXML";
+//    @Getter @Setter
+//    private String password = "CD84D683CC5612C69EFE115C80D0B7DC";
+//    @Getter @Setter
+//    private String accountId = "1494305";
     @Getter @Setter
-    private String account = "AlitripXML";
+    private String account = "Alitrip2nd";
     @Getter @Setter
     private String password = "CD84D683CC5612C69EFE115C80D0B7DC";
     @Getter @Setter
-    private String accountId = "1494305";
+    private String accountId = "1644305";
 
     /**
      * 根据hotelid调用dotw接口获取酒店和房型信息

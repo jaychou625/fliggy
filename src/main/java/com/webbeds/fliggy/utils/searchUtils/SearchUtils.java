@@ -117,27 +117,27 @@ public class SearchUtils {
             //根据上传的excel文件获取酒店ID的list
             list = common.excel2String(path);
             System.out.println("共计" + list.size() + "条数据");
-//            searchHotelPriceByHid(list,search_info);
+            searchHotelPriceByHid(list,search_info);
             //多线程初次询价
-            List<List<String>> listThread = new ArrayList<>();
-            if(list.size() > 29){
-                listThread = common.splitListString(list,list.size() / 3);
-            }else{
-                listThread.add(list);
-            }
-            CountDownLatch latch = new CountDownLatch(listThread.size());
-            //多线程询价，分段分天查询
-            for(List<String> listTemp : listThread){
-                SearchPriceByHidThread searchPriceByHidThread = new SearchPriceByHidThread(listTemp,this,"first",latch,search_info);
-                Thread t = new Thread(searchPriceByHidThread);
-                t.start();
-            }
-
-            try {
-                latch.await();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+//            List<List<String>> listThread = new ArrayList<>();
+//            if(list.size() > 29){
+//                listThread = common.splitListString(list,list.size() / 3);
+//            }else{
+//                listThread.add(list);
+//            }
+//            CountDownLatch latch = new CountDownLatch(listThread.size());
+//            //多线程询价，分段分天查询
+//            for(List<String> listTemp : listThread){
+//                SearchPriceByHidThread searchPriceByHidThread = new SearchPriceByHidThread(listTemp,this,"first",latch,search_info);
+//                Thread t = new Thread(searchPriceByHidThread);
+//                t.start();
+//            }
+//
+//            try {
+//                latch.await();
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//            }
             log.info("第一次分段询价执行询价结束");
             log.info("询价执行询价结束,共计请求次数：" + search_info.getRequestCount() + "次，请求共计用时：" + ((end - start) / 1000) + "秒");
 

@@ -53,8 +53,52 @@ public class DotwHotelTask {
      */
     public List<JSONObject> oprate(List<String> list,String state){
         int lenList = list.size();
+        System.out.println("共有：" + lenList + "条消息");
+        List<JSONObject> listJSON = new ArrayList<>();
+        //根据dotw酒店查询接口获得json对象
+        JSONObject jsonObject = dotw_interface_util.getHotelInfoInDotwByHotelId(list);
+        //根据hotel的类属性进行处理，判断如果不等于空并且count条目等于1则转换为jsonobjectcount>1则转换为jsonarray
+        if(jsonObject != null && !jsonObject.getJSONObject("hotels").getString("@count").equals("0")){
+            JSONObject hotelJSON = null;
+            if(jsonObject.getJSONObject("hotels").getString("@count").equals("1")){
+                hotelJSON = jsonObject.getJSONObject("hotels").getJSONObject("hotel");
+                DOTW_hotel_info dotw_hotel_info = dotw_hotel_infoService.searchHotelByHid(hotelJSON.getString("@hotelid"));
+                if(dotw_hotel_info != null){
+                    oprateAddHotelAndRoom2Fliggy(hotelJSON,dotw_hotel_info,listJSON);
+                }else{
+
+                }
+            }else{
+                JSONArray hotelArray = jsonObject.getJSONObject("hotels").getJSONArray("hotel");
+                for(int arrIndex = 0; arrIndex < hotelArray.size(); arrIndex++){
+                    hotelJSON = hotelArray.getJSONObject(arrIndex);
+                    DOTW_hotel_info dotw_hotel_info = dotw_hotel_infoService.searchHotelByHid(hotelJSON.getString("@hotelid"));
+                    if(dotw_hotel_info != null){
+                        oprateAddHotelAndRoom2Fliggy(hotelJSON,dotw_hotel_info,listJSON);
+                    }else{
+
+                    }
+                }
+            }
+            //处理完毕后调用添加接口将酒店数据转化为对应的飞猪酒店和房型信息并插入数据库
+        }else{
+            //如果dotw中没有查询到酒店信息并且酒店状态为酒店停售时，进行更改操作。更新飞猪接口为-2关闭酒店
+            if(state.equals("酒店停售")){
+                //todo：关闭酒店接口调用
+            }
+        }
+
+        return listJSON;
+    }
+
+    /**
+     * dotw数据操作方法（暂定）
+     * @param list
+     */
+    public List<JSONObject> oprateMore(List<String> list,String state){
+        int lenList = list.size();
         //按多少长度切割的系数
-        final int constListLen = 30;
+        int constListLen = 30;
         System.out.println("共有：" + lenList + "条消息");
         List<JSONObject> listJSON = new ArrayList<>();
 

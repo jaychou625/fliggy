@@ -425,7 +425,7 @@ public class HotelInfoAddTask {
                 }
             }
 
-            //判断是否找到关键字，flag=true未找到关键字
+            //判断是否找到关键字，flag=true未找到关键字,(将房型名称替换成大写)
             if(flag){
                 //判断如果出现多次关键字， 比较出最大值
                 Integer temp1 = 0;
@@ -437,7 +437,7 @@ public class HotelInfoAddTask {
                     }
                 }
                 String nameBefore = nameTotal.substring(temp1- temp2,temp1);
-                fliggy_roomType_info.setName_before(nameBefore);
+                fliggy_roomType_info.setName_before(nameBefore.toUpperCase());
                 fliggy_roomType_info.setName_after(nameTotal.substring(0,temp1- temp2));
             }else{
                 //判断如果出现多次关键字， 比较出最大值
@@ -445,12 +445,12 @@ public class HotelInfoAddTask {
                    indexList.sort(Comparator.reverseOrder());
                 }
                 String nameBefore = nameTotal.substring(0,indexList.get(0));
-                fliggy_roomType_info.setName_before(nameBefore);
+                fliggy_roomType_info.setName_before(nameBefore.toUpperCase());
                 fliggy_roomType_info.setName_after(nameTotal.substring(indexList.get(0)));
             }
             fliggy_roomType_info.setName_final(getFinalName(fliggy_roomType_info,false));
         }else{
-            fliggy_roomType_info.setName_before(nameTotal);
+            fliggy_roomType_info.setName_before(nameTotal.toUpperCase());
             fliggy_roomType_info.setName_final(getFinalName(fliggy_roomType_info,true));
         }
 

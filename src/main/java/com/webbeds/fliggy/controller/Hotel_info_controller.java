@@ -80,7 +80,7 @@ public class Hotel_info_controller {
         Long start = new Date().getTime();
         List<String> list = dotw_hotel_infoService.findAllId();
         System.out.println("共有" + list.size() + "条数据");
-        List<JSONObject> listJSON = dotwHotelTask.oprate(list,"");
+        List<JSONObject> listJSON = dotwHotelTask.oprateMore(list,"");
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         String date = sdf.format(new Date());
         common.JSONToExcel(listJSON,"alitrip账户有信息的酒店" + date);
@@ -184,9 +184,9 @@ public class Hotel_info_controller {
         Long start = new Date().getTime();
         List<Fliggy_hotel_info> list = fliggy_hotel_infoService.searchAllHotelByState("0");
         System.out.println("共计：" + list.size() + "条信息");
-        List<List<Fliggy_hotel_info>> listThread = common.splitList(list,2000);
+        List<List<Fliggy_hotel_info>> listThread = common.splitList(list,list.size() / 2);
         CountDownLatch latch = new CountDownLatch(listThread.size());
-        //多线程添加房型入飞猪
+        //多线程添加酒店与房型入飞猪
         for(List<Fliggy_hotel_info> listTemp : listThread){
             SearchPriceThread searchPriceThread = new SearchPriceThread(listTemp,common,"addHotel2Fliggy",latch);
             Thread t = new Thread(searchPriceThread);
@@ -214,12 +214,12 @@ public class Hotel_info_controller {
         System.out.println("接口执行完毕");
     }
 
-    @RequestMapping("/delAllHotel")
-    public void delAllHotel(){
-        List<Fliggy_hotel_info> list = fliggy_hotel_infoService.searchAllHotel();
-        common.delHotelAndRoom(list);
-        System.out.println("接口执行完毕");
-    }
+//    @RequestMapping("/delAllHotel")
+//    public void delAllHotel(){
+//        List<Fliggy_hotel_info> list = fliggy_hotel_infoService.searchAllHotel();
+//        common.delHotelAndRoom(list);
+//        System.out.println("接口执行完毕");
+//    }
 
     /**
      * 更新阿里酒店所在城市的批次号（有些在添加酒店时没加上的给加上批次号）

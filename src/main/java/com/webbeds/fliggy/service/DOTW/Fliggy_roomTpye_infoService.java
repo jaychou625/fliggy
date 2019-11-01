@@ -61,4 +61,13 @@ public class Fliggy_roomTpye_infoService {
         return fliggy_roomType_infoMapper.updateStateAndDate(fliggy_roomType_info);
     }
 
+    /**
+     * 查询需要删除的房型
+     * @param state
+     * @return
+     */
+    public List<Fliggy_roomType_info> searchRoomByState(String state){
+        return fliggy_roomType_infoMapper.searchRoomByState(state);
+    };
+
 }

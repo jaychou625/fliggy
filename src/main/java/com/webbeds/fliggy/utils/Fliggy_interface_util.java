@@ -266,11 +266,13 @@ public class Fliggy_interface_util {
         req.setOuterRid(rid);
         req.setOperator("dotwebk");
         XhotelRoomtypeDeletePublicResponse rsp = null;
+        System.out.println(req.);
         try {
             rsp = client.execute(req, sessionKey);
         } catch (ApiException e) {
             e.printStackTrace();
         }
+        System.out.println(rsp.toString());
         res = rsp.getBody();
 //        System.out.println(rsp.getBody());
         return res;

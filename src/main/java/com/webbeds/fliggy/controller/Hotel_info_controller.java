@@ -252,4 +252,11 @@ public class Hotel_info_controller {
         return IpUtils.getIpAddr(request);
     }
 
+    @RequestMapping("/delRoom")
+    public void delRoom(){
+        List<Fliggy_roomType_info> list = fliggy_roomTpye_infoService.searchRoomByState("0");
+        common.delRoom(list);
+        System.out.println("接口执行完毕");
+    }
+
 }

@@ -24,4 +24,7 @@ public interface Fliggy_roomType_infoMapper {
 
     //更新房型状态信息，0：未添加入飞猪。1：已添加入飞猪
     boolean updateStateAndDate(Fliggy_roomType_info fliggy_roomType_info);
+
+    //查询需要删除的房型
+    public List<Fliggy_roomType_info> searchRoomByState(String state);
 }

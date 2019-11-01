@@ -45,6 +45,12 @@
             where out_hid = #{hid} and name in (select room_name from dotw_room_night WHERE hotel_id = #{hid})
         </select>
 
+        <!-- 查询返回需要上传的飞猪房型，（逻辑：根据酒店id维度查询再经过近期有间夜量的房型表过滤，得出有效房型）       -->
+        <select id="searchRoomByState" resultMap="Fliggy_roomType_info_ResultMap">
+            SELECT * FROM fliggy_roomtype_info_dotwebk
+            where state = #{state}
+        </select>
+
         <select id="searchDuplicate" resultType="java.lang.Integer" parameterType="com.webbeds.fliggy.entity.Fliggy_roomType_info">
             SELECT count(*) FROM fliggy_roomtype_info_dotwebk
             WHERE out_hid = #{out_hid} and name_before = #{name_before}

@@ -835,6 +835,21 @@ public class Common {
         }
     }
 
+    //删除飞猪库的房型（慎用）
+    public void delRoom(List<Fliggy_roomType_info> list){
+        /**
+         * step 1：删除房型信息
+         *
+         */
+        for(Fliggy_roomType_info fliggy_roomType_info : list){
+            fliggy_interface_util.xRoomDel(fliggy_roomType_info.getOuter_id());
+            fliggy_roomType_info.setState("0");
+            fliggy_roomType_info.setInsertDate(null);
+            fliggy_roomType_info.setError_msg(null);
+            fliggy_roomTpye_infoService.updateStateAndDate(fliggy_roomType_info);
+        }
+    }
+
 //    /**
 //     * 查询价格处理函数
 //     * @param file

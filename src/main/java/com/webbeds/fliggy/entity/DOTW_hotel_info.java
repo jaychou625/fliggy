@@ -9,17 +9,43 @@ import lombok.*;
 @AllArgsConstructor
 @ToString
 public class DOTW_hotel_info {
-    @Setter @Getter private String country;
-    @Setter @Getter private String city;
-    @Setter @Getter private String hotelCode;
-    @Setter @Getter private String hotelName;
-    @Setter @Getter private String starRating;
-    @Setter @Getter private String reservationTelephone;
-    @Setter @Getter private String hotelAddress;
-    @Setter @Getter private String latitude;
-    @Setter @Getter private String longitude;
-    @Setter @Getter private String chainName;
-    @Setter @Getter private String brandName;
-    @Setter @Getter private String new_Property;
-    @Setter @Getter private String isUpdate;
+    @Setter
+    @Getter
+    private String country;
+    @Setter
+    @Getter
+    private String city;
+    @Setter
+    @Getter
+    private String hotelCode;
+    @Setter
+    @Getter
+    private String hotelName;
+    @Setter
+    @Getter
+    private String starRating;
+    @Setter
+    @Getter
+    private String reservationTelephone;
+    @Setter
+    @Getter
+    private String hotelAddress;
+    @Setter
+    @Getter
+    private String latitude;
+    @Setter
+    @Getter
+    private String longitude;
+    @Setter
+    @Getter
+    private String chainName;
+    @Setter
+    @Getter
+    private String brandName;
+    @Setter
+    @Getter
+    private String new_Property;
+    @Setter
+    @Getter
+    private String isUpdate;
 }

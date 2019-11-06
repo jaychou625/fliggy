@@ -4,20 +4,20 @@
 
 <mapper namespace="com.webbeds.fliggy.mapper.FR_hotel.FR_room_infoMapper">
 
-<!--    <resultMap id="DOTW_hotel_id_info_ResultMap" type="com.webbeds.fliggy.entity.DOTW_hotel_id_info">-->
-<!--        &lt;!&ndash;        <id column="aew_info_seq" property="aewInfoSeq" javaType="java.lang.Integer" jdbcType="INTEGER"/>&ndash;&gt;-->
-<!--        <result column="hotel_id" property="hotel_id" javaType="java.lang.String" jdbcType="VARCHAR"/>-->
-<!--        <result column="hotel_name" property="hotel_name" javaType="java.lang.String" jdbcType="VARCHAR"/>-->
-<!--    </resultMap>-->
+    <!--    <resultMap id="DOTW_hotel_id_info_ResultMap" type="com.webbeds.fliggy.entity.DOTW_hotel_id_info">-->
+    <!--        &lt;!&ndash;        <id column="aew_info_seq" property="aewInfoSeq" javaType="java.lang.Integer" jdbcType="INTEGER"/>&ndash;&gt;-->
+    <!--        <result column="hotel_id" property="hotel_id" javaType="java.lang.String" jdbcType="VARCHAR"/>-->
+    <!--        <result column="hotel_name" property="hotel_name" javaType="java.lang.String" jdbcType="VARCHAR"/>-->
+    <!--    </resultMap>-->
 
-        <insert id="add" parameterType="com.webbeds.fliggy.entity.FR_hotels.FR_room_info">
-            INSERT INTO fr_room_info(room_id,type_id,best_buy,meal_supplement_restriction,hid)
-            VALUES (#{room_id}, #{type_id}, #{best_buy}, #{meal_supplement_restriction}, #{hid})
-        </insert>
+    <insert id="add" parameterType="com.webbeds.fliggy.entity.FR_hotels.FR_room_info">
+        INSERT INTO fr_room_info(room_id,type_id,best_buy,meal_supplement_restriction,hid)
+        VALUES (#{room_id}, #{type_id}, #{best_buy}, #{meal_supplement_restriction}, #{hid})
+    </insert>
 
-<!--    <select id="findAll" resultMap="DOTW_hotel_id_info_ResultMap">-->
-<!--        select * from dotw_hotel_id_info-->
-<!--    </select>-->
+    <!--    <select id="findAll" resultMap="DOTW_hotel_id_info_ResultMap">-->
+    <!--        select * from dotw_hotel_id_info-->
+    <!--    </select>-->
 
     <!--    <select id="find" resultMap="aewInfoResultMap" parameterType="java.lang.Integer">-->
     <!--        SELECT * FROM AP_AEW_INFO-->

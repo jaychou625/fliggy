@@ -10,36 +10,52 @@ import java.util.List;
 @AllArgsConstructor
 @ToString
 public class Search_info {
-    @Getter @Setter
+    @Getter
+    @Setter
     List<JSONObject> havePriceHotelJustOneDay;
-    @Getter @Setter
+    @Getter
+    @Setter
     List<JSONObject> noPriceHotelJustOneDay;
-    @Getter @Setter
+    @Getter
+    @Setter
     List<JSONObject> havePriceHotel;
-    @Getter @Setter
+    @Getter
+    @Setter
     List<JSONObject> noPriceHotel;
-    @Getter @Setter
+    @Getter
+    @Setter
     List<JSONObject> havePriceHotelFullDay;
-    @Getter @Setter
+    @Getter
+    @Setter
     List<JSONObject> noPriceHotelFullDay;
-    @Getter @Setter
+    @Getter
+    @Setter
     List<String> noPriceHid;
-    @Getter @Setter
+    @Getter
+    @Setter
     String account;
-    @Getter @Setter
+    @Getter
+    @Setter
     String password;
-    @Getter @Setter
+    @Getter
+    @Setter
     String accountId;
-    @Getter @Setter
+    @Getter
+    @Setter
     String path;
-    @Getter @Setter
+    @Getter
+    @Setter
     String version;
-    @Getter @Setter
+    @Getter
+    @Setter
     String fromDate;
-    @Getter @Setter
+    @Getter
+    @Setter
     String toDate;
-    @Getter @Setter
+    @Getter
+    @Setter
     List<String> mark;//用于标记需要删除的酒店id
-    @Getter @Setter
+    @Getter
+    @Setter
     Integer requestCount;//记录请求数量
 }

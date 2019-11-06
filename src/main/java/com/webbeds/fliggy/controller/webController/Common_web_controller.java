@@ -18,16 +18,17 @@ public class Common_web_controller {
 
     /**
      * 提交数据主页面
+     *
      * @param model
      * @return
      */
     @GetMapping("/searchPrice")
-    public String main(Model model){
+    public String main(Model model) {
         List<String> list = new ArrayList<>();
         list.add("alitrip");
         list.add("dida");
         list.add("alading");
-        model.addAttribute("agentList",list);
+        model.addAttribute("agentList", list);
         return "searchPrice";
     }
 }

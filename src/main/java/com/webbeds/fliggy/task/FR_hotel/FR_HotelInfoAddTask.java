@@ -25,10 +25,11 @@ public class FR_HotelInfoAddTask {
 
     /**
      * 飞猪酒店信息实体类获取方法
+     *
      * @param jsonObject
      * @return
      */
-    public FR_hotels_info getHotelInfoByJSONObject(JSONObject jsonObject){
+    public FR_hotels_info getHotelInfoByJSONObject(JSONObject jsonObject) {
         FR_hotels_info fr_hotels_info = new FR_hotels_info();
         fr_hotels_info.setId(jsonObject.getString("id"));
         fr_hotels_info.setHotel_name(jsonObject.getString("name"));
@@ -38,15 +39,15 @@ public class FR_HotelInfoAddTask {
         fr_hotels_info.setBest_buy(jsonObject.getString("best_buy"));
         fr_hotels_info.setClassification(jsonObject.getString("classification"));
         String desc = jsonObject.getString("description");
-        if(desc.length() > 8990){
-            desc = desc.substring(0,8990);
+        if (desc.length() > 8990) {
+            desc = desc.substring(0, 8990);
         }
         fr_hotels_info.setDescription(desc);
         fr_hotels_info.setEmail(jsonObject.getString("email"));
         fr_hotels_info.setFax(jsonObject.getString("fax"));
         String headline = jsonObject.getString("headline");
-        if(headline.length() > 4900){
-            headline = headline.substring(0,4900);
+        if (headline.length() > 4900) {
+            headline = headline.substring(0, 4900);
         }
         fr_hotels_info.setHeadline(headline);
         fr_hotels_info.setInfant_restrictions(jsonObject.getString("infant_restrictions"));
@@ -62,11 +63,12 @@ public class FR_HotelInfoAddTask {
 
     /**
      * room信息实体类
+     *
      * @param jsonObject
      * @param hid
      * @return
      */
-    public FR_room_info getRoomInfoByJSONObject(JSONObject jsonObject,String hid){
+    public FR_room_info getRoomInfoByJSONObject(JSONObject jsonObject, String hid) {
         FR_room_info fr_room_info = new FR_room_info();
         fr_room_info.setHid(hid);
         fr_room_info.setBest_buy(jsonObject.getString("best_buy`"));
@@ -76,11 +78,11 @@ public class FR_HotelInfoAddTask {
         return fr_room_info;
     }
 
-    public FR_hotel_image getImageInfoByJSONObject(JSONObject jsonObject,String hid){
+    public FR_hotel_image getImageInfoByJSONObject(JSONObject jsonObject, String hid) {
         FR_hotel_image fr_hotel_image = new FR_hotel_image();
         fr_hotel_image.setHid(hid);
         fr_hotel_image.setImg_id(jsonObject.getString("@id"));
         fr_hotel_image.setPath(jsonObject.getString("image_variant"));
-        return  fr_hotel_image;
+        return fr_hotel_image;
     }
 }

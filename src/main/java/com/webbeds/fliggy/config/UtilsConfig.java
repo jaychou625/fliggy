@@ -12,6 +12,7 @@ import org.springframework.context.annotation.Configuration;
 public class UtilsConfig {
     /**
      * 通用工具方法
+     *
      * @return
      */
     @Bean
@@ -20,12 +21,12 @@ public class UtilsConfig {
     }
 
     @Bean
-    public Fliggy_interface_util fliggy_interface_util(){
+    public Fliggy_interface_util fliggy_interface_util() {
         return new Fliggy_interface_util();
     }
 
     @Bean
-    public DOTW_interface_util dotw_interface_util(){
+    public DOTW_interface_util dotw_interface_util() {
         return new DOTW_interface_util();
     }
 

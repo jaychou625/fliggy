@@ -12,31 +12,34 @@
         <result column="sub_str" property="sub_str" javaType="java.lang.String" jdbcType="VARCHAR"/>
     </resultMap>
 
-<!--    <select id="findAll" resultMap="Fliggy_hotel_info_ResultMap">-->
-<!--        SELECT * FROM all_country_code-->
-<!--    </select>-->
+    <!--    <select id="findAll" resultMap="Fliggy_hotel_info_ResultMap">-->
+    <!--        SELECT * FROM all_country_code-->
+    <!--    </select>-->
 
-        <select id="searchDuplicateByHid" resultType="java.lang.Integer" parameterType="com.webbeds.fliggy.entity.Fliggy_roomtype_sub_sort">
-            SELECT count(*) FROM fliggy_roomtype_sub_sort_dotwebk
-            WHERE outer_hid = #{outer_hid}
-        </select>
+    <select id="searchDuplicateByHid" resultType="java.lang.Integer"
+            parameterType="com.webbeds.fliggy.entity.Fliggy_roomtype_sub_sort">
+        SELECT count(*) FROM fliggy_roomtype_sub_sort_dotwebk
+        WHERE outer_hid = #{outer_hid}
+    </select>
 
-        <select id="searchDuplicateByHidAndName" resultType="java.lang.Integer" parameterType="com.webbeds.fliggy.entity.Fliggy_roomtype_sub_sort">
-            SELECT count(*) FROM fliggy_roomtype_sub_sort_dotwebk
-            WHERE outer_hid = #{outer_hid} and sub_str = #{sub_str}
-        </select>
+    <select id="searchDuplicateByHidAndName" resultType="java.lang.Integer"
+            parameterType="com.webbeds.fliggy.entity.Fliggy_roomtype_sub_sort">
+        SELECT count(*) FROM fliggy_roomtype_sub_sort_dotwebk
+        WHERE outer_hid = #{outer_hid} and sub_str = #{sub_str}
+    </select>
 
-        <select id="searchSub_idBySub_strAndHid" resultType="java.lang.String" parameterType="com.webbeds.fliggy.entity.Fliggy_roomtype_sub_sort">
-            SELECT sub_id FROM fliggy_roomtype_sub_sort_dotwebk
-            WHERE sub_str = #{sub_str} and outer_hid = #{outer_hid}
-        </select>
+    <select id="searchSub_idBySub_strAndHid" resultType="java.lang.String"
+            parameterType="com.webbeds.fliggy.entity.Fliggy_roomtype_sub_sort">
+        SELECT sub_id FROM fliggy_roomtype_sub_sort_dotwebk
+        WHERE sub_str = #{sub_str} and outer_hid = #{outer_hid}
+    </select>
 
-        <insert id="add" parameterType="com.webbeds.fliggy.entity.Fliggy_roomtype_sub_sort">
-            INSERT INTO fliggy_roomtype_sub_sort_dotwebk(outer_rid,outer_hid,sub_id,sub_str)
-            VALUES (#{outer_rid},#{outer_hid},#{sub_id},#{sub_str})
-        </insert>
-<!--        <update id="" parameterType="com.webbeds.fliggy.entity.Fliggy_hotel_info">-->
+    <insert id="add" parameterType="com.webbeds.fliggy.entity.Fliggy_roomtype_sub_sort">
+        INSERT INTO fliggy_roomtype_sub_sort_dotwebk(outer_rid,outer_hid,sub_id,sub_str)
+        VALUES (#{outer_rid},#{outer_hid},#{sub_id},#{sub_str})
+    </insert>
+    <!--        <update id="" parameterType="com.webbeds.fliggy.entity.Fliggy_hotel_info">-->
 
-<!--        </update>-->
+    <!--        </update>-->
 
 </mapper>

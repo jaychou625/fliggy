@@ -17,9 +17,10 @@ public class DOTW_hotel_id_infoService {
 
     /**
      * 返回所有酒店id和酒店名信息
+     *
      * @return
      */
-    public List<DOTW_hotel_id_info> findAll(){
+    public List<DOTW_hotel_id_info> findAll() {
         return dotw_hotel_id_infoMapper.findAll();
     }
 }

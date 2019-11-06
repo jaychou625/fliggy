@@ -17,44 +17,48 @@ public class Fliggy_web_controller {
 
     /**
      * 提交数据主页面
+     *
      * @param model
      * @return
      */
     @GetMapping("/main")
-    public String main(Model model){
+    public String main(Model model) {
 //        model.addAttribute("msg","test");
         return "main";
     }
 
     /**
      * 插入dotw数据成功页面
+     *
      * @param model
      * @return
      */
     @GetMapping("/index")
-    public String index(Model model){
+    public String index(Model model) {
 //        model.addAttribute("msg","test");
         return "index";
     }
 
     /**
      * 插入数据失败页面
+     *
      * @param model
      * @return
      */
     @GetMapping("/insertError")
-    public String insertError(Model model){
+    public String insertError(Model model) {
 //        model.addAttribute("msg","test");
         return "insertError";
     }
 
     /**
      * 点击调用dotw接口插入数据入本地库
+     *
      * @param model
      * @return
      */
     @GetMapping("/addHotelInfo2LocalAnd2StepTwoSuccess")
-    public String addHotelInfo2LocalAnd2StepTwo(Model model){
+    public String addHotelInfo2LocalAnd2StepTwo(Model model) {
 //        model.addAttribute("msg","test");
 //        hotel_info_controller.addHotelInLocalDatabase();
         return "addHotelInfo2LocalAnd2StepTwoSuccess";
@@ -62,11 +66,12 @@ public class Fliggy_web_controller {
 
     /**
      * 添加信息入飞猪本地库
+     *
      * @param model
      * @return
      */
     @GetMapping("/updateHotelIntoFliggySuccess")
-    public String updateHotelIntoFliggy(Model model){
+    public String updateHotelIntoFliggy(Model model) {
 //        hotel_info_controller.updateCity();
 //        hotel_info_controller.addHotelAndRoom();
         return "updateHotelIntoFliggySuccess";
@@ -74,11 +79,12 @@ public class Fliggy_web_controller {
 
     /**
      * 查询当前已更新所有的飞猪酒店和房型的匹配信息
+     *
      * @param model
      * @return
      */
     @GetMapping("/searchFliggyHotelInfoSuccess")
-    public String searchFliggyHotelInfo(Model model){
+    public String searchFliggyHotelInfo(Model model) {
 //        hotel_info_controller.searchHotel();
         return "searchFliggyHotelInfoSuccess";
     }

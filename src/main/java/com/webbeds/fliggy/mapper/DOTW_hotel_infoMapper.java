@@ -28,7 +28,7 @@ public interface DOTW_hotel_infoMapper {
     public DOTW_hotel_info searchHotelByHid(String hid);
 
     //更新酒店的插入信息
-    public boolean updateIsUpdate(String hid,String state);
+    public boolean updateIsUpdate(String hid, String state);
 
     //根据酒店id查询全局酒店
     public String searchFullHotelByHid(String hid);

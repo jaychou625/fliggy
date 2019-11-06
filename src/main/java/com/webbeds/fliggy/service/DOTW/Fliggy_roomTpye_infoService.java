@@ -18,56 +18,64 @@ public class Fliggy_roomTpye_infoService {
 
     /**
      * 根据房型对象新增房型入库
+     *
      * @param fliggy_roomType_info
      * @return
      */
-    public  boolean add(Fliggy_roomType_info fliggy_roomType_info){
+    public boolean add(Fliggy_roomType_info fliggy_roomType_info) {
         return fliggy_roomType_infoMapper.add(fliggy_roomType_info);
     }
 
     /**
      * 查询是否有重复房型并返回条目数
+     *
      * @param fliggy_roomType_info
      * @return
      */
-    public Integer searchDuplicate(Fliggy_roomType_info fliggy_roomType_info){
+    public Integer searchDuplicate(Fliggy_roomType_info fliggy_roomType_info) {
         return fliggy_roomType_infoMapper.searchDuplicate(fliggy_roomType_info);
     }
 
     /**
      * 根据酒店查询酒店对应房型
+     *
      * @param hid
      * @return
      */
-    public List<Fliggy_roomType_info> searchRoomByHid(String hid){
+    public List<Fliggy_roomType_info> searchRoomByHid(String hid) {
         return fliggy_roomType_infoMapper.searchRoomByHid(hid);
     }
 
     /**
      * 根据房型id查询房型数量
+     *
      * @param fliggy_roomType_info
      * @return
      */
-    public Integer searchRoomByRid(Fliggy_roomType_info fliggy_roomType_info){
+    public Integer searchRoomByRid(Fliggy_roomType_info fliggy_roomType_info) {
         return fliggy_roomType_infoMapper.searchRoomByRid(fliggy_roomType_info);
     }
 
     /**
      * 更新房型状态信息，0：未添加入飞猪。1：已添加入飞猪
+     *
      * @param fliggy_roomType_info
      * @return
      */
-    public boolean updateStateAndDate(Fliggy_roomType_info fliggy_roomType_info){
+    public boolean updateStateAndDate(Fliggy_roomType_info fliggy_roomType_info) {
         return fliggy_roomType_infoMapper.updateStateAndDate(fliggy_roomType_info);
     }
 
     /**
      * 查询需要删除的房型
+     *
      * @param state
      * @return
      */
-    public List<Fliggy_roomType_info> searchRoomByState(String state){
+    public List<Fliggy_roomType_info> searchRoomByState(String state) {
         return fliggy_roomType_infoMapper.searchRoomByState(state);
-    };
+    }
+
+    ;
 
 }

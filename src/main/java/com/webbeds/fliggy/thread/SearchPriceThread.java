@@ -15,41 +15,42 @@ public class SearchPriceThread implements Runnable {
     public String mark;
     public CountDownLatch latch;
 
-    public SearchPriceThread(List<Fliggy_hotel_info> list,Common common,String mark,CountDownLatch latch){
+    public SearchPriceThread(List<Fliggy_hotel_info> list, Common common, String mark, CountDownLatch latch) {
         this.list = list;
         this.common = common;
         this.mark = mark;
         this.latch = latch;
     }
+
     @Override
     public void run() {
         Long start = new Date().getTime();
         try {
-            if(mark.equals("second")){
+            if (mark.equals("second")) {
 //                for(Fliggy_hotel_info fliggy_hotel_info : list){
 //                    common.searchHotelPriceAgain(list);
 //                }
                 common.searchHotelPriceAgain(list);
-            }else if(mark.equals("first")){
+            } else if (mark.equals("first")) {
 //                for(Fliggy_hotel_info fliggy_hotel_info : list){
 //                    common.searchHotelPrice(list);
 //                }
 //                common.searchHotelPrice(list);
-                common.searchHotelPriceTemp(list,30);
-            }else if(mark.equals("addHotel2Fliggy")){
+                common.searchHotelPriceTemp(list, 30);
+            } else if (mark.equals("addHotel2Fliggy")) {
 //                for(Fliggy_hotel_info fliggy_hotel_info : list){
 //                    common.add2Fliggy(list);
 //                }
                 common.add2Fliggy(list);
-            }else if(mark.equals("updateCity")){
+            } else if (mark.equals("updateCity")) {
 //                for(Fliggy_hotel_info fliggy_hotel_info : list){
 //                    common.updateCityId(list);
 //                }
                 common.updateCityId(list);
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
-        }finally {
+        } finally {
             latch.countDown(); //这句是关键
 //            System.out.println(latch.getCount());
             System.out.println("ok"); //线程都跑完后输出

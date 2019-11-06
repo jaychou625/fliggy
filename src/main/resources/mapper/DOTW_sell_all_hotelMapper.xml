@@ -4,11 +4,11 @@
 
 <mapper namespace="com.webbeds.fliggy.mapper.DOTW.DOTW_sell_all_hotelMapper">
 
-<!--    <resultMap id="DOTW_hotel_id_info_ResultMap" type="com.webbeds.fliggy.entity.DOTW_hotel_id_info">-->
-<!--        &lt;!&ndash;        <id column="aew_info_seq" property="aewInfoSeq" javaType="java.lang.Integer" jdbcType="INTEGER"/>&ndash;&gt;-->
-<!--        <result column="hotel_id" property="hotel_id" javaType="java.lang.String" jdbcType="VARCHAR"/>-->
-<!--        <result column="hotel_name" property="hotel_name" javaType="java.lang.String" jdbcType="VARCHAR"/>-->
-<!--    </resultMap>-->
+    <!--    <resultMap id="DOTW_hotel_id_info_ResultMap" type="com.webbeds.fliggy.entity.DOTW_hotel_id_info">-->
+    <!--        &lt;!&ndash;        <id column="aew_info_seq" property="aewInfoSeq" javaType="java.lang.Integer" jdbcType="INTEGER"/>&ndash;&gt;-->
+    <!--        <result column="hotel_id" property="hotel_id" javaType="java.lang.String" jdbcType="VARCHAR"/>-->
+    <!--        <result column="hotel_name" property="hotel_name" javaType="java.lang.String" jdbcType="VARCHAR"/>-->
+    <!--    </resultMap>-->
     <select id="findAllHotelByState" resultType="java.lang.String" parameterType="java.lang.String">
         select hotel_id from dotw_sell_all_hotel
         where hotel_state like "%"#{state}"%"

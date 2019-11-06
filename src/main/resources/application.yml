@@ -20,40 +20,40 @@ spring:
 
   resources:
     static-locations: classpath:/META-INF/resources/,classpath:/resources/,classpath:/static/,classpath:/public/
-#    static-locations: classpath:/templates/,classpath:/META-INF/resources/,classpath:/resources/,classpath:/static/,classpath:/public/
+  #    static-locations: classpath:/templates/,classpath:/META-INF/resources/,classpath:/resources/,classpath:/static/,classpath:/public/
 
   #  redis:
-#    host: localhost
-#    port: 6379
-#    password:
-#    database: 1
-#    timeout: 5000
-#    jedis:
-#      pool:
-#        max-active: 0
-#        max-idle: 10
-#        max-wait: 5000
-#        min-idle: 0
-#  activemq:
-#    broker-url: tcp://10.24.1.46:61616
-#    in-memory: true
-#    pool:
-#      enabled: false
-#      max-connections: 100
-#  rabbitmq:
-#    host: 127.0.0.1
-#    username: guest
-#    password: guest
-#  jms:
-#    pub-sub-domain: true
+  #    host: localhost
+  #    port: 6379
+  #    password:
+  #    database: 1
+  #    timeout: 5000
+  #    jedis:
+  #      pool:
+  #        max-active: 0
+  #        max-idle: 10
+  #        max-wait: 5000
+  #        min-idle: 0
+  #  activemq:
+  #    broker-url: tcp://10.24.1.46:61616
+  #    in-memory: true
+  #    pool:
+  #      enabled: false
+  #      max-connections: 100
+  #  rabbitmq:
+  #    host: 127.0.0.1
+  #    username: guest
+  #    password: guest
+  #  jms:
+  #    pub-sub-domain: true
   datasource:
-#    type: com.alibaba.druid.pool.DruidDataSource
+    #    type: com.alibaba.druid.pool.DruidDataSource
     url: jdbc:mysql://127.0.0.1:3306/webbeds?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true&SSL=false&serverTimezone=Asia/Shanghai&zeroDateTimeBehavior=convertToNull
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
     password: root
   mvc:
-#    static-path-pattern: classpath:/static/js/,classpath:/templates/,classpath:/static/css/
+    #    static-path-pattern: classpath:/static/js/,classpath:/templates/,classpath:/static/css/
     static-path-pattern: /templates/**,classpath:/static/js/**,classpath:/static/css/**
 #    druid:
 #      filter: stat

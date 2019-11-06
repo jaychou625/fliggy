@@ -20,27 +20,32 @@ import java.util.List;
  */
 public class DOTW_interface_util {
 
-    @Getter @Setter
+    @Getter
+    @Setter
     private String path = "http://us.DOTWconnect.com/gatewayV3.dotw";
-//    @Getter @Setter
+    //    @Getter @Setter
 //    private String account = "AlitripXML";
 //    @Getter @Setter
 //    private String password = "CD84D683CC5612C69EFE115C80D0B7DC";
 //    @Getter @Setter
 //    private String accountId = "1494305";
-    @Getter @Setter
+    @Getter
+    @Setter
     private String account = "Alitrip2nd";
-    @Getter @Setter
+    @Getter
+    @Setter
     private String password = "CD84D683CC5612C69EFE115C80D0B7DC";
-    @Getter @Setter
+    @Getter
+    @Setter
     private String accountId = "1644305";
 
     /**
      * 根据hotelid调用dotw接口获取酒店和房型信息
+     *
      * @param listTemp
      * @return
      */
-    public JSONObject getHotelInfoInDotwByHotelId(List<String> listTemp){
+    public JSONObject getHotelInfoInDotwByHotelId(List<String> listTemp) {
         //API开发接口URL
 //        String path = "http://us.DOTWconnect.com/gatewayV3.dotw";
         JSONObject result = null;
@@ -78,8 +83,8 @@ public class DOTW_interface_util {
                 "                <fieldName>hotelId</fieldName>\n" +
                 "                  <fieldTest>in</fieldTest>\n" +
                 "                  <fieldValues>\n");
-        for(String str : listTemp){
-            sb.append("<fieldValue>" + str + "</fieldValue>\n" );
+        for (String str : listTemp) {
+            sb.append("<fieldValue>" + str + "</fieldValue>\n");
         }
 
         sb.append("                  </fieldValues>\n" +
@@ -175,12 +180,13 @@ public class DOTW_interface_util {
 
     /**
      * 待改进，减少请求次数
+     *
      * @param hid
      * @param fromDate
      * @param toDate
      * @return
      */
-    public JSONObject getPriceInDotwByHotelId(String hid, String fromDate,String toDate){
+    public JSONObject getPriceInDotwByHotelId(String hid, String fromDate, String toDate) {
         //API开发接口URL
 //        String path = "http://us.DOTWconnect.com/gatewayV3.dotw";
         JSONObject result = null;
@@ -270,7 +276,7 @@ public class DOTW_interface_util {
 
     }
 
-    public JSONObject getPriceInDotwByHotelIdTemp(List<Fliggy_hotel_info> list, String fromDate, String toDate){
+    public JSONObject getPriceInDotwByHotelIdTemp(List<Fliggy_hotel_info> list, String fromDate, String toDate) {
         //API开发接口URL
 //        String path = "http://us.DOTWconnect.com/gatewayV3.dotw";
         JSONObject result = null;
@@ -320,16 +326,16 @@ public class DOTW_interface_util {
                 "            <fieldName>hotelId</fieldName>\n" +
                 "            <fieldTest>in</fieldTest>\n" +
                 "            <fieldValues>\n");
-                for(Fliggy_hotel_info fliggy_hotel_info : list){
-                    sb.append("<fieldValue>" + fliggy_hotel_info.getOuter_id() + "</fieldValue>\n");
-                }
-                sb.append("            </fieldValues>\n" +
-                        "          </a:condition>\n" +
-                        "        </c:condition>\n" +
-                        "      </filters>\n" +
-                        "    </return>\n" +
-                        "  </request>\n" +
-                        "</customer>");
+        for (Fliggy_hotel_info fliggy_hotel_info : list) {
+            sb.append("<fieldValue>" + fliggy_hotel_info.getOuter_id() + "</fieldValue>\n");
+        }
+        sb.append("            </fieldValues>\n" +
+                "          </a:condition>\n" +
+                "        </c:condition>\n" +
+                "      </filters>\n" +
+                "    </return>\n" +
+                "  </request>\n" +
+                "</customer>");
         xml = sb.toString();
         try {
             URL url = new URL(path);
@@ -363,7 +369,7 @@ public class DOTW_interface_util {
     }
 
     //根据Hid返回价格JSON
-    public JSONObject getPriceInDotwByHotelId(List<String> list, String fromDate, String toDate){
+    public JSONObject getPriceInDotwByHotelId(List<String> list, String fromDate, String toDate) {
         //API开发接口URL
 //        String path = "http://us.DOTWconnect.com/gatewayV3.dotw";
         JSONObject result = null;
@@ -413,7 +419,7 @@ public class DOTW_interface_util {
                 "            <fieldName>hotelId</fieldName>\n" +
                 "            <fieldTest>in</fieldTest>\n" +
                 "            <fieldValues>\n");
-        for(String str : list){
+        for (String str : list) {
             sb.append("<fieldValue>" + str + "</fieldValue>\n");
         }
         sb.append("            </fieldValues>\n" +
@@ -456,7 +462,7 @@ public class DOTW_interface_util {
     }
 
     //根据Hid返回价格JSON,不同供应商
-    public JSONObject getPriceInDotwByHotelIdAndAccount(List<String> list, String fromDate, String toDate,String account,String password,String accountId,String path){
+    public JSONObject getPriceInDotwByHotelIdAndAccount(List<String> list, String fromDate, String toDate, String account, String password, String accountId, String path) {
         //API开发接口URL
 //        String path = "http://us.DOTWconnect.com/gatewayV3.dotw";
         JSONObject result = null;
@@ -487,29 +493,29 @@ public class DOTW_interface_util {
                 "      </rooms>\n" +
                 "    </bookingDetails>\n" +
                 "    <return>\n");
-                if(path.indexOf("V3") != -1){
-                    sb.append("      <getRooms>true</getRooms>\n");
-                }
-                sb.append("      <filters xmlns:a='http://us.dotwconnect.com/xsd/atomicCondition' xmlns:c='http://us.dotwconnect.com/xsd/complexCondition'>\n" +
-                        "        <!--<city>22594</city>-->\n" +
-                        "        <!--Country>171</Country-->\n" +
-                        "        <!--rateTypes>  \n" +
-                        "            <rateType>3</rateType>\n" +
-                        "        </rateTypes--> \n" +
-                        "        <c:condition>\n" +
-                        "          <a:condition>\n" +
-                        "            <fieldName>onRequest</fieldName>\n" +
-                        "            <fieldTest>equals</fieldTest>\n" +
-                        "            <fieldValues>\n" +
-                        "              <fieldValue>1</fieldValue>\n" +
-                        "            </fieldValues>\n" +
-                        "          </a:condition>\n" +
-                        "          <operator>AND</operator>\n" +
-                        "          <a:condition>\n" +
-                        "            <fieldName>hotelId</fieldName>\n" +
-                        "            <fieldTest>in</fieldTest>\n" +
-                        "            <fieldValues>\n");
-        for(String str : list){
+        if (path.indexOf("V3") != -1) {
+            sb.append("      <getRooms>true</getRooms>\n");
+        }
+        sb.append("      <filters xmlns:a='http://us.dotwconnect.com/xsd/atomicCondition' xmlns:c='http://us.dotwconnect.com/xsd/complexCondition'>\n" +
+                "        <!--<city>22594</city>-->\n" +
+                "        <!--Country>171</Country-->\n" +
+                "        <!--rateTypes>  \n" +
+                "            <rateType>3</rateType>\n" +
+                "        </rateTypes--> \n" +
+                "        <c:condition>\n" +
+                "          <a:condition>\n" +
+                "            <fieldName>onRequest</fieldName>\n" +
+                "            <fieldTest>equals</fieldTest>\n" +
+                "            <fieldValues>\n" +
+                "              <fieldValue>1</fieldValue>\n" +
+                "            </fieldValues>\n" +
+                "          </a:condition>\n" +
+                "          <operator>AND</operator>\n" +
+                "          <a:condition>\n" +
+                "            <fieldName>hotelId</fieldName>\n" +
+                "            <fieldTest>in</fieldTest>\n" +
+                "            <fieldValues>\n");
+        for (String str : list) {
             sb.append("<fieldValue>" + str + "</fieldValue>\n");
         }
         sb.append("            </fieldValues>\n" +

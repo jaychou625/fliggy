@@ -32,8 +32,8 @@ public class DOTW_sell_all_hotelController {
     Common common;
 
     //根据酒店状态做出相应操作并返回excel
-    @RequestMapping(value = "/notEmptyOprate",params = "state",method = RequestMethod.GET)
-    public List<JSONObject> notEmptyOprate(String state){
+    @RequestMapping(value = "/notEmptyOprate", params = "state", method = RequestMethod.GET)
+    public List<JSONObject> notEmptyOprate(String state) {
         Long start = new Date().getTime();
 //        List<String> list = dotw_sell_all_hotelService.findAllHotelByState(state);
         List<String> list = null;
@@ -42,9 +42,9 @@ public class DOTW_sell_all_hotelController {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        List<JSONObject> listJSON = dotwHotelTask.oprate(list,state);
+        List<JSONObject> listJSON = dotwHotelTask.oprate(list, state);
 
-        common.JSONToExcel2007(listJSON,state);
+        common.JSONToExcel2007(listJSON, state);
 
         Long end = new Date().getTime();
         System.out.println("执行完毕，共计消耗：" + (end - start) / 1000 + "S");

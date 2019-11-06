@@ -20,10 +20,11 @@ public class FR_hotel_imageService {
 
     /**
      * 根据酒店对象新增酒店入库
+     *
      * @param fr_hotel_image
      * @return
      */
-    public  boolean add(FR_hotel_image fr_hotel_image){
+    public boolean add(FR_hotel_image fr_hotel_image) {
         return fr_hotel_imageMapper.add(fr_hotel_image);
     }
 

@@ -19,32 +19,35 @@ public class Fliggy_roomTpye_sub_sortService {
 
     /**
      * 根据房型细节信息对象新增房型细节信息入库
+     *
      * @param fliggy_roomtype_sub_sort
      * @return
      */
-    public boolean add(Fliggy_roomtype_sub_sort fliggy_roomtype_sub_sort){
+    public boolean add(Fliggy_roomtype_sub_sort fliggy_roomtype_sub_sort) {
         return fliggy_roomtype_sub_sortMapper.add(fliggy_roomtype_sub_sort);
     }
 
     /**
      * 根据酒店id，查询同酒店同房型细节条目数
+     *
      * @param fliggy_roomtype_sub_sort
      * @return
      */
-    public Integer searchDuplicateByHid(Fliggy_roomtype_sub_sort fliggy_roomtype_sub_sort){
+    public Integer searchDuplicateByHid(Fliggy_roomtype_sub_sort fliggy_roomtype_sub_sort) {
         return fliggy_roomtype_sub_sortMapper.searchDuplicateByHid(fliggy_roomtype_sub_sort);
     }
 
     /**
      * 根据酒店id,酒店细节房型名，查询同酒店同房型细节条目数
+     *
      * @param fliggy_roomtype_sub_sort
      * @return
      */
-    public Integer searchDuplicateByHidAndName(Fliggy_roomtype_sub_sort fliggy_roomtype_sub_sort){
+    public Integer searchDuplicateByHidAndName(Fliggy_roomtype_sub_sort fliggy_roomtype_sub_sort) {
         return fliggy_roomtype_sub_sortMapper.searchDuplicateByHidAndName(fliggy_roomtype_sub_sort);
     }
 
-    public String searchSub_idBySub_strAndHid(Fliggy_roomtype_sub_sort fliggy_roomtype_sub_sort){
+    public String searchSub_idBySub_strAndHid(Fliggy_roomtype_sub_sort fliggy_roomtype_sub_sort) {
         return fliggy_roomtype_sub_sortMapper.searchSub_idBySub_strAndHid(fliggy_roomtype_sub_sort);
     }
 

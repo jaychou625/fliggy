@@ -11,7 +11,8 @@
         <result column="hotelCode" property="hotelCode" javaType="java.lang.String" jdbcType="VARCHAR"/>
         <result column="hotelName" property="hotelName" javaType="java.lang.String" jdbcType="VARCHAR"/>
         <result column="starRating" property="starRating" javaType="java.lang.String" jdbcType="VARCHAR"/>
-        <result column="reservationTelephone" property="reservationTelephone" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result column="reservationTelephone" property="reservationTelephone" javaType="java.lang.String"
+                jdbcType="VARCHAR"/>
         <result column="hotelAddress" property="hotelAddress" javaType="java.lang.String" jdbcType="VARCHAR"/>
         <result column="latitude" property="latitude" javaType="java.lang.String" jdbcType="VARCHAR"/>
         <result column="longitude" property="longitude" javaType="java.lang.String" jdbcType="VARCHAR"/>
@@ -32,8 +33,10 @@
     </select>
 
     <insert id="add" parameterType="com.webbeds.fliggy.entity.DOTW_hotel_info">
-        INSERT INTO dotw_fullhotel_info_dotwebk(country,city,hotelCode,hotelName,starRating,reservationTelephone,hotelAddress,latitude,longitude,chainName,brandName,new_Property,isUpdate)
-        VALUES (#{country},#{city},#{hotelCode},#{hotelName},#{starRating},#{reservationTelephone},#{hotelAddress},#{latitude},#{longitude},#{chainName},#{brandName},#{new_Property},#{isUpdate})
+        INSERT INTO
+        dotw_fullhotel_info_dotwebk(country,city,hotelCode,hotelName,starRating,reservationTelephone,hotelAddress,latitude,longitude,chainName,brandName,new_Property,isUpdate)
+        VALUES
+        (#{country},#{city},#{hotelCode},#{hotelName},#{starRating},#{reservationTelephone},#{hotelAddress},#{latitude},#{longitude},#{chainName},#{brandName},#{new_Property},#{isUpdate})
     </insert>
 
     <select id="searchByHid" parameterType="java.lang.String" resultType="java.lang.Integer">

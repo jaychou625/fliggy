@@ -6,8 +6,16 @@ import lombok.*;
 @AllArgsConstructor
 @ToString
 public class City_coordinates {
-    @Getter @Setter private Long countryId;
-    @Getter @Setter private String latitude;
-    @Getter @Setter private String longitude;
-    @Getter @Setter private String outerId;
+    @Getter
+    @Setter
+    private Long countryId;
+    @Getter
+    @Setter
+    private String latitude;
+    @Getter
+    @Setter
+    private String longitude;
+    @Getter
+    @Setter
+    private String outerId;
 }

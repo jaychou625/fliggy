@@ -6,12 +6,16 @@ import lombok.*;
 @AllArgsConstructor
 @ToString
 public class Room_rate {
-    @Getter @Setter
+    @Getter
+    @Setter
     String meal;
-    @Getter @Setter
+    @Getter
+    @Setter
     String price;
-    @Getter @Setter
+    @Getter
+    @Setter
     String cancel_before;
-    @Getter @Setter
+    @Getter
+    @Setter
     String cancel_after;
 }

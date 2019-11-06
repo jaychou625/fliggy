@@ -9,22 +9,30 @@ import java.util.Map;
 @AllArgsConstructor
 @ToString
 public class Have_price_hotel {
-    @Getter @Setter
+    @Getter
+    @Setter
     String hotel_id;
-    @Getter @Setter
+    @Getter
+    @Setter
     String hotel_name;
-    @Getter @Setter
+    @Getter
+    @Setter
     String room_id;
-    @Getter @Setter
+    @Getter
+    @Setter
     String room_name;
-    @Getter @Setter
+    @Getter
+    @Setter
     String check_in;
-    @Getter @Setter
+    @Getter
+    @Setter
     String check_out;
-    @Getter @Setter
+    @Getter
+    @Setter
     String promotion;
-    @Getter @Setter
-    Map<String,List<Room_rate>> room_rate;
+    @Getter
+    @Setter
+    Map<String, List<Room_rate>> room_rate;
 //    @Getter @Setter
 //    String meal;
 //    @Getter @Setter

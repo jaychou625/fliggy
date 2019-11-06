@@ -17,25 +17,26 @@ public class SearchPriceByHidThread implements Runnable {
     public CountDownLatch latch;
     public Search_info search_info;
 
-    public SearchPriceByHidThread(List<String> list, SearchUtils searchUtils, String mark, CountDownLatch latch, Search_info search_info){
+    public SearchPriceByHidThread(List<String> list, SearchUtils searchUtils, String mark, CountDownLatch latch, Search_info search_info) {
         this.list = list;
         this.searchUtils = searchUtils;
         this.mark = mark;
         this.latch = latch;
         this.search_info = search_info;
     }
+
     @Override
     public void run() {
         Long start = new Date().getTime();
         try {
-           if(mark.equals("first")){
-               searchUtils.searchHotelPriceByHid(list,search_info);
-            }else if(mark.equals("second")){
-               searchUtils.searchHotelPriceByHidFullDay(list,search_info);
-           }
-        }catch (Exception e){
+            if (mark.equals("first")) {
+                searchUtils.searchHotelPriceByHid(list, search_info);
+            } else if (mark.equals("second")) {
+                searchUtils.searchHotelPriceByHidFullDay(list, search_info);
+            }
+        } catch (Exception e) {
             e.printStackTrace();
-        }finally {
+        } finally {
             latch.countDown(); //这句是关键
 //            System.out.println(latch.getCount());
             System.out.println("ok"); //线程都跑完后输出

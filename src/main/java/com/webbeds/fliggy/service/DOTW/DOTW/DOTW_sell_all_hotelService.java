@@ -18,18 +18,20 @@ public class DOTW_sell_all_hotelService {
 
     /**
      * 根据酒店状态返回所有酒店id
+     *
      * @return
      */
-    public List<String> findAllHotelByState(String state){
+    public List<String> findAllHotelByState(String state) {
         return dotw_sell_all_hotelMapper.findAllHotelByState(state);
     }
 
     /**
      * 根据手动mapping后的状态返回酒店id
+     *
      * @param review
      * @return
      */
-    public List<String> findAllHotelByReview(String review){
+    public List<String> findAllHotelByReview(String review) {
         return dotw_sell_all_hotelMapper.findAllHotelByReview(review);
     }
 }

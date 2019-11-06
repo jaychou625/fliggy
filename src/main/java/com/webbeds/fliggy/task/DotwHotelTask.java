@@ -49,41 +49,42 @@ public class DotwHotelTask {
 
     /**
      * dotw数据操作方法（暂定）
+     *
      * @param list
      */
-    public List<JSONObject> oprate(List<String> list,String state){
+    public List<JSONObject> oprate(List<String> list, String state) {
         int lenList = list.size();
         System.out.println("共有：" + lenList + "条消息");
         List<JSONObject> listJSON = new ArrayList<>();
         //根据dotw酒店查询接口获得json对象
         JSONObject jsonObject = dotw_interface_util.getHotelInfoInDotwByHotelId(list);
         //根据hotel的类属性进行处理，判断如果不等于空并且count条目等于1则转换为jsonobjectcount>1则转换为jsonarray
-        if(jsonObject != null && !jsonObject.getJSONObject("hotels").getString("@count").equals("0")){
+        if (jsonObject != null && !jsonObject.getJSONObject("hotels").getString("@count").equals("0")) {
             JSONObject hotelJSON = null;
-            if(jsonObject.getJSONObject("hotels").getString("@count").equals("1")){
+            if (jsonObject.getJSONObject("hotels").getString("@count").equals("1")) {
                 hotelJSON = jsonObject.getJSONObject("hotels").getJSONObject("hotel");
                 DOTW_hotel_info dotw_hotel_info = dotw_hotel_infoService.searchHotelByHid(hotelJSON.getString("@hotelid"));
-                if(dotw_hotel_info != null){
-                    oprateAddHotelAndRoom2Fliggy(hotelJSON,dotw_hotel_info,listJSON);
-                }else{
+                if (dotw_hotel_info != null) {
+                    oprateAddHotelAndRoom2Fliggy(hotelJSON, dotw_hotel_info, listJSON);
+                } else {
 
                 }
-            }else{
+            } else {
                 JSONArray hotelArray = jsonObject.getJSONObject("hotels").getJSONArray("hotel");
-                for(int arrIndex = 0; arrIndex < hotelArray.size(); arrIndex++){
+                for (int arrIndex = 0; arrIndex < hotelArray.size(); arrIndex++) {
                     hotelJSON = hotelArray.getJSONObject(arrIndex);
                     DOTW_hotel_info dotw_hotel_info = dotw_hotel_infoService.searchHotelByHid(hotelJSON.getString("@hotelid"));
-                    if(dotw_hotel_info != null){
-                        oprateAddHotelAndRoom2Fliggy(hotelJSON,dotw_hotel_info,listJSON);
-                    }else{
+                    if (dotw_hotel_info != null) {
+                        oprateAddHotelAndRoom2Fliggy(hotelJSON, dotw_hotel_info, listJSON);
+                    } else {
 
                     }
                 }
             }
             //处理完毕后调用添加接口将酒店数据转化为对应的飞猪酒店和房型信息并插入数据库
-        }else{
+        } else {
             //如果dotw中没有查询到酒店信息并且酒店状态为酒店停售时，进行更改操作。更新飞猪接口为-2关闭酒店
-            if(state.equals("酒店停售")){
+            if (state.equals("酒店停售")) {
                 //todo：关闭酒店接口调用
             }
         }
@@ -93,56 +94,57 @@ public class DotwHotelTask {
 
     /**
      * dotw数据操作方法（暂定）
+     *
      * @param list
      */
-    public List<JSONObject> oprateMore(List<String> list,String state){
+    public List<JSONObject> oprateMore(List<String> list, String state) {
         int lenList = list.size();
         //按多少长度切割的系数
         int constListLen = 30;
         System.out.println("共有：" + lenList + "条消息");
         List<JSONObject> listJSON = new ArrayList<>();
 
-        for(int i = 0; i < lenList / constListLen; i++){
+        for (int i = 0; i < lenList / constListLen; i++) {
             List<String> listTemp = new ArrayList<>();
             //分批次处理大量酒店id
-            for(int j = i * constListLen; j < i * constListLen + constListLen; j++){
+            for (int j = i * constListLen; j < i * constListLen + constListLen; j++) {
                 listTemp.add(list.get(j));
             }
             //如果是最后一次执行，则补齐余数
-            if(i == lenList / constListLen - 1){
-                for(int k = i * constListLen + constListLen; k < lenList; k++){
+            if (i == lenList / constListLen - 1) {
+                for (int k = i * constListLen + constListLen; k < lenList; k++) {
                     listTemp.add(list.get(k));
                 }
             }
             //根据dotw酒店查询接口获得json对象
             JSONObject jsonObject = dotw_interface_util.getHotelInfoInDotwByHotelId(listTemp);
             //根据hotel的类属性进行处理，判断如果不等于空并且count条目等于1则转换为jsonobjectcount>1则转换为jsonarray
-            if(jsonObject != null && !jsonObject.getJSONObject("hotels").getString("@count").equals("0")){
+            if (jsonObject != null && !jsonObject.getJSONObject("hotels").getString("@count").equals("0")) {
                 JSONObject hotelJSON = null;
-                if(jsonObject.getJSONObject("hotels").getString("@count").equals("1")){
+                if (jsonObject.getJSONObject("hotels").getString("@count").equals("1")) {
                     hotelJSON = jsonObject.getJSONObject("hotels").getJSONObject("hotel");
                     DOTW_hotel_info dotw_hotel_info = dotw_hotel_infoService.searchHotelByHid(hotelJSON.getString("@hotelid"));
-                    if(dotw_hotel_info != null){
-                        oprateAddHotelAndRoom2Fliggy(hotelJSON,dotw_hotel_info,listJSON);
-                    }else{
+                    if (dotw_hotel_info != null) {
+                        oprateAddHotelAndRoom2Fliggy(hotelJSON, dotw_hotel_info, listJSON);
+                    } else {
 
                     }
-                }else{
+                } else {
                     JSONArray hotelArray = jsonObject.getJSONObject("hotels").getJSONArray("hotel");
-                    for(int arrIndex = 0; arrIndex < hotelArray.size(); arrIndex++){
+                    for (int arrIndex = 0; arrIndex < hotelArray.size(); arrIndex++) {
                         hotelJSON = hotelArray.getJSONObject(arrIndex);
                         DOTW_hotel_info dotw_hotel_info = dotw_hotel_infoService.searchHotelByHid(hotelJSON.getString("@hotelid"));
-                        if(dotw_hotel_info != null){
-                            oprateAddHotelAndRoom2Fliggy(hotelJSON,dotw_hotel_info,listJSON);
-                        }else{
+                        if (dotw_hotel_info != null) {
+                            oprateAddHotelAndRoom2Fliggy(hotelJSON, dotw_hotel_info, listJSON);
+                        } else {
 
                         }
                     }
                 }
                 //处理完毕后调用添加接口将酒店数据转化为对应的飞猪酒店和房型信息并插入数据库
-            }else{
+            } else {
                 //如果dotw中没有查询到酒店信息并且酒店状态为酒店停售时，进行更改操作。更新飞猪接口为-2关闭酒店
-                if(state.equals("酒店停售")){
+                if (state.equals("酒店停售")) {
                     //todo：关闭酒店接口调用
                 }
             }
@@ -153,38 +155,39 @@ public class DotwHotelTask {
 
     /**
      * 添加酒店和房型入本地飞猪库
+     *
      * @param hotelJSON
      * @param dotw_hotel_info
      * @param listJSON
      */
-    public void oprateAddHotelAndRoom2Fliggy(JSONObject hotelJSON,DOTW_hotel_info dotw_hotel_info,List<JSONObject> listJSON){
+    public void oprateAddHotelAndRoom2Fliggy(JSONObject hotelJSON, DOTW_hotel_info dotw_hotel_info, List<JSONObject> listJSON) {
         int count = fliggyhotelinfoService.findHotelCountById(hotelJSON.getString("@hotelid"));
-        if(count == 0){
+        if (count == 0) {
             JSONObject roomJSON = null;
             //添加房型
-            if(hotelJSON.getJSONObject("rooms").getJSONObject("room").getString("@count").equals("1")){
+            if (hotelJSON.getJSONObject("rooms").getJSONObject("room").getString("@count").equals("1")) {
                 roomJSON = hotelJSON.getJSONObject("rooms").getJSONObject("room").getJSONObject("roomType");
-                Fliggy_roomType_info fliggy_roomType_info = getRoomInfoByJSONObject(roomJSON,hotelJSON.getString("@hotelid"));
-                if(fliggy_roomTpye_infoService.searchRoomByRid(fliggy_roomType_info) == 0){
+                Fliggy_roomType_info fliggy_roomType_info = getRoomInfoByJSONObject(roomJSON, hotelJSON.getString("@hotelid"));
+                if (fliggy_roomTpye_infoService.searchRoomByRid(fliggy_roomType_info) == 0) {
                     fliggy_roomTpye_infoService.add(fliggy_roomType_info);
                 }
-            }else{
+            } else {
                 JSONArray roomArray = hotelJSON.getJSONObject("rooms").getJSONObject("room").getJSONArray("roomType");
-                for(int roomIndex = 0; roomIndex < roomArray.size();roomIndex++){
+                for (int roomIndex = 0; roomIndex < roomArray.size(); roomIndex++) {
                     roomJSON = roomArray.getJSONObject(roomIndex);
-                    Fliggy_roomType_info fliggy_roomType_info = getRoomInfoByJSONObject(roomJSON,hotelJSON.getString("@hotelid"));
-                    if(fliggy_roomTpye_infoService.searchRoomByRid(fliggy_roomType_info) == 0){
+                    Fliggy_roomType_info fliggy_roomType_info = getRoomInfoByJSONObject(roomJSON, hotelJSON.getString("@hotelid"));
+                    if (fliggy_roomTpye_infoService.searchRoomByRid(fliggy_roomType_info) == 0) {
                         fliggy_roomTpye_infoService.add(fliggy_roomType_info);
                     }
                 }
             }
 
             //添加酒店
-            Fliggy_hotel_info fliggy_hotel_info = getInfoByJSONObject(hotelJSON,dotw_hotel_info);
+            Fliggy_hotel_info fliggy_hotel_info = getInfoByJSONObject(hotelJSON, dotw_hotel_info);
             fliggyhotelinfoService.add(fliggy_hotel_info);
-            dotw_hotel_infoService.updateIsUpdate(hotelJSON.getString("@hotelid"),"1");
-        }else{
-            dotw_hotel_infoService.updateIsUpdate(hotelJSON.getString("@hotelid"),"-1");
+            dotw_hotel_infoService.updateIsUpdate(hotelJSON.getString("@hotelid"), "1");
+        } else {
+            dotw_hotel_infoService.updateIsUpdate(hotelJSON.getString("@hotelid"), "-1");
         }
         listJSON.add(hotelJSON);
     }
@@ -330,10 +333,11 @@ public class DotwHotelTask {
 
     /**
      * 根据json获取酒店信息实体类
+     *
      * @param jsonObject
      * @return
      */
-    private Fliggy_hotel_info getInfoByJSONObject(JSONObject jsonObject,DOTW_hotel_info dotw_hotel_info){
+    private Fliggy_hotel_info getInfoByJSONObject(JSONObject jsonObject, DOTW_hotel_info dotw_hotel_info) {
         //创建实体类
         Fliggy_hotel_info fliggy_hotel_info = new Fliggy_hotel_info();
 //        String hId = jsonObject.getString("@hotelid");
@@ -346,7 +350,7 @@ public class DotwHotelTask {
         fliggy_hotel_info.setDomestic(domestic);
         String[] countryArr = dotw_hotel_info.getCountry().split(" ");
         String countryName = "";
-        for(String str : countryArr){
+        for (String str : countryArr) {
             countryName += common.firstCharacterUpper(str) + " ";
         }
         countryName = countryName.trim();
@@ -358,12 +362,12 @@ public class DotwHotelTask {
         //根据飞猪城市协议接口先上传酒店经纬度信息再下载对应的酒店id;
         City_coordinates city_coordinates = new City_coordinates();
         String countryId = fliggy_oversea_cityService.findCountryIdByName(countryName);
-        if(countryId != null){
+        if (countryId != null) {
             city_coordinates.setCountryId(Long.valueOf(countryId));
-        }else{
-            if(dotw_hotel_info.getCountry().equals("TAIWAN") || dotw_hotel_info.getCountry().equals("MACAU") || dotw_hotel_info.getCountry().equals("HONG KONG") || dotw_hotel_info.getCountry().equals("CHINA")){
+        } else {
+            if (dotw_hotel_info.getCountry().equals("TAIWAN") || dotw_hotel_info.getCountry().equals("MACAU") || dotw_hotel_info.getCountry().equals("HONG KONG") || dotw_hotel_info.getCountry().equals("CHINA")) {
 
-            }else{
+            } else {
                 System.out.println(countryName);
             }
             city_coordinates.setCountryId(0L);
@@ -373,7 +377,7 @@ public class DotwHotelTask {
         city_coordinates.setOuterId(dotw_hotel_info.getHotelCode());
         String batch_id = fliggy_interface_util.city_coordinates_batch_upload(city_coordinates);
         fliggy_hotel_info.setBatch_id(batch_id);
-        if(dotw_hotel_info.getCountry().equals("TAIWAN") || dotw_hotel_info.getCountry().equals("MACAU") || dotw_hotel_info.getCountry().equals("HONG KONG") || dotw_hotel_info.getCountry().equals("CHINA")){
+        if (dotw_hotel_info.getCountry().equals("TAIWAN") || dotw_hotel_info.getCountry().equals("MACAU") || dotw_hotel_info.getCountry().equals("HONG KONG") || dotw_hotel_info.getCountry().equals("CHINA")) {
             city = common.getCityIdByCityName(dotw_hotel_info.getCity());
         }
         fliggy_hotel_info.setCity(city);
@@ -401,7 +405,7 @@ public class DotwHotelTask {
         fliggy_hotel_info.setStar(star);
         String opening_time = "";
         fliggy_hotel_info.setOpening_time(opening_time);
-        String decorate_time  = "";
+        String decorate_time = "";
         fliggy_hotel_info.setDecorate_time(decorate_time);
         String floors = "";
         fliggy_hotel_info.setFloors(floors);
@@ -455,10 +459,11 @@ public class DotwHotelTask {
 
     /**
      * 根据json获取房型信息
+     *
      * @param jsonObject
      * @return
      */
-    private Fliggy_roomType_info getRoomInfoByJSONObject(JSONObject jsonObject, String hid){
+    private Fliggy_roomType_info getRoomInfoByJSONObject(JSONObject jsonObject, String hid) {
         Fliggy_roomType_info fliggy_roomType_info = new Fliggy_roomType_info();
         fliggy_roomType_info.setVendor("DOTW");
         fliggy_roomType_info.setOut_hid(hid);
@@ -471,19 +476,19 @@ public class DotwHotelTask {
          * 截取关键字，Room、Dorm、Bungalow、Dormitory、Suite、Villa、Twin、APARTMENT
          * 27位同名房型匹配类型，30位同名房型序号（防重复）
          */
-        if(nameTotal.length() > 25){
+        if (nameTotal.length() > 25) {
             String[] rootRoomType = common.getRoomType();
             boolean flag = true;
             List<Integer> indexList = new ArrayList<>();
-            Map<Integer,String> indexListReverse = new HashMap<Integer,String>();
-            for(int i = 0; i < rootRoomType.length;i++){
+            Map<Integer, String> indexListReverse = new HashMap<Integer, String>();
+            for (int i = 0; i < rootRoomType.length; i++) {
                 int subIndex = nameTotal.indexOf(rootRoomType[i]) > -1 ? nameTotal.indexOf(rootRoomType[i]) : nameTotal.indexOf(rootRoomType[i].toUpperCase());
-                if(subIndex == -1){
+                if (subIndex == -1) {
                     subIndex = nameTotal.indexOf(rootRoomType[i].toLowerCase());
                 }
-                if(subIndex > -1){
+                if (subIndex > -1) {
                     int subLength = subIndex + rootRoomType[i].length();
-                    if(subLength <= 25){
+                    if (subLength <= 25) {
                         indexList.add(subLength);
                         flag = false;
                     }
@@ -494,7 +499,7 @@ public class DotwHotelTask {
             }
 
             //判断是否找到关键字，flag=true未找到关键字
-            if(flag){
+            if (flag) {
 //                Integer temp1 = 0;
 //                Integer temp2 = 0;
 //                for (Map.Entry<Integer, String> entry : indexListReverse.entrySet()) {
@@ -512,48 +517,49 @@ public class DotwHotelTask {
                 nameAfter = nameTotal;
                 fliggy_roomType_info.setName_before(nameBefore);
                 fliggy_roomType_info.setName_after(nameAfter);
-            }else{
+            } else {
                 //判断如果出现多次关键字， 比较出最大值
-                if(indexList.size() > 1){
+                if (indexList.size() > 1) {
                     indexList.sort(Comparator.reverseOrder());
                 }
                 String nameBefore = "";
                 String nameAfter = "";
-                if(indexList.get(0) == 0){
+                if (indexList.get(0) == 0) {
                     nameBefore = common.subStringSpecial(nameTotal);
                     nameAfter = nameTotal;
-                }else{
-                    nameBefore = nameTotal.substring(0,indexList.get(0));
+                } else {
+                    nameBefore = nameTotal.substring(0, indexList.get(0));
                     nameAfter = nameTotal.substring(indexList.get(0));
                 }
                 fliggy_roomType_info.setName_before(nameBefore);
                 fliggy_roomType_info.setName_after(nameAfter);
             }
-            fliggy_roomType_info.setName_final(getFinalName(fliggy_roomType_info,false));
-        }else{
+            fliggy_roomType_info.setName_final(getFinalName(fliggy_roomType_info, false));
+        } else {
             fliggy_roomType_info.setName_before(nameTotal);
-            fliggy_roomType_info.setName_final(getFinalName(fliggy_roomType_info,true));
+            fliggy_roomType_info.setName_final(getFinalName(fliggy_roomType_info, true));
         }
 
         fliggy_roomType_info.setState("0");
-        return  fliggy_roomType_info;
+        return fliggy_roomType_info;
     }
 
     /**
      * 根据相关信息获取finalName,小于28字符flag为true，大于28flag为false
+     *
      * @param fliggy_roomType_info
      * @return
      */
-    private String getFinalName(Fliggy_roomType_info fliggy_roomType_info,boolean flag){
+    private String getFinalName(Fliggy_roomType_info fliggy_roomType_info, boolean flag) {
         String finalName = "";
         Integer codeNo = fliggy_roomTpye_infoService.searchDuplicate(fliggy_roomType_info) + 1;
-        if(flag){
+        if (flag) {
 
             finalName = fliggy_roomType_info.getName_before() + " 00" + Integer.toHexString(codeNo);
-        }else{
+        } else {
             //添加房型细节内容入库
             Fliggy_roomtype_sub_sort fliggy_roomtype_sub_sort = getFliggy_roomtype_sub_sort(fliggy_roomType_info);
-            if(fliggy_roomtype_sub_sort.getSub_id() != null){
+            if (fliggy_roomtype_sub_sort.getSub_id() != null) {
                 fliggy_roomTpye_sub_sortService.add(fliggy_roomtype_sub_sort);
             }
             Integer subCodeNo = Integer.parseInt(fliggy_roomTpye_sub_sortService.searchSub_idBySub_strAndHid(fliggy_roomtype_sub_sort));
@@ -564,21 +570,22 @@ public class DotwHotelTask {
 
     /**
      * 获取房型细节信息实体类
+     *
      * @param fliggy_roomType_info
      * @return
      */
-    private Fliggy_roomtype_sub_sort getFliggy_roomtype_sub_sort(Fliggy_roomType_info fliggy_roomType_info){
+    private Fliggy_roomtype_sub_sort getFliggy_roomtype_sub_sort(Fliggy_roomType_info fliggy_roomType_info) {
         Fliggy_roomtype_sub_sort fliggy_roomtype_sub_sort = new Fliggy_roomtype_sub_sort();
         fliggy_roomtype_sub_sort.setOuter_hid(fliggy_roomType_info.getOut_hid());
         fliggy_roomtype_sub_sort.setOuter_rid(fliggy_roomType_info.getOuter_id());
         fliggy_roomtype_sub_sort.setSub_str(fliggy_roomType_info.getName_after());
         Integer temp = fliggy_roomTpye_sub_sortService.searchDuplicateByHidAndName(fliggy_roomtype_sub_sort);
         //根据方法查询获取房型信息具体编码
-        if(temp == 0){
+        if (temp == 0) {
             Integer subId = fliggy_roomTpye_sub_sortService.searchDuplicateByHid(fliggy_roomtype_sub_sort);
-            if(subId == null){
+            if (subId == null) {
                 fliggy_roomtype_sub_sort.setSub_id("1");
-            }else{
+            } else {
                 subId = subId + 1;
                 fliggy_roomtype_sub_sort.setSub_id(subId.toString());
             }

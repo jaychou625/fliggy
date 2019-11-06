@@ -1,18 +1,18 @@
 package com.webbeds.fliggy.utils;
 
 import lombok.extern.slf4j.Slf4j;
+
 import javax.servlet.http.HttpServletRequest;
 import java.net.*;
 import java.util.Enumeration;
 
 /**
-
- @Description: 获取IP方法
- @BelongsProject: Jmccms
- @BelongsPackage: com.jmccms.util
- @Author: ChenYongJia
- @CreateTime: 2019-05-14 22:29
- @Email chen87647213@163.com
+ * @Description: 获取IP方法
+ * @BelongsProject: Jmccms
+ * @BelongsPackage: com.jmccms.util
+ * @Author: ChenYongJia
+ * @CreateTime: 2019-05-14 22:29
+ * @Email chen87647213@163.com
  */
 
 @Slf4j
@@ -88,7 +88,8 @@ public class IpUtils {
 
     /**
      * 将IPv4地址转换成字节
-     *IPv4地址
+     * IPv4地址
+     *
      * @param text
      * @return byte 字节
      */
@@ -149,7 +150,7 @@ public class IpUtils {
                     return null;
             }
         } catch (NumberFormatException e) {
-            log.error("数字格式化异常",e);
+            log.error("数字格式化异常", e);
             return null;
         }
         return bytes;
@@ -163,7 +164,7 @@ public class IpUtils {
                 addr = InetAddress.getLocalHost();
                 ip = addr.getHostAddress();
             } catch (UnknownHostException e) {
-                log.error("获取失败",e);
+                log.error("获取失败", e);
             }
             return ip;
         } else {
@@ -187,7 +188,7 @@ public class IpUtils {
                     }
                 }
             } catch (SocketException e) {
-                log.error("获取失败",e);
+                log.error("获取失败", e);
             }
         }
         return "";

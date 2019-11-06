@@ -49,7 +49,7 @@ public class FR_Hotel_info_controller {
      */
     @RequestMapping("/addFRHotelInLocalDatabase")
     public void addHotelInLocalDatabase() throws IOException {
-        for(int xmlIndex = 39; xmlIndex <=40; xmlIndex++){
+        for (int xmlIndex = 39; xmlIndex <= 40; xmlIndex++) {
             System.out.println("正在执行hotels" + xmlIndex + ".xml");
             long startTime = new Date().getTime();
             File file = new File("D:/WEBBEDS/常用文件/FR全量酒店信息/hotelsInfo/hotels" + xmlIndex + ".xml");
@@ -68,24 +68,24 @@ public class FR_Hotel_info_controller {
                 resutStr += xmlSerializer.read(temp).toString() + "}";
                 com.alibaba.fastjson.JSONObject result = JSON.parseObject(resutStr);
                 Integer size = result.getJSONArray("hotels").size();
-                for(int i = 0; i < size; i++){
+                for (int i = 0; i < size; i++) {
                     //创建hotel实体类
                     FR_hotels_info fr_hotels_info = fr_hotelInfoAddTask.getHotelInfoByJSONObject(result.getJSONArray("hotels").getJSONObject(i));
 
-                    if(result.getJSONArray("hotels").getJSONObject(i).getJSONArray("rooms") != null){
+                    if (result.getJSONArray("hotels").getJSONObject(i).getJSONArray("rooms") != null) {
                         //room实体类
-                        for(int roomIndex = 0; roomIndex < result.getJSONArray("hotels").getJSONObject(i).getJSONArray("rooms").size(); roomIndex++){
+                        for (int roomIndex = 0; roomIndex < result.getJSONArray("hotels").getJSONObject(i).getJSONArray("rooms").size(); roomIndex++) {
                             //创建room实体类
-                            FR_room_info room_info = fr_hotelInfoAddTask.getRoomInfoByJSONObject(result.getJSONArray("hotels").getJSONObject(i).getJSONArray("rooms").getJSONObject(roomIndex),fr_hotels_info.getId());
+                            FR_room_info room_info = fr_hotelInfoAddTask.getRoomInfoByJSONObject(result.getJSONArray("hotels").getJSONObject(i).getJSONArray("rooms").getJSONObject(roomIndex), fr_hotels_info.getId());
                             fr_room_infoService.add(room_info);
                         }
                     }
 
-                    if(result.getJSONArray("hotels").getJSONObject(i).getJSONArray("images") != null){
+                    if (result.getJSONArray("hotels").getJSONObject(i).getJSONArray("images") != null) {
                         //image实体类
-                        for(int imageIndex = 0; imageIndex < result.getJSONArray("hotels").getJSONObject(i).getJSONArray("images").size(); imageIndex++){
+                        for (int imageIndex = 0; imageIndex < result.getJSONArray("hotels").getJSONObject(i).getJSONArray("images").size(); imageIndex++) {
                             //创建room实体类
-                            FR_hotel_image fr_hotel_image = fr_hotelInfoAddTask.getImageInfoByJSONObject(result.getJSONArray("hotels").getJSONObject(i).getJSONArray("images").getJSONObject(imageIndex),fr_hotels_info.getId());
+                            FR_hotel_image fr_hotel_image = fr_hotelInfoAddTask.getImageInfoByJSONObject(result.getJSONArray("hotels").getJSONObject(i).getJSONArray("images").getJSONObject(imageIndex), fr_hotels_info.getId());
                             fr_hotel_imageService.add(fr_hotel_image);
                         }
                     }

@@ -61,10 +61,11 @@ public class Fliggy_interface_util {
 
     /**
      * 根据酒店经纬度添加酒店位置信息
+     *
      * @param city_coordinates
      * @return
      */
-    public String city_coordinates_batch_upload(City_coordinates city_coordinates){
+    public String city_coordinates_batch_upload(City_coordinates city_coordinates) {
         TaobaoClient client = new DefaultTaobaoClient(url, appkey, secret);
         XhotelCityCoordinatesBatchUploadRequest req = new XhotelCityCoordinatesBatchUploadRequest();
         List<XhotelCityCoordinatesBatchUploadRequest.Coordinate> list2 = new ArrayList<XhotelCityCoordinatesBatchUploadRequest.Coordinate>();
@@ -84,9 +85,9 @@ public class Fliggy_interface_util {
         String jsonString = rsp.getBody();
         JSONObject obj = JSON.parseObject(jsonString);
         String str = obj.toString();
-        if(str.indexOf("xhotel_city_coordinates_batch_upload_response") != -1){
+        if (str.indexOf("xhotel_city_coordinates_batch_upload_response") != -1) {
             str = obj.getJSONObject("xhotel_city_coordinates_batch_upload_response").getString("batch_id");
-        }else{
+        } else {
             str = null;
         }
         return str;
@@ -94,10 +95,11 @@ public class Fliggy_interface_util {
 
     /**
      * 根据批次号获取酒店所在城市id
+     *
      * @param batch_id
      * @return
      */
-    public String coordinates_batch_download(String batch_id){
+    public String coordinates_batch_download(String batch_id) {
         TaobaoClient client = new DefaultTaobaoClient(url, appkey, secret);
         XhotelCityCoordinatesBatchDownloadRequest req = new XhotelCityCoordinatesBatchDownloadRequest();
         Long bid = Long.valueOf(batch_id);
@@ -110,9 +112,9 @@ public class Fliggy_interface_util {
         }
 //        log.info(rsp.getBody());
         String cityCode = "0";
-        if(JSON.parseObject(rsp.getBody()).getJSONObject("xhotel_city_coordinates_batch_download_response").getJSONObject("coordinate_list").getJSONArray("coordinate").getJSONObject(0).getString("city") == null){
+        if (JSON.parseObject(rsp.getBody()).getJSONObject("xhotel_city_coordinates_batch_download_response").getJSONObject("coordinate_list").getJSONArray("coordinate").getJSONObject(0).getString("city") == null) {
             cityCode = "0";
-        }else{
+        } else {
             cityCode = JSON.parseObject(rsp.getBody()).getJSONObject("xhotel_city_coordinates_batch_download_response").getJSONObject("coordinate_list").getJSONArray("coordinate").getJSONObject(0).getString("city");
         }
         return cityCode;
@@ -120,10 +122,11 @@ public class Fliggy_interface_util {
 
     /**
      * 新增酒店信息入飞猪标准库
+     *
      * @param fliggy_hotel_info
      * @return
      */
-    public String xhotel_add(Fliggy_hotel_info fliggy_hotel_info){
+    public String xhotel_add(Fliggy_hotel_info fliggy_hotel_info) {
         String res = "";
         TaobaoClient client = new DefaultTaobaoClient(url, appkey, secret);
         XhotelAddRequest req = new XhotelAddRequest();
@@ -133,9 +136,9 @@ public class Fliggy_interface_util {
         req.setDomestic(1L);
         req.setCountry(fliggy_hotel_info.getCountry());
         req.setCity(fliggy_hotel_info.getCity().longValue());
-        if(fliggy_hotel_info.getAddress().length() > 120){
-            req.setAddress(fliggy_hotel_info.getAddress().substring(0,120));
-        }else{
+        if (fliggy_hotel_info.getAddress().length() > 120) {
+            req.setAddress(fliggy_hotel_info.getAddress().substring(0, 120));
+        } else {
             req.setAddress(fliggy_hotel_info.getAddress());
         }
 //        req.setLongitude(fliggy_hotel_info.getLongitude());
@@ -152,7 +155,7 @@ public class Fliggy_interface_util {
             e.printStackTrace();
         }
         res = JSON.toJSONString(rsp.getBody());
-        if(rsp.getMsg() != null && !rsp.getMsg().equals("")){
+        if (rsp.getMsg() != null && !rsp.getMsg().equals("")) {
             res = rsp.getSubMsg();
         }
         return res;
@@ -160,10 +163,11 @@ public class Fliggy_interface_util {
 
     /**
      * 新增房型信息入飞猪标准库
+     *
      * @param fliggy_roomType_info
      * @return
      */
-    public String xRoomType_add(Fliggy_roomType_info fliggy_roomType_info){
+    public String xRoomType_add(Fliggy_roomType_info fliggy_roomType_info) {
         String res = "";
         TaobaoClient client = new DefaultTaobaoClient(url, appkey, secret);
         XhotelRoomtypeAddRequest req = new XhotelRoomtypeAddRequest();
@@ -181,7 +185,7 @@ public class Fliggy_interface_util {
             e.printStackTrace();
         }
         res = JSON.toJSONString(rsp.getBody());
-        if(rsp.getMsg() != null && !rsp.getMsg().equals("")){
+        if (rsp.getMsg() != null && !rsp.getMsg().equals("")) {
             res = rsp.getSubMsg();
         }
         return res;
@@ -189,10 +193,11 @@ public class Fliggy_interface_util {
 
     /**
      * 根据酒店id查询酒店信息
+     *
      * @param hid
      * @return
      */
-    public JSONObject xHotelSearch(String hid){
+    public JSONObject xHotelSearch(String hid) {
         JSONObject res = null;
         TaobaoClient client = new DefaultTaobaoClient(url, appkey, secret);
         XhotelGetRequest req = new XhotelGetRequest();
@@ -204,7 +209,7 @@ public class Fliggy_interface_util {
         } catch (ApiException e) {
             e.printStackTrace();
         }
-        if(rsp.getBody().indexOf("!DOCTYPE html") != -1){
+        if (rsp.getBody().indexOf("!DOCTYPE html") != -1) {
             System.out.println(rsp.getBody());
         }
         res = JSON.parseObject(rsp.getBody());
@@ -212,7 +217,7 @@ public class Fliggy_interface_util {
         return res;
     }
 
-    public JSONObject xRoomSearch(String rid){
+    public JSONObject xRoomSearch(String rid) {
         JSONObject res = null;
         TaobaoClient client = new DefaultTaobaoClient(url, appkey, secret);
         XhotelRoomtypeGetRequest req = new XhotelRoomtypeGetRequest();
@@ -224,7 +229,7 @@ public class Fliggy_interface_util {
         } catch (ApiException e) {
             e.printStackTrace();
         }
-        if(rsp.getBody().indexOf("!DOCTYPE html") != -1){
+        if (rsp.getBody().indexOf("!DOCTYPE html") != -1) {
             System.out.println(rsp.getBody());
         }
         res = JSON.parseObject(rsp.getBody());
@@ -233,10 +238,11 @@ public class Fliggy_interface_util {
 
     /**
      * 根据酒店id删除飞猪酒店信息
+     *
      * @param hid
      * @return
      */
-    public String xHotelDel(String hid){
+    public String xHotelDel(String hid) {
         String res = "";
         TaobaoClient client = new DefaultTaobaoClient(url, appkey, secret);
         XhotelDeleteRequest req = new XhotelDeleteRequest();
@@ -255,10 +261,11 @@ public class Fliggy_interface_util {
 
     /**
      * 根据房型id删除房型
+     *
      * @param rid
      * @return
      */
-    public String xRoomDel(String rid){
+    public String xRoomDel(String rid) {
         String res = "";
         TaobaoClient client = new DefaultTaobaoClient(url, appkey, secret);
         XhotelRoomtypeDeletePublicRequest req = new XhotelRoomtypeDeletePublicRequest();
@@ -266,13 +273,11 @@ public class Fliggy_interface_util {
         req.setOuterRid(rid);
         req.setOperator("dotwebk");
         XhotelRoomtypeDeletePublicResponse rsp = null;
-        System.out.println(req.);
         try {
             rsp = client.execute(req, sessionKey);
         } catch (ApiException e) {
             e.printStackTrace();
         }
-        System.out.println(rsp.toString());
         res = rsp.getBody();
 //        System.out.println(rsp.getBody());
         return res;

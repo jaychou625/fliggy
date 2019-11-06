@@ -18,103 +18,114 @@ public class Fliggy_hotel_infoService {
 
     /**
      * 根据酒店对象新增酒店入库
+     *
      * @param fliggy_hotel_info
      * @return
      */
-    public  boolean add(Fliggy_hotel_info fliggy_hotel_info){
+    public boolean add(Fliggy_hotel_info fliggy_hotel_info) {
         return fliggy_hotel_infoMapper.add(fliggy_hotel_info);
     }
 
     /**
      * 根据酒店id查询条目数
+     *
      * @param outer_id
      * @return
      */
-    public int findHotelCountById(String outer_id){
+    public int findHotelCountById(String outer_id) {
         return fliggy_hotel_infoMapper.findHotelCountById(outer_id);
     }
 
     /**
      * 查询所有待添加酒店信息
+     *
      * @return
      */
-    public List<Fliggy_hotel_info> searchAllHotel(){
+    public List<Fliggy_hotel_info> searchAllHotel() {
         return fliggy_hotel_infoMapper.searchAllHotel();
     }
 
     /**
      * 更新酒店所在城市信息
+     *
      * @param fliggy_hotel_info
      * @return
      */
-    public boolean updateCity(Fliggy_hotel_info fliggy_hotel_info){
+    public boolean updateCity(Fliggy_hotel_info fliggy_hotel_info) {
         return fliggy_hotel_infoMapper.updateCity(fliggy_hotel_info);
     }
 
     /**
      * 更新酒店状态信息，0：未添加入飞猪。1：已添加入飞猪
+     *
      * @param fliggy_hotel_info
      * @return
      */
-    public boolean updateStateAndDate(Fliggy_hotel_info fliggy_hotel_info){
+    public boolean updateStateAndDate(Fliggy_hotel_info fliggy_hotel_info) {
         return fliggy_hotel_infoMapper.updateStateAndDate(fliggy_hotel_info);
     }
 
     /**
      * 查询所有加入飞猪库的酒店信息
+     *
      * @return
      */
-    public List<Fliggy_hotel_info> searchAllHotelByState(String state){
+    public List<Fliggy_hotel_info> searchAllHotelByState(String state) {
         return fliggy_hotel_infoMapper.searchAllHotelByState(state);
     }
 
     /**
      * //更新酒店信息
+     *
      * @param hid
      * @return
      */
-    public boolean updateInfo(String hid){
+    public boolean updateInfo(String hid) {
         return fliggy_hotel_infoMapper.updateInfo(hid);
     }
 
     /**
      * 获取酒店信息（根据酒店所在城市批次号）
+     *
      * @return
      */
-    public List<Fliggy_hotel_info> searchHotelByBatchId(){
+    public List<Fliggy_hotel_info> searchHotelByBatchId() {
         return fliggy_hotel_infoMapper.searchHotelByBatchId();
     }
 
     /**
-     *  更新酒店城市处理批次信息
+     * 更新酒店城市处理批次信息
      */
-    public boolean updateBatchId(Fliggy_hotel_info fliggy_hotel_info){
+    public boolean updateBatchId(Fliggy_hotel_info fliggy_hotel_info) {
         return fliggy_hotel_infoMapper.updateBatchId(fliggy_hotel_info);
     }
 
     /**
      * 根据未更新城市id查询酒店信息
+     *
      * @return
      */
-    public List<Fliggy_hotel_info> searchAllHotelByCity(){
+    public List<Fliggy_hotel_info> searchAllHotelByCity() {
         return fliggy_hotel_infoMapper.searchAllHotelByCity();
     }
 
     /**
      * 更新酒店是否有价
+     *
      * @param fliggy_hotel_info
      * @return
      */
-    public boolean updateHavePrice(Fliggy_hotel_info fliggy_hotel_info){
+    public boolean updateHavePrice(Fliggy_hotel_info fliggy_hotel_info) {
         return fliggy_hotel_infoMapper.updateHavePrice(fliggy_hotel_info);
     }
 
     /**
      * 根据是否有价参数查询酒店信息
+     *
      * @param havePrice
      * @return
      */
-    public List<Fliggy_hotel_info> searchAllHotelByHavePrice(String havePrice){
+    public List<Fliggy_hotel_info> searchAllHotelByHavePrice(String havePrice) {
         return fliggy_hotel_infoMapper.searchAllHotelByHavePrice(havePrice);
     }
 

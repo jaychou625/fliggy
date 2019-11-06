@@ -15,8 +15,12 @@ public class HotelConfig {
     }
 
     @Bean
-    public FR_HotelInfoAddTask fr_hotels_infoService(){return new FR_HotelInfoAddTask();}
+    public FR_HotelInfoAddTask fr_hotels_infoService() {
+        return new FR_HotelInfoAddTask();
+    }
 
     @Bean
-    public DotwHotelTask dotwHotelTask(){return new DotwHotelTask();}
+    public DotwHotelTask dotwHotelTask() {
+        return new DotwHotelTask();
+    }
 }

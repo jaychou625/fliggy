@@ -10,6 +10,7 @@ public interface Fliggy_roomtype_sub_sortMapper {
 
     /**
      * 添加房型细节信息
+     *
      * @param fliggy_roomtype_sub_sort
      * @return
      */

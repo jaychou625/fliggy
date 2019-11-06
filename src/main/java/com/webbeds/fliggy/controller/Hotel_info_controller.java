@@ -69,7 +69,7 @@ public class Hotel_info_controller {
      * 读取需要添加的酒店id，根据id获取信息添加入数据库
      */
     @RequestMapping("/addHotelInLocalDatabase")
-    public void addHotelInLocalDatabase(){
+    public void addHotelInLocalDatabase() {
 //        //查询本地数据库获取需要添加的酒店信息
 //        List<DOTW_hotel_info> list = dotw_hotel_infoService.findAll();
 //        //读取DOTW数据入本地库
@@ -80,10 +80,10 @@ public class Hotel_info_controller {
         Long start = new Date().getTime();
         List<String> list = dotw_hotel_infoService.findAllId();
         System.out.println("共有" + list.size() + "条数据");
-        List<JSONObject> listJSON = dotwHotelTask.oprateMore(list,"");
+        List<JSONObject> listJSON = dotwHotelTask.oprateMore(list, "");
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         String date = sdf.format(new Date());
-        common.JSONToExcel(listJSON,"alitrip账户有信息的酒店" + date);
+        common.JSONToExcel(listJSON, "alitrip账户有信息的酒店" + date);
         Long end = new Date().getTime();
         System.out.println("执行完毕，共计消耗：" + (end - start) / 1000 + "S");
     }
@@ -92,14 +92,14 @@ public class Hotel_info_controller {
      * 调用飞猪接口更新酒店所在城市id
      */
     @RequestMapping("/updateCity")
-    public void updateCity(){
+    public void updateCity() {
         List<Fliggy_hotel_info> list = fliggy_hotel_infoService.searchAllHotelByCity();
         System.out.println("共计：" + list.size() + "条信息");
-        List<List<Fliggy_hotel_info>> listThread = common.splitList(list,1000);
+        List<List<Fliggy_hotel_info>> listThread = common.splitList(list, 1000);
         CountDownLatch latch = new CountDownLatch(listThread.size());
         //多线程更新城市cityid
-        for(List<Fliggy_hotel_info> listTemp : listThread){
-            SearchPriceThread searchPriceThread = new SearchPriceThread(listTemp,common,"updateCity",latch);
+        for (List<Fliggy_hotel_info> listTemp : listThread) {
+            SearchPriceThread searchPriceThread = new SearchPriceThread(listTemp, common, "updateCity", latch);
             Thread t = new Thread(searchPriceThread);
             t.start();
         }
@@ -118,17 +118,17 @@ public class Hotel_info_controller {
      * 询价逻辑：根据调用当前日期的后30天 60天 90天进行询价，30天有价设置have_price:1,60天:2 90天：3无价：-1
      */
     @RequestMapping("/searchPrice")
-    public void searchPrice(){
+    public void searchPrice() {
         log.info("执行第一次询价开始");
         Long start = new Date().getTime();
         //获取需要询价的飞猪酒店对象
         List<Fliggy_hotel_info> list = fliggy_hotel_infoService.searchAllHotel();
         System.out.println("共计：" + list.size() + "条信息");
-        List<List<Fliggy_hotel_info>> listThread = common.splitList(list,1000);
+        List<List<Fliggy_hotel_info>> listThread = common.splitList(list, 1000);
         CountDownLatch latch = new CountDownLatch(listThread.size());
         //多线程询价
-        for(List<Fliggy_hotel_info> listTemp : listThread){
-            SearchPriceThread searchPriceThread = new SearchPriceThread(listTemp,common,"first",latch);
+        for (List<Fliggy_hotel_info> listTemp : listThread) {
+            SearchPriceThread searchPriceThread = new SearchPriceThread(listTemp, common, "first", latch);
             Thread t = new Thread(searchPriceThread);
             t.start();
         }
@@ -149,17 +149,17 @@ public class Hotel_info_controller {
      * 询价逻辑：根据调用当前日期的后30天每一天进行查询价格，查询到价格后更新状态
      */
     @RequestMapping("/searchPriceAgain")
-    public void searchPriceAgain(){
+    public void searchPriceAgain() {
         log.info("执行再次询价接口开始");
         Long start = new Date().getTime();
         //获取需要询价的飞猪酒店对象,-1为之前未查到价格的酒店
         List<Fliggy_hotel_info> list = fliggy_hotel_infoService.searchAllHotelByHavePrice("-1");
         System.out.println("共计：" + list.size() + "条信息");
-        List<List<Fliggy_hotel_info>> listThread = common.splitList(list,100);
+        List<List<Fliggy_hotel_info>> listThread = common.splitList(list, 100);
         CountDownLatch latch = new CountDownLatch(listThread.size());
         //多线程询价
-        for(List<Fliggy_hotel_info> listTemp : listThread){
-            SearchPriceThread searchPriceThread = new SearchPriceThread(listTemp,common,"second",latch);
+        for (List<Fliggy_hotel_info> listTemp : listThread) {
+            SearchPriceThread searchPriceThread = new SearchPriceThread(listTemp, common, "second", latch);
             Thread t = new Thread(searchPriceThread);
             t.start();
         }
@@ -176,19 +176,19 @@ public class Hotel_info_controller {
     }
 
     /**
-     *调用飞猪接口添加酒店信息入飞猪本地库
+     * 调用飞猪接口添加酒店信息入飞猪本地库
      */
     @RequestMapping("/addHotelAndRoom")
-    public void addHotelAndRoom(){
+    public void addHotelAndRoom() {
         log.info("执行添加酒店开始");
         Long start = new Date().getTime();
         List<Fliggy_hotel_info> list = fliggy_hotel_infoService.searchAllHotelByState("0");
         System.out.println("共计：" + list.size() + "条信息");
-        List<List<Fliggy_hotel_info>> listThread = common.splitList(list,list.size() / 2);
+        List<List<Fliggy_hotel_info>> listThread = common.splitList(list, list.size() / 2);
         CountDownLatch latch = new CountDownLatch(listThread.size());
         //多线程添加酒店与房型入飞猪
-        for(List<Fliggy_hotel_info> listTemp : listThread){
-            SearchPriceThread searchPriceThread = new SearchPriceThread(listTemp,common,"addHotel2Fliggy",latch);
+        for (List<Fliggy_hotel_info> listTemp : listThread) {
+            SearchPriceThread searchPriceThread = new SearchPriceThread(listTemp, common, "addHotel2Fliggy", latch);
             Thread t = new Thread(searchPriceThread);
             t.start();
         }
@@ -207,7 +207,7 @@ public class Hotel_info_controller {
      * 查询酒店信息并输出
      */
     @RequestMapping("/searchHotel")
-    public void searchHotel(){
+    public void searchHotel() {
         List<Fliggy_hotel_info> list = fliggy_hotel_infoService.searchAllHotelByState("1");
         System.out.println("共计：" + list.size() + "条信息");
         common.searchAndReport(list);
@@ -225,7 +225,7 @@ public class Hotel_info_controller {
      * 更新阿里酒店所在城市的批次号（有些在添加酒店时没加上的给加上批次号）
      */
     @RequestMapping("/updateBatchId")
-    public void updateBatchId(){
+    public void updateBatchId() {
         List<Fliggy_hotel_info> list = fliggy_hotel_infoService.searchHotelByBatchId();
         common.updateCityBatch(list);
     }
@@ -235,14 +235,15 @@ public class Hotel_info_controller {
      * 测试多线程效率
      */
     @RequestMapping("/testMethod")
-    public void testMethod(){
-       JSONObject json = fliggy_interface_util.xHotelSearch("28744");
-       System.out.println(json.toString());
+    public void testMethod() {
+        JSONObject json = fliggy_interface_util.xHotelSearch("28744");
+        System.out.println(json.toString());
     }
 
 
     /**
      * 获取ip测试
+     *
      * @param request
      * @return
      */
@@ -253,7 +254,7 @@ public class Hotel_info_controller {
     }
 
     @RequestMapping("/delRoom")
-    public void delRoom(){
+    public void delRoom() {
         List<Fliggy_roomType_info> list = fliggy_roomTpye_infoService.searchRoomByState("0");
         common.delRoom(list);
         System.out.println("接口执行完毕");

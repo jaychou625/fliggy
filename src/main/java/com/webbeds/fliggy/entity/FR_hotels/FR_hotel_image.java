@@ -6,7 +6,13 @@ import lombok.*;
 @AllArgsConstructor
 @ToString
 public class FR_hotel_image {
-    @Setter @Getter private String img_id;
-    @Setter @Getter private String path;
-    @Setter @Getter private String hid;
+    @Setter
+    @Getter
+    private String img_id;
+    @Setter
+    @Getter
+    private String path;
+    @Setter
+    @Getter
+    private String hid;
 }

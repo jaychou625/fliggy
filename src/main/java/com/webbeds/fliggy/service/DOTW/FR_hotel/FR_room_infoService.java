@@ -18,10 +18,11 @@ public class FR_room_infoService {
 
     /**
      * 根据酒店对象新增酒店入库
+     *
      * @param fr_room_info
      * @return
      */
-    public  boolean add(FR_room_info fr_room_info){
+    public boolean add(FR_room_info fr_room_info) {
         return fr_room_infoMapper.add(fr_room_info);
     }
 

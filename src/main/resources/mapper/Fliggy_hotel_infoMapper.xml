@@ -41,12 +41,18 @@
         <result column="orbit_track" property="orbit_track" javaType="java.lang.String" jdbcType="VARCHAR"/>
         <result column="name_e" property="name_e" javaType="java.lang.String" jdbcType="VARCHAR"/>
         <result column="supplier" property="supplier" javaType="java.lang.String" jdbcType="VARCHAR"/>
-        <result column="settlement_currency" property="settlement_currency" javaType="java.lang.String" jdbcType="VARCHAR"/>
-        <result column="standard_amuse_facilities" property="standard_amuse_facilities" javaType="java.lang.String" jdbcType="VARCHAR"/>
-        <result column="standard_room_facilities" property="standard_room_facilities" javaType="java.lang.String" jdbcType="VARCHAR"/>
-        <result column="standard_hotel_service" property="standard_hotel_service" javaType="java.lang.String" jdbcType="VARCHAR"/>
-        <result column="standard_hotel_facilities" property="standard_hotel_facilities" javaType="java.lang.String" jdbcType="VARCHAR"/>
-        <result column="standard_booking_notice" property="standard_booking_notice" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result column="settlement_currency" property="settlement_currency" javaType="java.lang.String"
+                jdbcType="VARCHAR"/>
+        <result column="standard_amuse_facilities" property="standard_amuse_facilities" javaType="java.lang.String"
+                jdbcType="VARCHAR"/>
+        <result column="standard_room_facilities" property="standard_room_facilities" javaType="java.lang.String"
+                jdbcType="VARCHAR"/>
+        <result column="standard_hotel_service" property="standard_hotel_service" javaType="java.lang.String"
+                jdbcType="VARCHAR"/>
+        <result column="standard_hotel_facilities" property="standard_hotel_facilities" javaType="java.lang.String"
+                jdbcType="VARCHAR"/>
+        <result column="standard_booking_notice" property="standard_booking_notice" javaType="java.lang.String"
+                jdbcType="VARCHAR"/>
         <result column="batch_id" property="batch_id" javaType="java.lang.String" jdbcType="VARCHAR"/>
         <result column="state" property="state" javaType="java.lang.String" jdbcType="VARCHAR"/>
         <result column="insertDate" property="insertDate" javaType="java.util.Date" jdbcType="TIMESTAMP"/>
@@ -58,8 +64,10 @@
 
 
     <insert id="add" parameterType="com.webbeds.fliggy.entity.Fliggy_hotel_info">
-        INSERT INTO fliggy_hotel_information_dotwebk(outer_id,hotel_name,used_name,domestic,country,province,city,district,business,address,longitude,latitude,position_type,tel,extend,shid,vendor,star,opening_time,decorate_time,floors,rooms,description,hotel_policies,hotel_facilities,service,room_facilities,pics,brand,postal_code,booking_notice,credit_card_types,orbit_track,name_e,supplier,settlement_currency,standard_amuse_facilities,standard_room_facilities,standard_hotel_service,standard_hotel_facilities,standard_booking_notice,batch_id,state,insertDate,error_msg,mapping,have_price,have_price_date)
-        VALUES (#{outer_id}, #{hotel_name}, #{used_name}, #{domestic}, #{country}, #{province},#{city},#{district},#{business},#{address},#{longitude},#{latitude},#{position_type},#{tel},#{extend},#{shid},#{vendor},#{star},#{opening_time},#{decorate_time},#{floors},#{rooms},#{description},#{hotel_policies},#{hotel_facilities},#{service},#{room_facilities},#{pics},#{brand},#{postal_code},#{booking_notice},#{credit_card_types},#{orbit_track},#{name_e},#{supplier},#{settlement_currency},#{standard_amuse_facilities},#{standard_room_facilities},#{standard_hotel_service},#{standard_hotel_facilities},#{standard_booking_notice},#{batch_id},#{state},#{insertDate},#{error_msg},#{mapping},#{have_price},#{have_price_date})
+        INSERT INTO
+        fliggy_hotel_information_dotwebk(outer_id,hotel_name,used_name,domestic,country,province,city,district,business,address,longitude,latitude,position_type,tel,extend,shid,vendor,star,opening_time,decorate_time,floors,rooms,description,hotel_policies,hotel_facilities,service,room_facilities,pics,brand,postal_code,booking_notice,credit_card_types,orbit_track,name_e,supplier,settlement_currency,standard_amuse_facilities,standard_room_facilities,standard_hotel_service,standard_hotel_facilities,standard_booking_notice,batch_id,state,insertDate,error_msg,mapping,have_price,have_price_date)
+        VALUES (#{outer_id}, #{hotel_name}, #{used_name}, #{domestic}, #{country},
+        #{province},#{city},#{district},#{business},#{address},#{longitude},#{latitude},#{position_type},#{tel},#{extend},#{shid},#{vendor},#{star},#{opening_time},#{decorate_time},#{floors},#{rooms},#{description},#{hotel_policies},#{hotel_facilities},#{service},#{room_facilities},#{pics},#{brand},#{postal_code},#{booking_notice},#{credit_card_types},#{orbit_track},#{name_e},#{supplier},#{settlement_currency},#{standard_amuse_facilities},#{standard_room_facilities},#{standard_hotel_service},#{standard_hotel_facilities},#{standard_booking_notice},#{batch_id},#{state},#{insertDate},#{error_msg},#{mapping},#{have_price},#{have_price_date})
     </insert>
 
     <select id="findHotelCountById" resultType="java.lang.Integer">
@@ -75,7 +83,7 @@
     <select id="searchAllHotelByState" resultMap="Fliggy_hotel_info_ResultMap" parameterType="java.lang.String">
         SELECT * FROM fliggy_hotel_information_dotwebk
         WHERE state = #{state} and city != "0"
---         and have_price != "-1" and have_price != "0"
+        -- and have_price != "-1" and have_price != "0"
     </select>
 
     <update id="updateCity" parameterType="com.webbeds.fliggy.entity.Fliggy_hotel_info">
@@ -84,7 +92,8 @@
     </update>
 
     <update id="updateStateAndDate" parameterType="com.webbeds.fliggy.entity.Fliggy_hotel_info">
-        UPDATE fliggy_hotel_information_dotwebk SET state = #{state}, insertDate =  #{insertDate}, error_msg = #{error_msg},mapping = #{mapping}
+        UPDATE fliggy_hotel_information_dotwebk SET state = #{state}, insertDate = #{insertDate}, error_msg =
+        #{error_msg},mapping = #{mapping}
         where outer_id = #{outer_id}
     </update>
 

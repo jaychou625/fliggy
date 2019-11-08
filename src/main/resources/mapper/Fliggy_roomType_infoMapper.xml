@@ -34,10 +34,10 @@
     </resultMap>
 
     <!--  备份查询  -->
-    <!--        <select id="searchRoomByHid" resultMap="Fliggy_roomType_info_ResultMap">-->
-    <!--            SELECT * FROM fliggy_roomtype_info_dotwebk-->
-    <!--            where out_hid = #{hid} and state != "0"-->
-    <!--        </select>-->
+<!--            <select id="searchRoomByHid" resultMap="Fliggy_roomType_info_ResultMap">-->
+<!--                SELECT * FROM fliggy_roomtype_info_dotwebk-->
+<!--                where out_hid = #{hid} and state != "0"-->
+<!--            </select>-->
 
     <!-- 查询返回需要上传的飞猪房型，（逻辑：根据酒店id维度查询再经过近期有间夜量的房型表过滤，得出有效房型）       -->
     <select id="searchRoomByHid" resultMap="Fliggy_roomType_info_ResultMap">

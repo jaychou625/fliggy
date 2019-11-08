@@ -174,7 +174,13 @@ public class Fliggy_interface_util {
         //必填信息：房型id，房型名称，房型英文名，床型，所属酒店id
         req.setOuterId(fliggy_roomType_info.getOuter_id());
         req.setName(fliggy_roomType_info.getName_final());
-        req.setBedType(fliggy_roomType_info.getBed_type());
+        if(fliggy_roomType_info.getName_final().indexOf("Double") != -1 || fliggy_roomType_info.getName_final().indexOf("DOUBLE") != -1){
+            req.setBedType("大床");
+        }else if(fliggy_roomType_info.getName_final().indexOf("Twin") != -1 || fliggy_roomType_info.getName_final().indexOf("twin") != -1){
+            req.setBedType("双床");
+        }else{
+            req.setBedType(fliggy_roomType_info.getBed_type());
+        }
         req.setOutHid(fliggy_roomType_info.getOut_hid());
         req.setVendor("dotwebk");
         req.setNameE(fliggy_roomType_info.getName_final());

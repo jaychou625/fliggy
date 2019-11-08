@@ -47,6 +47,8 @@ public class SearchPriceThread implements Runnable {
 //                    common.updateCityId(list);
 //                }
                 common.updateCityId(list);
+            }else if(mark.equals("addRoomOnly")){
+                common.add2FliggyRoom(list);
             }
         } catch (Exception e) {
             e.printStackTrace();

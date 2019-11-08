@@ -1122,4 +1122,35 @@ public class Common {
         }
     }
 
+    //添加酒店入飞猪库方法
+    public void add2FliggyRoom(List<Fliggy_hotel_info> list) {
+        for (Fliggy_hotel_info fliggy_hotel_info : list) {
+            /**
+             * step 1：添加酒店信息（添加成功后，更新对应本地数据库的state信息为1，insertDate为入库时间）
+             * step 2：酒店添加成功后添加对应酒店的房型信息
+             */
+            if (fliggy_hotel_info.getCity() != 0) {
+                //添加酒店对应房型信息入库
+                List<Fliggy_roomType_info> roomList = fliggy_roomTpye_infoService.searchRoomByHid(fliggy_hotel_info.getOuter_id());
+                for (Fliggy_roomType_info fliggy_roomType_info : roomList) {
+                    String resRoom = fliggy_interface_util.xRoomType_add(fliggy_roomType_info);
+                    if (resRoom != null && resRoom.indexOf("xhotel_roomtype_add_response") != -1) {
+//                            System.out.println("房型添加成功");
+                        fliggy_roomType_info.setInsertDate(new Date());
+                        fliggy_roomType_info.setState("1");
+                        fliggy_roomType_info.setError_msg("");
+                        fliggy_roomTpye_infoService.updateStateAndDate(fliggy_roomType_info);
+                    } else {
+//                            System.out.println("房型添加失败");
+                        String error_msg = resRoom;
+                        fliggy_roomType_info.setError_msg(error_msg);
+                        fliggy_roomType_info.setState("2");
+                        fliggy_roomTpye_infoService.updateStateAndDate(fliggy_roomType_info);
+                    }
+                }
+            }
+        }
+    }
+
+
 }

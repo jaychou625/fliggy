@@ -260,4 +260,34 @@ public class Hotel_info_controller {
         System.out.println("接口执行完毕");
     }
 
+
+    /**
+     * 调用飞猪接口添加酒店信息入飞猪本地库（根据酒店id推送酒店信息和房型信息）
+     */
+    @RequestMapping("/addHotelAndRoomsByHid")
+    public void addHotelAndRoomsByHid() {
+        log.info("执行添加酒店开始");
+        Long start = new Date().getTime();
+//        List<Fliggy_hotel_info> list = fliggy_hotel_infoService.searchAllHotelByState("0");
+        List<Fliggy_hotel_info> list = fliggy_hotel_infoService.searchAllHotel();
+        System.out.println("共计：" + list.size() + "条信息");
+        List<List<Fliggy_hotel_info>> listThread = common.splitList(list, list.size() / 2);
+        CountDownLatch latch = new CountDownLatch(listThread.size());
+        //多线程添加酒店与房型入飞猪
+        for (List<Fliggy_hotel_info> listTemp : listThread) {
+            SearchPriceThread searchPriceThread = new SearchPriceThread(listTemp, common, "addRoomOnly", latch);
+            Thread t = new Thread(searchPriceThread);
+            t.start();
+        }
+//        common.add2Fliggy(list);
+        try {
+            latch.await();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        log.info("执行添加酒店结束");
+        Long end = new Date().getTime();
+        System.out.println("执行完毕，共计消耗：" + (end - start) / 1000 + "S");
+    }
+
 }

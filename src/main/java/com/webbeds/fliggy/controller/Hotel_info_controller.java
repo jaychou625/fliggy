@@ -80,7 +80,7 @@ public class Hotel_info_controller {
         Long start = new Date().getTime();
         List<String> list = dotw_hotel_infoService.findAllId();
         System.out.println("共有" + list.size() + "条数据");
-        List<JSONObject> listJSON = dotwHotelTask.oprateMore(list, "");
+        List<JSONObject> listJSON = dotwHotelTask.oprateByThread(list, "");
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         String date = sdf.format(new Date());
         common.JSONToExcel(listJSON, "alitrip账户有信息的酒店" + date);

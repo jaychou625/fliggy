@@ -9,6 +9,7 @@ import com.webbeds.fliggy.entity.Fliggy_interface.City_coordinates;
 import com.webbeds.fliggy.entity.Fliggy_roomType_info;
 import com.webbeds.fliggy.entity.Fliggy_roomtype_sub_sort;
 import com.webbeds.fliggy.service.DOTW.*;
+import com.webbeds.fliggy.thread.AddHotelsThread;
 import com.webbeds.fliggy.utils.Common;
 import com.webbeds.fliggy.utils.DOTW_interface_util;
 import com.webbeds.fliggy.utils.Fliggy_interface_util;
@@ -21,6 +22,7 @@ import java.io.OutputStreamWriter;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.*;
+import java.util.concurrent.CountDownLatch;
 
 public class DotwHotelTask {
     @Autowired
@@ -104,6 +106,7 @@ public class DotwHotelTask {
         System.out.println("共有：" + lenList + "条消息");
         List<JSONObject> listJSON = new ArrayList<>();
 
+
         for (int i = 0; i < lenList / constListLen; i++) {
             List<String> listTemp = new ArrayList<>();
             //分批次处理大量酒店id
@@ -154,6 +157,71 @@ public class DotwHotelTask {
     }
 
     /**
+     * dotw数据操作方法（暂定）
+     *
+     * @param list
+     */
+    public List<JSONObject> oprateByThread(List<String> list, String state) {
+        int lenList = list.size();
+        //按多少长度切割的系数
+        int constListLen = 30;
+        System.out.println("共有：" + lenList + "条消息");
+        List<JSONObject> listJSON = new ArrayList<>();
+        //分割数组进行线程操作
+        List<List<String>> listThread = new ArrayList<>();
+        listThread = common.splitListString(list,list.size() / 7);
+        CountDownLatch latch = new CountDownLatch(listThread.size());
+        for(List<String> listTemp : listThread){
+            AddHotelsThread addHotelsThread = new AddHotelsThread(listTemp, common,latch,this,listJSON,state);
+            Thread t = new Thread(addHotelsThread);
+            t.start();
+        }
+
+        try {
+            latch.await();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        return listJSON;
+    }
+
+    public void addHotelOperate(List<String> listTemp,List<JSONObject> listJSON,String state){
+        //根据dotw酒店查询接口获得json对象
+        JSONObject jsonObject = dotw_interface_util.getHotelInfoInDotwByHotelId(listTemp);
+        //根据hotel的类属性进行处理，判断如果不等于空并且count条目等于1则转换为jsonobjectcount>1则转换为jsonarray
+        if (jsonObject != null && !jsonObject.getJSONObject("hotels").getString("@count").equals("0")) {
+            JSONObject hotelJSON = null;
+            if (jsonObject.getJSONObject("hotels").getString("@count").equals("1")) {
+                hotelJSON = jsonObject.getJSONObject("hotels").getJSONObject("hotel");
+                DOTW_hotel_info dotw_hotel_info = dotw_hotel_infoService.searchHotelByHid(hotelJSON.getString("@hotelid"));
+                if (dotw_hotel_info != null) {
+                    oprateAddHotelAndRoom2Fliggy(hotelJSON, dotw_hotel_info, listJSON);
+                } else {
+
+                }
+            } else {
+                JSONArray hotelArray = jsonObject.getJSONObject("hotels").getJSONArray("hotel");
+                for (int arrIndex = 0; arrIndex < hotelArray.size(); arrIndex++) {
+                    hotelJSON = hotelArray.getJSONObject(arrIndex);
+                    DOTW_hotel_info dotw_hotel_info = dotw_hotel_infoService.searchHotelByHid(hotelJSON.getString("@hotelid"));
+                    if (dotw_hotel_info != null) {
+                        oprateAddHotelAndRoom2Fliggy(hotelJSON, dotw_hotel_info, listJSON);
+                    } else {
+
+                    }
+                }
+            }
+            //处理完毕后调用添加接口将酒店数据转化为对应的飞猪酒店和房型信息并插入数据库
+        } else {
+            //如果dotw中没有查询到酒店信息并且酒店状态为酒店停售时，进行更改操作。更新飞猪接口为-2关闭酒店
+            if (state.equals("酒店停售")) {
+                //todo：关闭酒店接口调用
+            }
+        }
+    }
+
+    /**
      * 添加酒店和房型入本地飞猪库
      *
      * @param hotelJSON
@@ -191,144 +259,6 @@ public class DotwHotelTask {
         }
         listJSON.add(hotelJSON);
     }
-
-//    /**
-//     * 根据hotelid调用dotw接口获取酒店和房型信息
-//     * @param listTemp
-//     * @return
-//     */
-//    public JSONObject getHotelInfoInDotwByHotelId(List<String> listTemp){
-//        //API开发接口URL
-//        String path = "http://us.DOTWconnect.com/gatewayV3.dotw";
-//        JSONObject result = null;
-//
-//        String xml = "";
-//
-//        StringBuilder sb = new StringBuilder();
-//        sb.append("<?xml version='1.0' encoding='UTF-8'?>");
-//        sb.append("<customer>\n" +
-//                "    <username>AlitripXML</username>\n" +
-//                "    <password>CD84D683CC5612C69EFE115C80D0B7DC</password>\n" +
-//                "    <id>1494305</id>\n" +
-//                "    <source>1</source>\n" +
-//                "    <product>hotel</product>\n" +
-//                "     <request command=\"searchhotels\">  \n" +
-//                "        <bookingDetails>  \n" +
-//                "            <fromDate>2019-05-28</fromDate>  \n" +
-//                "            <toDate>2019-05-29</toDate>  \n" +
-//                "            <currency>520</currency>  \n" +
-//                "            <rooms no=\"1\">  \n" +
-//                "                <room runno=\"0\">  \n" +
-//                "                    <adultsCode>1</adultsCode>  \n" +
-//                "                    <children no=\"0\"></children>  \n" +
-//                "                    <rateBasis>-1</rateBasis>  \n" +
-//                "                </room>  \n" +
-//                "            </rooms>  \n" +
-//                "        </bookingDetails>  \n" +
-//                "        <return>  \n" +
-//                "            <getRooms>true</getRooms>  \n" +
-//                "            <filters xmlns:a=\"http://us.dotwconnect.com/xsd/atomicCondition\" xmlns:c=\"http://us.dotwconnect.com/xsd/complexCondition\">\n" +
-////                "              <city>" + cityId + "</city>\n" +
-//                "              <noPrice>true</noPrice>\n" +
-//                "              <c:condition>\n" +
-//                "                <a:condition>\n" +
-//                "                <fieldName>hotelId</fieldName>\n" +
-//                "                  <fieldTest>in</fieldTest>\n" +
-//                "                  <fieldValues>\n");
-//            for(String str : listTemp){
-//                sb.append("<fieldValue>" + str + "</fieldValue>\n" );
-//            }
-//
-//            sb.append("                  </fieldValues>\n" +
-//                    "                </a:condition>\n" +
-//                    "              </c:condition>\n" +
-//                    "            </filters>  \n" +
-//                    "            <fields>\n" +
-//                    "            \t<field>hotelName</field>  \n" +
-//                    "                <field>chain</field>  \n" +
-//                    "                <field>cityName</field>  \n" +
-//                    "                <field>cityCode</field>  \n" +
-//                    "                <field>stateName</field>  \n" +
-//                    "                <field>stateCode</field>  \n" +
-//                    "                <field>countryName</field>  \n" +
-//                    "                <field>countryCode</field>  \n" +
-//                    "                <field>regionName</field>  \n" +
-//                    "                <field>regionCode</field> \n" +
-//                    "                <field>preferred</field>  \n" +
-//                    "                <field>builtYear</field>  \n" +
-//                    "                <field>renovationYear</field>  \n" +
-//                    "                <field>floors</field>  \n" +
-//                    "                <field>noOfRooms</field>  \n" +
-//                    "                <field>preferred</field>  \n" +
-//                    "                <field>luxury</field>  \n" +
-//                    "                <field>fullAddress</field>  \n" +
-//                    "                <field>description1</field>  \n" +
-//                    "                <field>description2</field>  \n" +
-//                    "                <field>address</field>  \n" +
-//                    "                <field>zipCode</field>  \n" +
-//                    "                <field>location</field>  \n" +
-//                    "                <field>locationId</field>  \n" +
-//                    "                <field>location1</field>  \n" +
-//                    "                <field>location2</field>  \n" +
-//                    "                <field>location3</field>  \n" +
-//                    "                <field>attraction</field>  \n" +
-//                    "                <field>amenitie</field>  \n" +
-//                    "                <field>leisure</field>  \n" +
-//                    "                <field>business</field>  \n" +
-//                    "                <field>transportation</field>  \n" +
-//                    "                <field>hotelPhone</field>  \n" +
-//                    "                <field>hotelCheckIn</field>  \n" +
-//                    "                <field>hotelCheckOut</field>  \n" +
-//                    "                <field>minAge</field>  \n" +
-//                    "                <field>rating</field>  \n" +
-//                    "                <field>images</field>  \n" +
-//                    "                <field>fireSafety</field>  \n" +
-//                    "                <field>hotelPreference</field>  \n" +
-//                    "                <field>direct</field>  \n" +
-//                    "                <field>geoPoint</field>  \n" +
-//                    "                <field>leftToSell</field>  \n" +
-//                    "                <field>chain</field>  \n" +
-//                    "                <field>lastUpdated</field>  \n" +
-//                    "                <field>priority</field>  \n" +
-//                    "                <roomField>name</roomField>  \n" +
-//                    "                <roomField>roomInfo</roomField>  \n" +
-//                    "                <roomField>roomAmenities</roomField>  \n" +
-//                    "                <roomField>twin</roomField>  \n" +
-//                    "            </fields>  \n" +
-//                    "        </return>  \n" +
-//                    "    </request>\n" +
-//                    "</customer>");
-//        xml = sb.toString();
-//        try {
-//            URL url = new URL(path);
-//            URLConnection con = url.openConnection();
-//            con.setDoOutput(true);
-//            con.setRequestProperty("Pragma", "no-cache");
-//            con.setRequestProperty("Cache-Control", "no-cache");
-//            con.setRequestProperty("Content-Type", "application/xml");
-//
-//            OutputStreamWriter out = new OutputStreamWriter(con.getOutputStream());
-//            String xmlInfo = xml;
-//            out.write(new String(xmlInfo.getBytes("UTF-8")));
-//            out.flush();
-//            out.close();
-//            BufferedReader br = new BufferedReader(new InputStreamReader(con
-//                    .getInputStream()));
-//            String line = "";
-//            String xmlString = "";
-//            for (line = br.readLine(); line != null; line = br.readLine()) {
-//                xmlString += line;
-//            }
-//            XMLSerializer xmlSerializer = new XMLSerializer();
-//            String resutStr = xmlSerializer.read(xmlString).toString();
-//            result = JSON.parseObject(resutStr);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//
-//        return result;
-//
-//    }
 
 
     /**
@@ -470,7 +400,14 @@ public class DotwHotelTask {
         fliggy_roomType_info.setOuter_id(jsonObject.getString("@roomtypecode"));
         fliggy_roomType_info.setName(jsonObject.getString("name"));
         fliggy_roomType_info.setName_e(jsonObject.getString("name"));
-        fliggy_roomType_info.setBed_type("大床/双床");
+
+        if(fliggy_roomType_info.getName().indexOf("Double") != -1 || fliggy_roomType_info.getName().indexOf("DOUBLE") != -1 || fliggy_roomType_info.getName().indexOf("double") != -1){
+            fliggy_roomType_info.setBed_type("大床");
+        }else if(fliggy_roomType_info.getName().indexOf("Twin") != -1 || fliggy_roomType_info.getName().indexOf("twin") != -1 || fliggy_roomType_info.getName().indexOf("TWIN") != -1) {
+            fliggy_roomType_info.setBed_type("双床");
+        }else{
+            fliggy_roomType_info.setBed_type("大床/双床");
+        }
         String nameTotal = jsonObject.getString("name");
         /**
          * 截取关键字，Room、Dorm、Bungalow、Dormitory、Suite、Villa、Twin、APARTMENT

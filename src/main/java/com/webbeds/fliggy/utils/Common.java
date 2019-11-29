@@ -528,38 +528,44 @@ public class Common {
              * step 2：酒店添加成功后添加对应酒店的房型信息
              */
             if (fliggy_hotel_info.getCity() != 0) {
-                String res = fliggy_interface_util.xhotel_add(fliggy_hotel_info);
-                if (res != null && res.indexOf("xhotel_add_response") != -1) {
-//                    System.out.println("酒店添加成功");
-                    fliggy_hotel_info.setInsertDate(new Date());
-                    fliggy_hotel_info.setState("1");
-                    fliggy_hotel_info.setError_msg("");
-                    fliggy_hotel_infoService.updateStateAndDate(fliggy_hotel_info);
-                    //添加酒店对应房型信息入库
-                    List<Fliggy_roomType_info> roomList = fliggy_roomTpye_infoService.searchRoomByHid(fliggy_hotel_info.getOuter_id());
-                    for (Fliggy_roomType_info fliggy_roomType_info : roomList) {
-                        String resRoom = fliggy_interface_util.xRoomType_add(fliggy_roomType_info);
-                        if (resRoom != null && resRoom.indexOf("xhotel_roomtype_add_response") != -1) {
+                //添加酒店对应房型信息入库
+                List<Fliggy_roomType_info> roomList = fliggy_roomTpye_infoService.searchRoomByHid(fliggy_hotel_info.getOuter_id());
+                if(roomList.size() > 0){
+                    System.out.println("酒店_" + fliggy_hotel_info.getHotel_name() + "共有" + roomList.size() + "个房型需要添加");
+                }
+                for (Fliggy_roomType_info fliggy_roomType_info : roomList) {
+                    String resRoom = fliggy_interface_util.xRoomType_add(fliggy_roomType_info);
+                    if (resRoom != null && resRoom.indexOf("xhotel_roomtype_add_response") != -1) {
 //                            System.out.println("房型添加成功");
-                            fliggy_roomType_info.setInsertDate(new Date());
-                            fliggy_roomType_info.setState("1");
-                            fliggy_roomType_info.setError_msg("");
-                            fliggy_roomTpye_infoService.updateStateAndDate(fliggy_roomType_info);
-                        } else {
+                        fliggy_roomType_info.setInsertDate(new Date());
+                        fliggy_roomType_info.setState("1");
+                        fliggy_roomType_info.setError_msg("");
+                        fliggy_roomTpye_infoService.updateStateAndDate(fliggy_roomType_info);
+                    } else {
 //                            System.out.println("房型添加失败");
-                            String error_msg = resRoom;
-                            fliggy_roomType_info.setError_msg(error_msg);
-                            fliggy_roomType_info.setState("2");
-                            fliggy_roomTpye_infoService.updateStateAndDate(fliggy_roomType_info);
-                        }
+                        String error_msg = resRoom;
+                        fliggy_roomType_info.setError_msg(error_msg);
+                        fliggy_roomType_info.setState("2");
+                        fliggy_roomTpye_infoService.updateStateAndDate(fliggy_roomType_info);
                     }
-
-                } else {
-                    System.out.println("酒店添加失败");
-                    String error_msg = res;
-                    fliggy_hotel_info.setError_msg(error_msg);
-                    fliggy_hotel_info.setState("2");
-                    fliggy_hotel_infoService.updateStateAndDate(fliggy_hotel_info);
+                }
+                String res = null;
+                //酒店状态为0才添加酒店。
+                if(fliggy_hotel_info.getState().equals("0")){
+                    res = fliggy_interface_util.xhotel_add(fliggy_hotel_info);
+                    if (res != null && res.indexOf("xhotel_add_response") != -1) {
+//                    System.out.println("酒店添加成功");
+                        fliggy_hotel_info.setInsertDate(new Date());
+                        fliggy_hotel_info.setState("1");
+                        fliggy_hotel_info.setError_msg("");
+                        fliggy_hotel_infoService.updateStateAndDate(fliggy_hotel_info);
+                    } else {
+                        System.out.println("酒店添加失败");
+                        String error_msg = res;
+                        fliggy_hotel_info.setError_msg(error_msg);
+                        fliggy_hotel_info.setState("2");
+                        fliggy_hotel_infoService.updateStateAndDate(fliggy_hotel_info);
+                    }
                 }
             }
         }

@@ -11,7 +11,6 @@ import com.webbeds.fliggy.entity.Fliggy_hotel_info;
 import com.webbeds.fliggy.entity.Fliggy_interface.City_coordinates;
 import com.webbeds.fliggy.entity.Fliggy_roomType_info;
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,41 +21,43 @@ import java.util.List;
 @Slf4j
 public class Fliggy_interface_util {
 
-    //account1接口调用地址
-//    private final String url = "http://gw.api.taobao.com/router/rest";
-//    //appkey
-//    private final String appkey = "24823522";
-//    //secret
-//    private final String secret = "91c56c1988556d2a8c053c730f74e286";
-//    //sessionKey
-//    private final String sessionKey = "6101317ae675055a1fb83cf2711704e90ed9e7b8fb137bf3309205637";
+    private String vendor = "DOTW";
 
-    //account2接口调用地址
+    //account1接口调用地址
     private final String url = "http://gw.api.taobao.com/router/rest";
     //appkey
     private final String appkey = "24823522";
     //secret
     private final String secret = "91c56c1988556d2a8c053c730f74e286";
     //sessionKey
-    private final String sessionKey = "6100e13f6d96e66848423135c54c3bbc24dae32f83aa9023417495593";
+    private final String sessionKey = "6101317ae675055a1fb83cf2711704e90ed9e7b8fb137bf3309205637";
 
-    //沙箱接口调用地址
-    private final String urlS = "http://gw.api.tbsandbox.com/router/rest";
-    //appkey
-    private final String appkeyS = "1024823522";
-    //secret
-    private final String secretS = "sandbox988556d2a8c053c730f74e286";
-    //sessionKey
-    private final String sessionKeyS = "61028252845fcd5ace28881ff5ee2301313dcfa6f6456423686530402";
-
-    //account2沙箱接口调用地址
-    private final String urlS2 = "http://gw.api.tbsandbox.com/router/rest";
-    //appkey
-    private final String appkeyS2 = "1024713184";
-    //secret
-    private final String secretS2 = "sandbox88edd90e462a79ed5cdbf2154";
-    //sessionKey
-    private final String sessionKeyS2 = "6101202c1d1d06f080e67019948c9145cb00d93064f83f365753805";
+    //account2接口调用地址
+//    private final String url = "http://gw.api.taobao.com/router/rest";
+//    //appkey
+//    private final String appkey = "24823522";
+//    //secret
+//    private final String secret = "91c56c1988556d2a8c053c730f74e286";
+//    //sessionKey
+//    private final String sessionKey = "6100e13f6d96e66848423135c54c3bbc24dae32f83aa9023417495593";
+//
+//    //沙箱接口调用地址
+//    private final String urlS = "http://gw.api.tbsandbox.com/router/rest";
+//    //appkey
+//    private final String appkeyS = "1024823522";
+//    //secret
+//    private final String secretS = "sandbox988556d2a8c053c730f74e286";
+//    //sessionKey
+//    private final String sessionKeyS = "61028252845fcd5ace28881ff5ee2301313dcfa6f6456423686530402";
+//
+//    //account2沙箱接口调用地址
+//    private final String urlS2 = "http://gw.api.tbsandbox.com/router/rest";
+//    //appkey
+//    private final String appkeyS2 = "1024713184";
+//    //secret
+//    private final String secretS2 = "sandbox88edd90e462a79ed5cdbf2154";
+//    //sessionKey
+//    private final String sessionKeyS2 = "6101202c1d1d06f080e67019948c9145cb00d93064f83f365753805";
 
 
     /**
@@ -145,9 +146,9 @@ public class Fliggy_interface_util {
 //        req.setLatitude(fliggy_hotel_info.getLatitude());
         req.setPositionType("G");
         req.setTel(fliggy_hotel_info.getTel());
-        req.setVendor("dotwebk");
+        req.setVendor(vendor);
         req.setNameE(fliggy_hotel_info.getHotel_name());
-        req.setSupplier("dotwebk");
+        req.setSupplier(vendor);
         XhotelAddResponse rsp = null;
         try {
             rsp = client.execute(req, sessionKey);
@@ -174,15 +175,15 @@ public class Fliggy_interface_util {
         //必填信息：房型id，房型名称，房型英文名，床型，所属酒店id
         req.setOuterId(fliggy_roomType_info.getOuter_id());
         req.setName(fliggy_roomType_info.getName_final());
-        if(fliggy_roomType_info.getName_final().indexOf("Double") != -1 || fliggy_roomType_info.getName_final().indexOf("DOUBLE") != -1){
+        if(fliggy_roomType_info.getName_final().indexOf("Double") != -1 || fliggy_roomType_info.getName_final().indexOf("DOUBLE") != -1 || fliggy_roomType_info.getName_final().indexOf("double") != -1){
             req.setBedType("大床");
-        }else if(fliggy_roomType_info.getName_final().indexOf("Twin") != -1 || fliggy_roomType_info.getName_final().indexOf("twin") != -1){
+        }else if(fliggy_roomType_info.getName_final().indexOf("Twin") != -1 || fliggy_roomType_info.getName_final().indexOf("twin") != -1 || fliggy_roomType_info.getName_final().indexOf("TWIN") != -1){
             req.setBedType("双床");
         }else{
             req.setBedType(fliggy_roomType_info.getBed_type());
         }
         req.setOutHid(fliggy_roomType_info.getOut_hid());
-        req.setVendor("dotwebk");
+        req.setVendor(vendor);
         req.setNameE(fliggy_roomType_info.getName_final());
         XhotelRoomtypeAddResponse rsp = null;
         try {
@@ -208,7 +209,7 @@ public class Fliggy_interface_util {
         TaobaoClient client = new DefaultTaobaoClient(url, appkey, secret);
         XhotelGetRequest req = new XhotelGetRequest();
         req.setOuterId(hid);
-        req.setVendor("dotwebk");
+        req.setVendor(vendor);
         XhotelGetResponse rsp = null;
         try {
             rsp = client.execute(req, sessionKey);
@@ -228,7 +229,7 @@ public class Fliggy_interface_util {
         TaobaoClient client = new DefaultTaobaoClient(url, appkey, secret);
         XhotelRoomtypeGetRequest req = new XhotelRoomtypeGetRequest();
         req.setOuterId(rid);
-        req.setVendor("dotwebk");
+        req.setVendor(vendor);
         XhotelRoomtypeGetResponse rsp = null;
         try {
             rsp = client.execute(req, sessionKey);
@@ -252,7 +253,7 @@ public class Fliggy_interface_util {
         String res = "";
         TaobaoClient client = new DefaultTaobaoClient(url, appkey, secret);
         XhotelDeleteRequest req = new XhotelDeleteRequest();
-        req.setVendor("dotwebk");
+        req.setVendor(vendor);
         req.setOuterId(hid);
         XhotelDeleteResponse rsp = null;
         try {
@@ -275,9 +276,9 @@ public class Fliggy_interface_util {
         String res = "";
         TaobaoClient client = new DefaultTaobaoClient(url, appkey, secret);
         XhotelRoomtypeDeletePublicRequest req = new XhotelRoomtypeDeletePublicRequest();
-        req.setVendor("dotwebk");
+        req.setVendor(vendor);
         req.setOuterRid(rid);
-        req.setOperator("dotwebk");
+        req.setOperator(vendor);
         XhotelRoomtypeDeletePublicResponse rsp = null;
         try {
             rsp = client.execute(req, sessionKey);

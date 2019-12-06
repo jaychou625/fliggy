@@ -46,4 +46,7 @@ public interface Fliggy_hotel_infoMapper {
     //获取所有无价的酒店列表
     List<Fliggy_hotel_info> searchAllHotelByHavePrice(String havePrice);
 
+    //根据酒店id查询酒店
+    public Fliggy_hotel_info findHotelById(String outer_id);
+
 }

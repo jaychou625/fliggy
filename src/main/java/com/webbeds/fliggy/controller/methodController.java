@@ -1,8 +1,12 @@
 package com.webbeds.fliggy.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import com.webbeds.fliggy.entity.DOTW_hotel_info;
+import com.webbeds.fliggy.entity.Fliggy_hotel_info;
 import com.webbeds.fliggy.service.DOTW.DOTW_hotel_infoService;
+import com.webbeds.fliggy.service.DOTW.Fliggy_hotel_infoService;
 import com.webbeds.fliggy.utils.Common;
+import com.webbeds.fliggy.utils.Fliggy_interface_util;
 import com.webbeds.fliggy.utils.searchUtils.SearchUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +23,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -40,6 +45,12 @@ public class methodController {
 
     @Autowired
     SearchUtils searchUtils;
+
+    @Autowired
+    Fliggy_interface_util fliggy_interface_util;
+
+    @Autowired
+    Fliggy_hotel_infoService fliggy_hotel_infoService;
 
     /**
      * 提交dotw酒店信息链接方法
@@ -72,6 +83,9 @@ public class methodController {
             List<DOTW_hotel_info> list = common.excel2Bean(path);
             for (DOTW_hotel_info dotw_hotel_info : list) {
                 if (dotw_hotel_infoService.searchByHid(dotw_hotel_info.getHotelCode()) == 0) {
+                    if(dotw_hotel_info.getReservationTelephone() == null){
+                        dotw_hotel_info.setReservationTelephone("00");
+                    }
                     dotw_hotel_infoService.add(dotw_hotel_info);
                 }
             }
@@ -175,5 +189,27 @@ public class methodController {
             modelAndView.setViewName("/insertError");
         }
         return modelAndView;
+    }
+
+    /**
+     * 查询当前已更新所有的飞猪酒店和房型的匹配信息
+     *
+     * @param
+     * @return
+     */
+    @RequestMapping("/tempAddHotel")
+    public String tempAddHotel() {
+        String hid = "1479648,2270745,2123465,1925255,911425,2283255,1602318,584445,2244655";
+        String[] hids = hid.split(",");
+        for(String id : hids){
+            Fliggy_hotel_info fliggy_hotel_info = fliggy_hotel_infoService.findHotelById(id);
+            if(fliggy_hotel_info != null){
+                String result = fliggy_interface_util.xhotel_add(fliggy_hotel_info);
+//                System.out.println(result);
+            }else{
+//                System.out.println("系统里没有这个酒店：" + id);
+            }
+        }
+        return "";
     }
 }

@@ -37,6 +37,16 @@ public class Fliggy_hotel_infoService {
     }
 
     /**
+     * 根据酒店id查询酒店
+     *
+     * @param outer_id
+     * @return
+     */
+    public Fliggy_hotel_info findHotelById(String outer_id) {
+        return fliggy_hotel_infoMapper.findHotelById(outer_id);
+    }
+
+    /**
      * 查询所有待添加酒店信息
      *
      * @return

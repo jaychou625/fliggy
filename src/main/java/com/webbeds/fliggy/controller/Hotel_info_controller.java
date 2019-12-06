@@ -290,4 +290,20 @@ public class Hotel_info_controller {
         System.out.println("执行完毕，共计消耗：" + (end - start) / 1000 + "S");
     }
 
+
+    //测试接口,通过酒店id查询酒店信息
+    @RequestMapping("/searchFliggyHotels")
+    public void searchFliggyHotels() {
+        String hid = "1479648,2270745,2123465,1925255,911425,2283255,1602318,584445,2244655";
+        String[] hids = hid.split(",");
+        List<JSONObject> listHotel = new ArrayList<>();
+        System.out.println("长度：" + hids.length);
+        for(String id : hids){
+            JSONObject jsonObject = fliggy_interface_util.xHotelSearch(id).getJSONObject("xhotel_get_response").getJSONObject("xhotel");
+            System.out.println(jsonObject.toJSONString());
+            listHotel.add(jsonObject);
+        }
+        common.JSONToExcel2007(listHotel,"fliggy_hotel_info");
+    }
+
 }

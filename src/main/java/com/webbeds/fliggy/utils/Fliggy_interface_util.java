@@ -21,25 +21,25 @@ import java.util.List;
 @Slf4j
 public class Fliggy_interface_util {
 
-    private String vendor = "DOTW";
+    private String vendor = "dotwebk";
 
     //account1接口调用地址
-    private final String url = "http://gw.api.taobao.com/router/rest";
-    //appkey
-    private final String appkey = "24823522";
-    //secret
-    private final String secret = "91c56c1988556d2a8c053c730f74e286";
-    //sessionKey
-    private final String sessionKey = "6101317ae675055a1fb83cf2711704e90ed9e7b8fb137bf3309205637";
-
-    //account2接口调用地址
 //    private final String url = "http://gw.api.taobao.com/router/rest";
 //    //appkey
 //    private final String appkey = "24823522";
 //    //secret
 //    private final String secret = "91c56c1988556d2a8c053c730f74e286";
 //    //sessionKey
-//    private final String sessionKey = "6100e13f6d96e66848423135c54c3bbc24dae32f83aa9023417495593";
+//    private final String sessionKey = "6101317ae675055a1fb83cf2711704e90ed9e7b8fb137bf3309205637";
+
+    //account2接口调用地址
+    private final String url = "http://gw.api.taobao.com/router/rest";
+    //appkey
+    private final String appkey = "24823522";
+    //secret
+    private final String secret = "91c56c1988556d2a8c053c730f74e286";
+    //sessionKey
+    private final String sessionKey = "6100e13f6d96e66848423135c54c3bbc24dae32f83aa9023417495593";
 //
 //    //沙箱接口调用地址
 //    private final String urlS = "http://gw.api.tbsandbox.com/router/rest";

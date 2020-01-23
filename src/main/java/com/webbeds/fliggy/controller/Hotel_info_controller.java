@@ -70,12 +70,6 @@ public class Hotel_info_controller {
      */
     @RequestMapping("/addHotelInLocalDatabase")
     public void addHotelInLocalDatabase() {
-//        //查询本地数据库获取需要添加的酒店信息
-//        List<DOTW_hotel_info> list = dotw_hotel_infoService.findAll();
-//        //读取DOTW数据入本地库
-//        for(int i = 0; i < list.size(); i++){
-//            hotelInfoAddTask.getHotelInfo(list.get(i));
-//        }
         //新接口，调用酒店id，批处理提升效率
         Long start = new Date().getTime();
         List<String> list = dotw_hotel_infoService.findAllId();

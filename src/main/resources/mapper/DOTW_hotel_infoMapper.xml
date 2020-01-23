@@ -24,7 +24,7 @@
 
     <select id="findAll" resultMap="DOTW_hotel_info_ResultMap">
         select * from dotw_fullhotel_info_dotwebk
-        where isUpdate = "0"
+        where isUpdate = is null
     </select>
 
     <select id="findAllId" resultType="java.lang.String">

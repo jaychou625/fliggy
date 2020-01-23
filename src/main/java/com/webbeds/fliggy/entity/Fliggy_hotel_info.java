@@ -64,7 +64,7 @@ public class Fliggy_hotel_info {
     private Integer shid;
     @Getter
     @Setter
-    private String vendor = "DOTW";
+    private String vendor;
     @Getter
     @Setter
     private String star;

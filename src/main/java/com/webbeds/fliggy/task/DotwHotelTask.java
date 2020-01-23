@@ -169,7 +169,7 @@ public class DotwHotelTask {
         List<JSONObject> listJSON = new ArrayList<>();
         //分割数组进行线程操作
         List<List<String>> listThread = new ArrayList<>();
-        listThread = common.splitListString(list,list.size() / 7);
+        listThread = common.splitListString(list,list.size() / 3);
         CountDownLatch latch = new CountDownLatch(listThread.size());
         for(List<String> listTemp : listThread){
             AddHotelsThread addHotelsThread = new AddHotelsThread(listTemp, common,latch,this,listJSON,state);

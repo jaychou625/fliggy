@@ -36,13 +36,19 @@
     <!--  备份查询  -->
 <!--            <select id="searchRoomByHid" resultMap="Fliggy_roomType_info_ResultMap">-->
 <!--                SELECT * FROM fliggy_roomtype_info-->
-<!--                where out_hid = #{hid} and state != "0"-->
+<!--                where out_hid = #{hid} and state = "0"-->
 <!--            </select>-->
+
+<!--    &lt;!&ndash; 查询返回需要上传的飞猪房型，（逻辑：根据酒店id维度查询再经过近期有间夜量的房型表过滤，得出有效房型）       &ndash;&gt;-->
+<!--    <select id="searchRoomByHid" resultMap="Fliggy_roomType_info_ResultMap">-->
+<!--        SELECT * FROM fliggy_roomtype_info-->
+<!--        where out_hid = #{hid} and name in (select room_name from dotw_room_night WHERE hotel_id = #{hid}) and state = "0"-->
+<!--    </select>-->
 
     <!-- 查询返回需要上传的飞猪房型，（逻辑：根据酒店id维度查询再经过近期有间夜量的房型表过滤，得出有效房型）       -->
     <select id="searchRoomByHid" resultMap="Fliggy_roomType_info_ResultMap">
         SELECT * FROM fliggy_roomtype_info_dotwebk
-        where out_hid = #{hid} and name in (select room_name from dotw_room_night WHERE hotel_id = #{hid}) and state = "0"
+        where outer_id in (SELECT room_id FROM ali_have_price) and out_hid = #{hid}
     </select>
 
     <!-- 查询返回需要上传的飞猪房型，（逻辑：根据酒店id维度查询再经过近期有间夜量的房型表过滤，得出有效房型）       -->

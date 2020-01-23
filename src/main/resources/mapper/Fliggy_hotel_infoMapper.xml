@@ -82,12 +82,12 @@
 
     <select id="searchAllHotel" resultMap="Fliggy_hotel_info_ResultMap">
         SELECT * FROM fliggy_hotel_information_dotwebk
---         where state != "0"
+        where state != "0"
     </select>
 
     <select id="searchAllHotelByState" resultMap="Fliggy_hotel_info_ResultMap" parameterType="java.lang.String">
         SELECT * FROM fliggy_hotel_information_dotwebk
-        WHERE city != "0"
+        WHERE city != "0" and state = "0"
     </select>
 
     <update id="updateCity" parameterType="com.webbeds.fliggy.entity.Fliggy_hotel_info">

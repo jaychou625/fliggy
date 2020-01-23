@@ -3,8 +3,10 @@ package com.webbeds.fliggy.controller;
 import com.alibaba.fastjson.JSONObject;
 import com.webbeds.fliggy.entity.DOTW_hotel_info;
 import com.webbeds.fliggy.entity.Fliggy_hotel_info;
+import com.webbeds.fliggy.entity.Fliggy_roomType_info;
 import com.webbeds.fliggy.service.DOTW.DOTW_hotel_infoService;
 import com.webbeds.fliggy.service.DOTW.Fliggy_hotel_infoService;
+import com.webbeds.fliggy.service.DOTW.Fliggy_roomTpye_infoService;
 import com.webbeds.fliggy.utils.Common;
 import com.webbeds.fliggy.utils.Fliggy_interface_util;
 import com.webbeds.fliggy.utils.searchUtils.SearchUtils;
@@ -51,6 +53,9 @@ public class methodController {
 
     @Autowired
     Fliggy_hotel_infoService fliggy_hotel_infoService;
+
+    @Autowired
+    Fliggy_roomTpye_infoService fliggy_roomTpye_infoService;
 
     /**
      * 提交dotw酒店信息链接方法
@@ -205,6 +210,68 @@ public class methodController {
             Fliggy_hotel_info fliggy_hotel_info = fliggy_hotel_infoService.findHotelById(id);
             if(fliggy_hotel_info != null){
                 String result = fliggy_interface_util.xhotel_add(fliggy_hotel_info);
+//                System.out.println(result);
+            }else{
+//                System.out.println("系统里没有这个酒店：" + id);
+            }
+        }
+        return "";
+    }
+
+    /**
+     * 查询当前已更新所有的飞猪酒店和房型的匹配信息
+     *
+     * @param
+     * @return
+     */
+    @RequestMapping("/tempAddRooms")
+    public String tempAddRooms() {
+        String hid = "2532775";
+        List<Fliggy_roomType_info> fliggy_roomType_infos = fliggy_roomTpye_infoService.searchRoomByHid(hid);
+        for(Fliggy_roomType_info fliggy_roomType_info : fliggy_roomType_infos){
+            if(fliggy_roomType_info != null){
+                String resRoom = fliggy_interface_util.xRoomType_add(fliggy_roomType_info);
+                if (resRoom != null && resRoom.indexOf("xhotel_roomtype_add_response") != -1) {
+//                            System.out.println("房型添加成功");
+                    fliggy_roomType_info.setInsertDate(new Date());
+                    fliggy_roomType_info.setState("1");
+                    fliggy_roomType_info.setError_msg("");
+                    fliggy_roomTpye_infoService.updateStateAndDate(fliggy_roomType_info);
+                } else {
+//                            System.out.println("房型添加失败");
+                    String error_msg = resRoom;
+                    fliggy_roomType_info.setError_msg(error_msg);
+                    fliggy_roomType_info.setState("2");
+                    fliggy_roomTpye_infoService.updateStateAndDate(fliggy_roomType_info);
+                }
+            }
+        }
+//        String[] hids = hid.split(",");
+//        for(String id : hids){
+//            Fliggy_hotel_info fliggy_hotel_info = fliggy_hotel_infoService.findHotelById(id);
+//            if(fliggy_hotel_info != null){
+//                String result = fliggy_interface_util.xhotel_add(fliggy_hotel_info);
+////                System.out.println(result);
+//            }else{
+////                System.out.println("系统里没有这个酒店：" + id);
+//            }
+//        }
+        return "";
+    }
+
+    /**
+     * 推送所有酒店
+     *
+     * @param
+     * @return
+     */
+    @RequestMapping("/tempAddAllHotel")
+    public String tempAddAllHotel() {
+        List<Fliggy_hotel_info> list = fliggy_hotel_infoService.searchAllHotel();
+        for(Fliggy_hotel_info fliggy_hotel_info : list){
+            if(fliggy_hotel_info != null){
+                String result = fliggy_interface_util.xhotel_add(fliggy_hotel_info);
+                System.out.println(result);
 //                System.out.println(result);
             }else{
 //                System.out.println("系统里没有这个酒店：" + id);

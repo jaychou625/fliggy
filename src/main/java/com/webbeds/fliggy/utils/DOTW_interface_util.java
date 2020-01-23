@@ -23,12 +23,14 @@ public class DOTW_interface_util {
     @Getter
     @Setter
     private String path = "http://us.DOTWconnect.com/gatewayV3.dotw";
+
 //    @Getter @Setter
 //    private String account = "AlitripXML";
 //    @Getter @Setter
 //    private String password = "CD84D683CC5612C69EFE115C80D0B7DC";
 //    @Getter @Setter
 //    private String accountId = "1494305";
+
     @Getter
     @Setter
     private String account = "Alitrip2nd";
@@ -67,7 +69,7 @@ public class DOTW_interface_util {
                 "            <currency>520</currency>  \n" +
                 "            <rooms no=\"1\">  \n" +
                 "                <room runno=\"0\">  \n" +
-                "                    <adultsCode>1</adultsCode>  \n" +
+                "                    <adultsCode>2</adultsCode>  \n" +
                 "                    <children no=\"0\"></children>  \n" +
                 "                    <rateBasis>-1</rateBasis>  \n" +
                 "                </room>  \n" +

@@ -286,7 +286,7 @@ public class HotelInfoAddTask {
         city_coordinates.setOuterId(dotw_hotel_info.getHotelCode());
         String batch_id = fliggy_interface_util.city_coordinates_batch_upload(city_coordinates);
         fliggy_hotel_info.setBatch_id(batch_id);
-        if (dotw_hotel_info.getCountry().equals("TAIWAN") || dotw_hotel_info.getCountry().equals("MACAU") || dotw_hotel_info.getCountry().equals("HONG KONG") || dotw_hotel_info.getCountry().equals("CHINA")) {
+        if (dotw_hotel_info.getCountry().equals("TAIWAN") || dotw_hotel_info.getCountry().equals("MACAU") || dotw_hotel_info.getCountry().equals("HONG KONG") || dotw_hotel_info.getCountry().equals("CHINA") || dotw_hotel_info.getCountry().equals("Singapore")) {
             city = common.getCityIdByCityName(dotw_hotel_info.getCity());
         }
         fliggy_hotel_info.setCity(city);

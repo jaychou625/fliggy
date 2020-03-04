@@ -47,37 +47,37 @@
 
     <!-- 查询返回需要上传的飞猪房型，（逻辑：根据酒店id维度查询再经过近期有间夜量的房型表过滤，得出有效房型）       -->
     <select id="searchRoomByHid" resultMap="Fliggy_roomType_info_ResultMap">
-        SELECT * FROM fliggy_roomtype_info_dotwebk
+        SELECT * FROM fliggy_roomtype_info
         where outer_id in (SELECT room_id FROM ali_have_price) and out_hid = #{hid}
     </select>
 
     <!-- 查询返回需要上传的飞猪房型，（逻辑：根据酒店id维度查询再经过近期有间夜量的房型表过滤，得出有效房型）       -->
     <select id="searchRoomByState" resultMap="Fliggy_roomType_info_ResultMap">
-        SELECT * FROM fliggy_roomtype_info_dotwebk
+        SELECT * FROM fliggy_roomtype_info
         where state = #{state}
     </select>
 
     <select id="searchDuplicate" resultType="java.lang.Integer"
             parameterType="com.webbeds.fliggy.entity.Fliggy_roomType_info">
-        SELECT count(*) FROM fliggy_roomtype_info_dotwebk
+        SELECT count(*) FROM fliggy_roomtype_info
         WHERE out_hid = #{out_hid} and name_before = #{name_before}
     </select>
 
     <select id="searchRoomByRid" resultType="java.lang.Integer"
             parameterType="com.webbeds.fliggy.entity.Fliggy_roomType_info">
-        SELECT count(*) FROM fliggy_roomtype_info_dotwebk
+        SELECT count(*) FROM fliggy_roomtype_info
         WHERE outer_id = #{outer_id}
     </select>
 
     <insert id="add" parameterType="com.webbeds.fliggy.entity.Fliggy_roomType_info">
         INSERT INTO
-        fliggy_roomtype_info_dotwebk(outer_id,name,max_occupancy,area,floor,bed_type,bed_size,internet,service,extend,window_type,srid,out_hid,vendor,pics,name_e,operator,connection_type,name_before,name_after,name_final,state,insertDate,error_msg,mapping)
+        fliggy_roomtype_info(outer_id,name,max_occupancy,area,floor,bed_type,bed_size,internet,service,extend,window_type,srid,out_hid,vendor,pics,name_e,operator,connection_type,name_before,name_after,name_final,state,insertDate,error_msg,mapping)
         VALUES
         (#{outer_id},#{name},#{max_occupancy},#{area},#{floor},#{bed_type},#{bed_size},#{internet},#{service},#{extend},#{window_type},#{srid},#{out_hid},#{vendor},#{pics},#{name_e},#{operator},#{connection_type},#{name_before},#{name_after},#{name_final},#{state},#{insertDate},#{error_msg},#{mapping})
     </insert>
 
     <update id="updateStateAndDate" parameterType="com.webbeds.fliggy.entity.Fliggy_roomType_info">
-        UPDATE fliggy_roomtype_info_dotwebk SET state = #{state}, insertDate = #{insertDate},error_msg =
+        UPDATE fliggy_roomtype_info SET state = #{state}, insertDate = #{insertDate},error_msg =
         #{error_msg},mapping = #{mapping}
         where outer_id = #{outer_id}
     </update>

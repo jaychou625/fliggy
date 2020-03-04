@@ -171,6 +171,8 @@ public class Common {
                 break;
             case "TAINAN":
                 cityId = 710300;
+            case "Singapore":
+                cityId = 1000148939;
             default:
                 cityId = 0;
                 break;

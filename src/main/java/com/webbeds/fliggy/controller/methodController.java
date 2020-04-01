@@ -226,13 +226,13 @@ public class methodController {
      */
     @RequestMapping("/tempAddRooms")
     public String tempAddRooms() {
-        String hid = "2532775";
-        List<Fliggy_roomType_info> fliggy_roomType_infos = fliggy_roomTpye_infoService.searchRoomByHid(hid);
+//        String hid = "2532775";
+        List<Fliggy_roomType_info> fliggy_roomType_infos = fliggy_roomTpye_infoService.searchRoomByState("9");
         for(Fliggy_roomType_info fliggy_roomType_info : fliggy_roomType_infos){
             if(fliggy_roomType_info != null){
                 String resRoom = fliggy_interface_util.xRoomType_add(fliggy_roomType_info);
                 if (resRoom != null && resRoom.indexOf("xhotel_roomtype_add_response") != -1) {
-//                            System.out.println("房型添加成功");
+                    System.out.println("房型添加成功!房型id:" + fliggy_roomType_info.getOuter_id());
                     fliggy_roomType_info.setInsertDate(new Date());
                     fliggy_roomType_info.setState("1");
                     fliggy_roomType_info.setError_msg("");
@@ -276,6 +276,30 @@ public class methodController {
             }else{
 //                System.out.println("系统里没有这个酒店：" + id);
             }
+        }
+        return "";
+    }
+
+    /**
+     * 删除飞猪房型 慎用
+     *
+     * @param
+     * @return
+     */
+    @RequestMapping("/delRoom_dotwebk")
+    public String delRoom_FR() {
+        //获取需要删除的房型信息
+        //获取需要删除房型的信息
+        List<Fliggy_roomType_info> list = fliggy_roomTpye_infoService.searchDelRoom();
+        for (Fliggy_roomType_info fliggy_roomType_info_fr : list) {
+            String msg = fliggy_interface_util.xRoomDel(fliggy_roomType_info_fr.getOuter_id());
+            System.out.println(msg);
+            fliggy_roomType_info_fr.setState("-1");
+            fliggy_roomType_info_fr.setInsertDate(null);
+            fliggy_roomType_info_fr.setError_msg(null);
+            fliggy_roomType_info_fr.setError_msg(msg);
+            fliggy_roomType_info_fr.setOuter_id(fliggy_roomType_info_fr.getOuter_id());
+            fliggy_roomTpye_infoService.updateStateAndDate(fliggy_roomType_info_fr);
         }
         return "";
     }

@@ -76,6 +76,9 @@ public class Fliggy_roomTpye_infoService {
         return fliggy_roomType_infoMapper.searchRoomByState(state);
     }
 
-    ;
+    //临时，删除房型用
+    public List<Fliggy_roomType_info> searchDelRoom(){
+        return fliggy_roomType_infoMapper.searchDelRoom();
+    }
 
 }

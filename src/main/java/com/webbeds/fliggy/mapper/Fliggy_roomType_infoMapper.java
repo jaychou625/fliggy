@@ -30,4 +30,7 @@ public interface Fliggy_roomType_infoMapper {
 
     //临时，删除房型用
     List<Fliggy_roomType_info> searchDelRoom();
+
+    //查询所有房型
+    public List<Fliggy_roomType_info> searchAllRomms();
 }

@@ -21,25 +21,25 @@ import java.util.List;
 @Slf4j
 public class Fliggy_interface_util {
 
-    private String vendor = "dotwebk";
+    private String vendor = "DOTW";
 
     //account1接口调用地址
-//    private final String url = "http://gw.api.taobao.com/router/rest";
-//    //appkey
-//    private final String appkey = "24823522";
-//    //secret
-//    private final String secret = "91c56c1988556d2a8c053c730f74e286";
-//    //sessionKey
-//    private final String sessionKey = "6100d25b2767b0b923ea4ec28669e33f61d8d4630906cb53309205637";
-
-    //account2接口调用地址
     private final String url = "http://gw.api.taobao.com/router/rest";
     //appkey
     private final String appkey = "24823522";
     //secret
     private final String secret = "91c56c1988556d2a8c053c730f74e286";
     //sessionKey
-    private final String sessionKey = "6102925d83ed054d5385e0f05976496ca1c5b30d33b87c93417495593";
+    private final String sessionKey = "61007128f7d3f1fa159513fe3eaeadd6b87bb347f90242c3309205637";
+
+    //account2接口调用地址
+//    private final String url = "http://gw.api.taobao.com/router/rest";
+//    //appkey
+//    private final String appkey = "24823522";
+//    //secret
+//    private final String secret = "91c56c1988556d2a8c053c730f74e286";
+//    //sessionKey
+//    private final String sessionKey = "6102925d83ed054d5385e0f05976496ca1c5b30d33b87c93417495593";
 //
 //    //沙箱接口调用地址
 //    private final String urlS = "http://gw.api.tbsandbox.com/router/rest";
@@ -175,23 +175,29 @@ public class Fliggy_interface_util {
         //必填信息：房型id，房型名称，房型英文名，床型，所属酒店id
         req.setOuterId(fliggy_roomType_info.getOuter_id());
         req.setName(fliggy_roomType_info.getName_final());
-        if(fliggy_roomType_info.getName_final().indexOf("Double") != -1 || fliggy_roomType_info.getName_final().indexOf("DOUBLE") != -1 || fliggy_roomType_info.getName_final().indexOf("double") != -1){
-            req.setBedType("大床");
-        }else if(fliggy_roomType_info.getName_final().indexOf("Twin") != -1 || fliggy_roomType_info.getName_final().indexOf("twin") != -1 || fliggy_roomType_info.getName_final().indexOf("TWIN") != -1){
-            req.setBedType("双床");
-        }else{
-            req.setBedType(fliggy_roomType_info.getBed_type());
-        }
+        System.out.println(fliggy_roomType_info.getBed_type());
+        req.setBedType(fliggy_roomType_info.getBed_type());
+//        if(fliggy_roomType_info.getName_final().indexOf("Double") != -1 || fliggy_roomType_info.getName_final().indexOf("DOUBLE") != -1 || fliggy_roomType_info.getName_final().indexOf("double") != -1){
+//            req.setBedType("大床");
+//        }else if(fliggy_roomType_info.getName_final().indexOf("Twin") != -1 || fliggy_roomType_info.getName_final().indexOf("twin") != -1 || fliggy_roomType_info.getName_final().indexOf("TWIN") != -1){
+//            req.setBedType("双床");
+//        }else{
+//            req.setBedType(fliggy_roomType_info.getBed_type());
+//        }
+        //临时增加，后续确认逻辑删除
+        req.setBedType(fliggy_roomType_info.getBed_type());
         req.setOutHid(fliggy_roomType_info.getOut_hid());
         req.setVendor(vendor);
         req.setNameE(fliggy_roomType_info.getName_final());
         XhotelRoomtypeAddResponse rsp = null;
+        System.out.println(req.toString());
         try {
             rsp = client.execute(req, sessionKey);
         } catch (ApiException e) {
             e.printStackTrace();
         }
         res = JSON.toJSONString(rsp.getBody());
+        System.out.println(res);
         if (rsp.getMsg() != null && !rsp.getMsg().equals("")) {
             res = rsp.getSubMsg();
         }

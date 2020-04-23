@@ -81,4 +81,9 @@ public class Fliggy_roomTpye_infoService {
         return fliggy_roomType_infoMapper.searchDelRoom();
     }
 
+    //查询所有房型
+    public List<Fliggy_roomType_info> searchAllRomms(){
+        return fliggy_roomType_infoMapper.searchAllRomms();
+    }
+
 }

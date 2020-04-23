@@ -178,7 +178,7 @@ public class Hotel_info_controller {
         Long start = new Date().getTime();
         List<Fliggy_hotel_info> list = fliggy_hotel_infoService.searchAllHotelByState("0");
         System.out.println("共计：" + list.size() + "条信息");
-        List<List<Fliggy_hotel_info>> listThread = common.splitList(list, list.size() / 2);
+        List<List<Fliggy_hotel_info>> listThread = common. splitList(list, list.size() / 2);
         CountDownLatch latch = new CountDownLatch(listThread.size());
         //多线程添加酒店与房型入飞猪
         for (List<Fliggy_hotel_info> listTemp : listThread) {

@@ -303,4 +303,73 @@ public class methodController {
         }
         return "";
     }
+
+    /**
+     * 改变飞猪床型
+     *
+     * @param
+     * @return
+     */
+    @RequestMapping("/tempChangeBedType")
+    public String tempChangeBedType(){
+        System.out.println("开始");
+        String result = "";
+        List<Fliggy_roomType_info> fliggy_roomType_infos = fliggy_roomTpye_infoService.searchAllRomms();
+        System.out.println("共有：" + fliggy_roomType_infos.size());
+        for(Fliggy_roomType_info fliggy_roomType_info : fliggy_roomType_infos){
+            //逻辑判断结构化床型
+            String roomName = fliggy_roomType_info.getName().toUpperCase();
+            if(roomName.indexOf("SMOKING") != -1){
+                roomName = roomName.replace("SMOKING","temp");
+                System.out.println(roomName);
+            }
+            if(roomName.indexOf("DOUBLE") != -1 && roomName.indexOf("TWIN") != -1){
+                fliggy_roomType_info.setBed_type("1张大床/2张单人床");
+            }else if(roomName.indexOf("KING") != -1 && roomName.indexOf("TWIN") != -1 && roomName.indexOf("SMOKING") == -1){
+                fliggy_roomType_info.setBed_type("1张特大床/2张单人床");
+            }else if(roomName.indexOf("QUEEN") != -1 && roomName.indexOf("TWIN") != -1){
+                fliggy_roomType_info.setBed_type("1张大床/2张单人床");
+            }else if(roomName.indexOf("KING") != -1 && roomName.indexOf("SMOKING") == -1){
+                if(roomName.indexOf("ONE KING") != -1 || roomName.indexOf("1 KING") != -1 || roomName.indexOf("1KING") != -1){
+                    fliggy_roomType_info.setBed_type("1张特大床");
+                }else if(roomName.indexOf("TWO KING") != -1 || roomName.indexOf("2 KING") != -1 || roomName.indexOf("2KING") != -1){
+                    fliggy_roomType_info.setBed_type("2张特大床");
+                }else{
+                    fliggy_roomType_info.setBed_type("1张特大床");
+                }
+            }else if(roomName.indexOf("DOUBLE") != -1){
+                if(roomName.indexOf("ONE DOUBLE") != -1 || roomName.indexOf("1 DOUBLE") != -1 || roomName.indexOf("1DOUBLE") != -1){
+                    fliggy_roomType_info.setBed_type("1张大床");
+                }else if(roomName.indexOf("TWO DOUBLE") != -1 || roomName.indexOf("2 DOUBLE") != -1 || roomName.indexOf("2DOUBLE") != -1){
+                    fliggy_roomType_info.setBed_type("2张大床");
+                }else{
+                    fliggy_roomType_info.setBed_type("1张大床");
+                }
+            }else if(roomName.indexOf("TWIN") != -1){
+                fliggy_roomType_info.setBed_type("2张单人床");
+            }else if(roomName.indexOf("SINGLE") != -1){
+                if(roomName.indexOf("ONE SINGLE") != -1 || roomName.indexOf("1 SINGLE") != -1 || roomName.indexOf("1SINGLE") != -1){
+                    fliggy_roomType_info.setBed_type("1张单人床");
+                }else if(roomName.indexOf("TWO SINGLE") != -1 || roomName.indexOf("2 SINGLE") != -1 || roomName.indexOf("2SINGLE") != -1){
+                    fliggy_roomType_info.setBed_type("2张单人床");
+                }else{
+                    fliggy_roomType_info.setBed_type("1张单人床");
+                }
+            }else if(roomName.indexOf("QUEEN") != -1){
+                if(roomName.indexOf("ONE QUEEN") != -1 || roomName.indexOf("1 QUEEN") != -1 || roomName.indexOf("1QUEEN") != -1){
+                    fliggy_roomType_info.setBed_type("1张大床");
+                }else if(roomName.indexOf("TWO QUEEN") != -1 || roomName.indexOf("2 QUEEN") != -1 || roomName.indexOf("2QUEEN") != -1){
+                    fliggy_roomType_info.setBed_type("2张大床");
+                }else{
+                    fliggy_roomType_info.setBed_type("1张大床");
+                }
+            }else{
+                fliggy_roomType_info.setBed_type("1张大床/2张单人床");
+            }
+            fliggy_roomType_info.setState("9");
+            fliggy_roomTpye_infoService.updateStateAndDate(fliggy_roomType_info);
+        }
+        System.out.println("运行结束");
+        return result;
+    }
 }

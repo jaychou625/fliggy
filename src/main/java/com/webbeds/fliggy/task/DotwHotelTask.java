@@ -401,13 +401,63 @@ public class DotwHotelTask {
         fliggy_roomType_info.setName(jsonObject.getString("name"));
         fliggy_roomType_info.setName_e(jsonObject.getString("name"));
 
-        if(fliggy_roomType_info.getName().indexOf("Double") != -1 || fliggy_roomType_info.getName().indexOf("DOUBLE") != -1 || fliggy_roomType_info.getName().indexOf("double") != -1){
-            fliggy_roomType_info.setBed_type("大床");
-        }else if(fliggy_roomType_info.getName().indexOf("Twin") != -1 || fliggy_roomType_info.getName().indexOf("twin") != -1 || fliggy_roomType_info.getName().indexOf("TWIN") != -1) {
-            fliggy_roomType_info.setBed_type("双床");
-        }else{
-            fliggy_roomType_info.setBed_type("大床/双床");
+//        if(fliggy_roomType_info.getName().indexOf("Double") != -1 || fliggy_roomType_info.getName().indexOf("DOUBLE") != -1 || fliggy_roomType_info.getName().indexOf("double") != -1){
+//            fliggy_roomType_info.setBed_type("大床");
+//        }else if(fliggy_roomType_info.getName().indexOf("Twin") != -1 || fliggy_roomType_info.getName().indexOf("twin") != -1 || fliggy_roomType_info.getName().indexOf("TWIN") != -1) {
+//            fliggy_roomType_info.setBed_type("双床");
+//        }else{
+//            fliggy_roomType_info.setBed_type("大床/双床");
+//        }
+        //逻辑判断结构化床型
+        String roomName = jsonObject.getString("name").toUpperCase();
+        if(roomName.indexOf("SMOKING") != -1){
+            roomName = roomName.replace("SMOKING","temp");
+            System.out.println(roomName);
         }
+        if(roomName.indexOf("DOUBLE") != -1 && roomName.indexOf("TWIN") != -1){
+            fliggy_roomType_info.setBed_type("1张大床/2张单人床");
+        }else if(roomName.indexOf("KING") != -1 && roomName.indexOf("TWIN") != -1 && roomName.indexOf("SMOKING") == -1){
+            fliggy_roomType_info.setBed_type("1张特大床/2张单人床");
+        }else if(roomName.indexOf("QUEEN") != -1 && roomName.indexOf("TWIN") != -1){
+            fliggy_roomType_info.setBed_type("1张大床/2张单人床");
+        }else if(roomName.indexOf("KING") != -1 && roomName.indexOf("SMOKING") == -1){
+            if(roomName.indexOf("ONE KING") != -1 || roomName.indexOf("1 KING") != -1 || roomName.indexOf("1KING") != -1){
+                fliggy_roomType_info.setBed_type("1张特大床");
+            }else if(roomName.indexOf("TWO KING") != -1 || roomName.indexOf("2 KING") != -1 || roomName.indexOf("2KING") != -1){
+                fliggy_roomType_info.setBed_type("2张特大床");
+            }else{
+                fliggy_roomType_info.setBed_type("1张特大床");
+            }
+        }else if(roomName.indexOf("DOUBLE") != -1){
+            if(roomName.indexOf("ONE DOUBLE") != -1 || roomName.indexOf("1 DOUBLE") != -1 || roomName.indexOf("1DOUBLE") != -1){
+                fliggy_roomType_info.setBed_type("1张大床");
+            }else if(roomName.indexOf("TWO DOUBLE") != -1 || roomName.indexOf("2 DOUBLE") != -1 || roomName.indexOf("2DOUBLE") != -1){
+                fliggy_roomType_info.setBed_type("2张大床");
+            }else{
+                fliggy_roomType_info.setBed_type("1张大床");
+            }
+        }else if(roomName.indexOf("TWIN") != -1){
+            fliggy_roomType_info.setBed_type("2张单人床");
+        }else if(roomName.indexOf("SINGLE") != -1){
+            if(roomName.indexOf("ONE SINGLE") != -1 || roomName.indexOf("1 SINGLE") != -1 || roomName.indexOf("1SINGLE") != -1){
+                fliggy_roomType_info.setBed_type("1张单人床");
+            }else if(roomName.indexOf("TWO SINGLE") != -1 || roomName.indexOf("2 SINGLE") != -1 || roomName.indexOf("2SINGLE") != -1){
+                fliggy_roomType_info.setBed_type("2张单人床");
+            }else{
+                fliggy_roomType_info.setBed_type("1张单人床");
+            }
+        }else if(roomName.indexOf("QUEEN") != -1){
+            if(roomName.indexOf("ONE QUEEN") != -1 || roomName.indexOf("1 QUEEN") != -1 || roomName.indexOf("1QUEEN") != -1){
+                fliggy_roomType_info.setBed_type("1张大床");
+            }else if(roomName.indexOf("TWO QUEEN") != -1 || roomName.indexOf("2 QUEEN") != -1 || roomName.indexOf("2QUEEN") != -1){
+                fliggy_roomType_info.setBed_type("2张大床");
+            }else{
+                fliggy_roomType_info.setBed_type("1张大床");
+            }
+        }else{
+            fliggy_roomType_info.setBed_type("1张大床/2张单人床");
+        }
+
         String nameTotal = jsonObject.getString("name");
         /**
          * 截取关键字，Room、Dorm、Bungalow、Dormitory、Suite、Villa、Twin、APARTMENT

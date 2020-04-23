@@ -79,6 +79,7 @@ public class Common {
     //根据长度分割list Bean
     public List<List<Fliggy_hotel_info>> splitList(List<Fliggy_hotel_info> list, int groupSize) {
         int length = list.size();
+
         // 计算可以分成多少组
         int num = (length + groupSize - 1) / groupSize; // TODO
         List<List<Fliggy_hotel_info>> newList = new ArrayList<>(num);

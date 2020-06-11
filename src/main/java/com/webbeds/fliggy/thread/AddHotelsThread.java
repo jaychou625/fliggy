@@ -18,7 +18,7 @@ public class AddHotelsThread implements Runnable {
     public List<JSONObject> listJSON;
     public String state;
 
-    public AddHotelsThread(List<String> list, Common common, CountDownLatch latch,DotwHotelTask dotwHotelTask,List<JSONObject> listJSON,String state) {
+    public AddHotelsThread(List<String> list, Common common, CountDownLatch latch, DotwHotelTask dotwHotelTask, List<JSONObject> listJSON, String state) {
         this.list = list;
         this.common = common;
         this.latch = latch;
@@ -31,7 +31,7 @@ public class AddHotelsThread implements Runnable {
     public void run() {
         Long start = new Date().getTime();
         try {
-            dotwHotelTask.addHotelOperate(list,listJSON,state);
+            dotwHotelTask.addHotelOperate(list, listJSON, state);
         } catch (Exception e) {
             e.printStackTrace();
         } finally {

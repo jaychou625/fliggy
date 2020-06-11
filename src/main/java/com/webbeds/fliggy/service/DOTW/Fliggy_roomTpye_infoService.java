@@ -76,13 +76,31 @@ public class Fliggy_roomTpye_infoService {
         return fliggy_roomType_infoMapper.searchRoomByState(state);
     }
 
+    /**
+     * 更新房型信息
+     * @param fliggy_roomType_info
+     * @return
+     */
+    public boolean updateRoomInfo(Fliggy_roomType_info fliggy_roomType_info){
+        return fliggy_roomType_infoMapper.updateRoomInfo(fliggy_roomType_info);
+    }
+
+    /**
+     * 根据房型名称查询房型信息
+     * @param fliggy_roomType_info
+     * @return
+     */
+    public Fliggy_roomType_info searchRoomInfoByRid(Fliggy_roomType_info fliggy_roomType_info){
+        return fliggy_roomType_infoMapper.searchRoomInfoByRid(fliggy_roomType_info);
+    }
+
     //临时，删除房型用
-    public List<Fliggy_roomType_info> searchDelRoom(){
+    public List<Fliggy_roomType_info> searchDelRoom() {
         return fliggy_roomType_infoMapper.searchDelRoom();
     }
 
     //查询所有房型
-    public List<Fliggy_roomType_info> searchAllRomms(){
+    public List<Fliggy_roomType_info> searchAllRomms() {
         return fliggy_roomType_infoMapper.searchAllRomms();
     }
 

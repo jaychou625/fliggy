@@ -34,16 +34,16 @@
     </resultMap>
 
     <!--  备份查询  -->
-<!--            <select id="searchRoomByHid" resultMap="Fliggy_roomType_info_ResultMap">-->
-<!--                SELECT * FROM fliggy_roomtype_info-->
-<!--                where out_hid = #{hid} and state = "0"-->
-<!--            </select>-->
+    <!--            <select id="searchRoomByHid" resultMap="Fliggy_roomType_info_ResultMap">-->
+    <!--                SELECT * FROM fliggy_roomtype_info-->
+    <!--                where out_hid = #{hid} and state = "0"-->
+    <!--            </select>-->
 
-<!--    &lt;!&ndash; 查询返回需要上传的飞猪房型，（逻辑：根据酒店id维度查询再经过近期有间夜量的房型表过滤，得出有效房型）       &ndash;&gt;-->
-<!--    <select id="searchRoomByHid" resultMap="Fliggy_roomType_info_ResultMap">-->
-<!--        SELECT * FROM fliggy_roomtype_info-->
-<!--        where out_hid = #{hid} and name in (select room_name from dotw_room_night WHERE hotel_id = #{hid}) and state = "0"-->
-<!--    </select>-->
+    <!--    &lt;!&ndash; 查询返回需要上传的飞猪房型，（逻辑：根据酒店id维度查询再经过近期有间夜量的房型表过滤，得出有效房型）       &ndash;&gt;-->
+    <!--    <select id="searchRoomByHid" resultMap="Fliggy_roomType_info_ResultMap">-->
+    <!--        SELECT * FROM fliggy_roomtype_info-->
+    <!--        where out_hid = #{hid} and name in (select room_name from dotw_room_night WHERE hotel_id = #{hid}) and state = "0"-->
+    <!--    </select>-->
     <!-- 查询所有房型  -->
     <select id="searchAllRomms" resultMap="Fliggy_roomType_info_ResultMap">
         SELECT * FROM fliggy_roomtype_info
@@ -90,6 +90,18 @@
     <select id="searchDelRoom" resultMap="Fliggy_roomType_info_ResultMap">
         select * from fliggy_roomtype_info
         where state = "1" and outer_id in (select outer_id from dotwebk_no_price)
+    </select>
+    <!-- 更新房型信息   -->
+    <update id="updateRoomInfo" parameterType="com.webbeds.fliggy.entity.Fliggy_roomType_info">
+        UPDATE fliggy_roomtype_info SET state = #{state}, insertDate = #{insertDate},error_msg =
+        #{error_msg},mapping = #{mapping},bed_type = #{bed_type},name = #{name},name_final = #{name_final},name_before = #{name_before},name_after = #{name_after}
+        where outer_id = #{outer_id}
+    </update>
+
+    <!-- 根据房型id查询房型信息   -->
+    <select id="searchRoomInfoByRid" parameterType="com.webbeds.fliggy.entity.Fliggy_roomType_info" resultMap="Fliggy_roomType_info_ResultMap">
+        select * from fliggy_roomtype_info
+        where outer_id = #{outer_id}
     </select>
 
 </mapper>

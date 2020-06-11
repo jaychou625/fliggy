@@ -33,4 +33,10 @@ public interface Fliggy_roomType_infoMapper {
 
     //查询所有房型
     public List<Fliggy_roomType_info> searchAllRomms();
+
+    //更新房型信息
+    boolean updateRoomInfo(Fliggy_roomType_info fliggy_roomType_info);
+
+    //根据房型名称查询房型信息
+    Fliggy_roomType_info searchRoomInfoByRid(Fliggy_roomType_info fliggy_roomType_info);
 }

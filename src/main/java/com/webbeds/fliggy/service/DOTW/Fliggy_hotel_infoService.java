@@ -139,4 +139,12 @@ public class Fliggy_hotel_infoService {
         return fliggy_hotel_infoMapper.searchAllHotelByHavePrice(havePrice);
     }
 
+    /**
+     * 查询所有酒店的id
+     * @return
+     */
+    public List<String> findAllId(){
+        return fliggy_hotel_infoMapper.findAllId();
+    }
+
 }

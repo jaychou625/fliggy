@@ -24,11 +24,14 @@ public class DOTW_interface_util {
     @Setter
     private String path = "http://us.DOTWconnect.com/gatewayV3.dotw";
 
-    @Getter @Setter
+    @Getter
+    @Setter
     private String account = "AlitripXML";
-    @Getter @Setter
+    @Getter
+    @Setter
     private String password = "CD84D683CC5612C69EFE115C80D0B7DC";
-    @Getter @Setter
+    @Getter
+    @Setter
     private String accountId = "1494305";
 
 //    @Getter

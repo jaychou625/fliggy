@@ -532,7 +532,7 @@ public class Common {
              */
             //酒店状态为0才添加酒店。
             String res = null;
-            if(fliggy_hotel_info.getState().equals("0")){
+            if (fliggy_hotel_info.getState().equals("0")) {
                 res = fliggy_interface_util.xhotel_add(fliggy_hotel_info);
                 if (res != null && res.indexOf("xhotel_add_response") != -1) {
 //                    System.out.println("酒店添加成功");
@@ -552,7 +552,7 @@ public class Common {
             if (fliggy_hotel_info.getCity() != 0) {
                 //添加酒店对应房型信息入库
                 List<Fliggy_roomType_info> roomList = fliggy_roomTpye_infoService.searchRoomByHid(fliggy_hotel_info.getOuter_id());
-                if(roomList.size() > 0){
+                if (roomList.size() > 0) {
                     System.out.println("酒店_" + fliggy_hotel_info.getHotel_name() + "共有" + roomList.size() + "个房型需要添加");
                 }
                 for (Fliggy_roomType_info fliggy_roomType_info : roomList) {

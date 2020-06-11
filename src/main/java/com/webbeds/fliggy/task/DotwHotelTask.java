@@ -169,10 +169,10 @@ public class DotwHotelTask {
         List<JSONObject> listJSON = new ArrayList<>();
         //分割数组进行线程操作
         List<List<String>> listThread = new ArrayList<>();
-        listThread = common.splitListString(list,list.size() / 3);
+        listThread = common.splitListString(list, list.size() / 3);
         CountDownLatch latch = new CountDownLatch(listThread.size());
-        for(List<String> listTemp : listThread){
-            AddHotelsThread addHotelsThread = new AddHotelsThread(listTemp, common,latch,this,listJSON,state);
+        for (List<String> listTemp : listThread) {
+            AddHotelsThread addHotelsThread = new AddHotelsThread(listTemp, common, latch, this, listJSON, state);
             Thread t = new Thread(addHotelsThread);
             t.start();
         }
@@ -186,37 +186,42 @@ public class DotwHotelTask {
         return listJSON;
     }
 
-    public void addHotelOperate(List<String> listTemp,List<JSONObject> listJSON,String state){
-        //根据dotw酒店查询接口获得json对象
-        JSONObject jsonObject = dotw_interface_util.getHotelInfoInDotwByHotelId(listTemp);
-        //根据hotel的类属性进行处理，判断如果不等于空并且count条目等于1则转换为jsonobjectcount>1则转换为jsonarray
-        if (jsonObject != null && !jsonObject.getJSONObject("hotels").getString("@count").equals("0")) {
-            JSONObject hotelJSON = null;
-            if (jsonObject.getJSONObject("hotels").getString("@count").equals("1")) {
-                hotelJSON = jsonObject.getJSONObject("hotels").getJSONObject("hotel");
-                DOTW_hotel_info dotw_hotel_info = dotw_hotel_infoService.searchHotelByHid(hotelJSON.getString("@hotelid"));
-                if (dotw_hotel_info != null) {
-                    oprateAddHotelAndRoom2Fliggy(hotelJSON, dotw_hotel_info, listJSON);
-                } else {
-
-                }
-            } else {
-                JSONArray hotelArray = jsonObject.getJSONObject("hotels").getJSONArray("hotel");
-                for (int arrIndex = 0; arrIndex < hotelArray.size(); arrIndex++) {
-                    hotelJSON = hotelArray.getJSONObject(arrIndex);
+    public void addHotelOperate(List<String> listTemp, List<JSONObject> listJSON, String state) {
+        //分割数组进行线程操作
+        List<List<String>> listThread = new ArrayList<>();
+        listThread = common.splitListString(listTemp, 30);
+        for(List<String> listT : listThread){
+            //根据dotw酒店查询接口获得json对象
+            JSONObject jsonObject = dotw_interface_util.getHotelInfoInDotwByHotelId(listT);
+            //根据hotel的类属性进行处理，判断如果不等于空并且count条目等于1则转换为jsonobjectcount>1则转换为jsonarray
+            if (jsonObject != null && !jsonObject.getJSONObject("hotels").getString("@count").equals("0")) {
+                JSONObject hotelJSON = null;
+                if (jsonObject.getJSONObject("hotels").getString("@count").equals("1")) {
+                    hotelJSON = jsonObject.getJSONObject("hotels").getJSONObject("hotel");
                     DOTW_hotel_info dotw_hotel_info = dotw_hotel_infoService.searchHotelByHid(hotelJSON.getString("@hotelid"));
                     if (dotw_hotel_info != null) {
                         oprateAddHotelAndRoom2Fliggy(hotelJSON, dotw_hotel_info, listJSON);
                     } else {
 
                     }
+                } else {
+                    JSONArray hotelArray = jsonObject.getJSONObject("hotels").getJSONArray("hotel");
+                    for (int arrIndex = 0; arrIndex < hotelArray.size(); arrIndex++) {
+                        hotelJSON = hotelArray.getJSONObject(arrIndex);
+                        DOTW_hotel_info dotw_hotel_info = dotw_hotel_infoService.searchHotelByHid(hotelJSON.getString("@hotelid"));
+                        if (dotw_hotel_info != null) {
+                            oprateAddHotelAndRoom2Fliggy(hotelJSON, dotw_hotel_info, listJSON);
+                        } else {
+
+                        }
+                    }
                 }
-            }
-            //处理完毕后调用添加接口将酒店数据转化为对应的飞猪酒店和房型信息并插入数据库
-        } else {
-            //如果dotw中没有查询到酒店信息并且酒店状态为酒店停售时，进行更改操作。更新飞猪接口为-2关闭酒店
-            if (state.equals("酒店停售")) {
-                //todo：关闭酒店接口调用
+                //处理完毕后调用添加接口将酒店数据转化为对应的飞猪酒店和房型信息并插入数据库
+            } else {
+                //如果dotw中没有查询到酒店信息并且酒店状态为酒店停售时，进行更改操作。更新飞猪接口为-2关闭酒店
+                if (state.equals("酒店停售")) {
+                    //todo：关闭酒店接口调用
+                }
             }
         }
     }
@@ -229,34 +234,103 @@ public class DotwHotelTask {
      * @param listJSON
      */
     public void oprateAddHotelAndRoom2Fliggy(JSONObject hotelJSON, DOTW_hotel_info dotw_hotel_info, List<JSONObject> listJSON) {
-        int count = fliggyhotelinfoService.findHotelCountById(hotelJSON.getString("@hotelid"));
-        if (count == 0) {
-            JSONObject roomJSON = null;
-            //添加房型
-            if (hotelJSON.getJSONObject("rooms").getJSONObject("room").getString("@count").equals("1")) {
-                roomJSON = hotelJSON.getJSONObject("rooms").getJSONObject("room").getJSONObject("roomType");
+        //添加酒店
+        Fliggy_hotel_info fliggy_hotel_info = getInfoByJSONObject(hotelJSON, dotw_hotel_info);
+//        int count = fliggyhotelinfoService.findHotelCountById(hotelJSON.getString("@hotelid"));
+//        if (count == 0) {
+//            JSONObject roomJSON = null;
+//            //添加房型
+//            if (hotelJSON.getJSONObject("rooms").getJSONObject("room").getString("@count").equals("1")) {
+//                roomJSON = hotelJSON.getJSONObject("rooms").getJSONObject("room").getJSONObject("roomType");
+//                Fliggy_roomType_info fliggy_roomType_info = getRoomInfoByJSONObject(roomJSON, hotelJSON.getString("@hotelid"));
+//                //如果查找结果为0则添加，否则就更新新内容
+//                if (fliggy_roomTpye_infoService.searchRoomByRid(fliggy_roomType_info) == 0) {
+//                    fliggy_roomTpye_infoService.add(fliggy_roomType_info);
+//                }else{
+//                    //判断房型名称是否发生改变，如果改变了则调用更新数据接口
+//                    Fliggy_roomType_info fliggy_roomType_infoDataBase = fliggy_roomTpye_infoService.searchRoomInfoByRid(fliggy_roomType_info);
+//                    if(!fliggy_roomType_infoDataBase.getName().equals(fliggy_roomType_info.getName())){
+//                        //房型名称有变，更新房型库信息
+//                        System.out.println("房型：" + fliggy_roomType_info.getOuter_id() + " 发生变化，原房型名：" + fliggy_roomType_infoDataBase.getName() + " 现房型名：" + fliggy_roomType_info.getName());
+//                        fliggy_roomTpye_infoService.updateRoomInfo(fliggy_roomType_info);
+//                    }
+//                }
+//            } else {
+//                JSONArray roomArray = hotelJSON.getJSONObject("rooms").getJSONObject("room").getJSONArray("roomType");
+//                for (int roomIndex = 0; roomIndex < roomArray.size(); roomIndex++) {
+//                    roomJSON = roomArray.getJSONObject(roomIndex);
+//                    Fliggy_roomType_info fliggy_roomType_info = getRoomInfoByJSONObject(roomJSON, hotelJSON.getString("@hotelid"));
+//                    if (fliggy_roomTpye_infoService.searchRoomByRid(fliggy_roomType_info) == 0) {
+//                        fliggy_roomTpye_infoService.add(fliggy_roomType_info);
+//                    }else{
+//                        //判断房型名称是否发生改变，如果改变了则调用更新数据接口
+//                        Fliggy_roomType_info fliggy_roomType_infoDataBase = fliggy_roomTpye_infoService.searchRoomInfoByRid(fliggy_roomType_info);
+//                        if(!fliggy_roomType_infoDataBase.getName().equals(fliggy_roomType_info.getName())){
+//                            //房型名称有变，更新房型库信息
+//                            System.out.println("房型：" + fliggy_roomType_info.getOuter_id() + " 发生变化，原房型名：" + fliggy_roomType_infoDataBase.getName() + " 现房型名：" + fliggy_roomType_info.getName());
+//                            fliggy_roomTpye_infoService.updateRoomInfo(fliggy_roomType_info);
+//                        }
+//                    }
+//                }
+//            }
+//
+//            //添加酒店
+//            Fliggy_hotel_info fliggy_hotel_info = getInfoByJSONObject(hotelJSON, dotw_hotel_info);
+//            Integer hotelCount = fliggyhotelinfoService.findHotelCountById(fliggy_hotel_info.getOuter_id());
+//            if(hotelCount == 0){
+//                fliggyhotelinfoService.add(fliggy_hotel_info);
+//            }
+//            dotw_hotel_infoService.updateIsUpdate(hotelJSON.getString("@hotelid"), "1");
+//        } else {
+//            dotw_hotel_infoService.updateIsUpdate(hotelJSON.getString("@hotelid"), "-1");
+//        }
+
+        JSONObject roomJSON = null;
+        //添加房型
+        if (hotelJSON.getJSONObject("rooms").getJSONObject("room").getString("@count").equals("1")) {
+            roomJSON = hotelJSON.getJSONObject("rooms").getJSONObject("room").getJSONObject("roomType");
+            Fliggy_roomType_info fliggy_roomType_info = getRoomInfoByJSONObject(roomJSON, hotelJSON.getString("@hotelid"));
+            //如果查找结果为0则添加，否则就更新新内容
+            if (fliggy_roomTpye_infoService.searchRoomByRid(fliggy_roomType_info) == 0) {
+                fliggy_roomTpye_infoService.add(fliggy_roomType_info);
+            }else{
+                //判断房型名称是否发生改变，如果改变了则调用更新数据接口
+                Fliggy_roomType_info fliggy_roomType_infoDataBase = fliggy_roomTpye_infoService.searchRoomInfoByRid(fliggy_roomType_info);
+                if(!fliggy_roomType_infoDataBase.getName().equals(fliggy_roomType_info.getName())){
+                    //房型名称有变，更新房型库信息
+                    System.out.println("房型：" + fliggy_roomType_info.getOuter_id() + " 发生变化，原房型名：" + fliggy_roomType_infoDataBase.getName() + " 现房型名：" + fliggy_roomType_info.getName());
+                    fliggy_roomType_info.setState("9");
+                    fliggy_hotel_info.setState("9");
+                    fliggyhotelinfoService.updateStateAndDate(fliggy_hotel_info);
+                    fliggy_roomTpye_infoService.updateRoomInfo(fliggy_roomType_info);
+                }
+            }
+        } else {
+            JSONArray roomArray = hotelJSON.getJSONObject("rooms").getJSONObject("room").getJSONArray("roomType");
+            for (int roomIndex = 0; roomIndex < roomArray.size(); roomIndex++) {
+                roomJSON = roomArray.getJSONObject(roomIndex);
                 Fliggy_roomType_info fliggy_roomType_info = getRoomInfoByJSONObject(roomJSON, hotelJSON.getString("@hotelid"));
                 if (fliggy_roomTpye_infoService.searchRoomByRid(fliggy_roomType_info) == 0) {
                     fliggy_roomTpye_infoService.add(fliggy_roomType_info);
-                }
-            } else {
-                JSONArray roomArray = hotelJSON.getJSONObject("rooms").getJSONObject("room").getJSONArray("roomType");
-                for (int roomIndex = 0; roomIndex < roomArray.size(); roomIndex++) {
-                    roomJSON = roomArray.getJSONObject(roomIndex);
-                    Fliggy_roomType_info fliggy_roomType_info = getRoomInfoByJSONObject(roomJSON, hotelJSON.getString("@hotelid"));
-                    if (fliggy_roomTpye_infoService.searchRoomByRid(fliggy_roomType_info) == 0) {
-                        fliggy_roomTpye_infoService.add(fliggy_roomType_info);
+                }else{
+                    //判断房型名称是否发生改变，如果改变了则调用更新数据接口
+                    Fliggy_roomType_info fliggy_roomType_infoDataBase = fliggy_roomTpye_infoService.searchRoomInfoByRid(fliggy_roomType_info);
+                    if(!fliggy_roomType_infoDataBase.getName().equals(fliggy_roomType_info.getName())){
+                        //房型名称有变，更新房型库信息
+                        System.out.println("房型：" + fliggy_roomType_info.getOuter_id() + " 发生变化，原房型名：" + fliggy_roomType_infoDataBase.getName() + " 现房型名：" + fliggy_roomType_info.getName());
+                        fliggy_roomType_info.setState("9");
+                        fliggy_hotel_info.setState("9");
+                        fliggyhotelinfoService.updateStateAndDate(fliggy_hotel_info);
+                        fliggy_roomTpye_infoService.updateRoomInfo(fliggy_roomType_info);
                     }
                 }
             }
-
-            //添加酒店
-            Fliggy_hotel_info fliggy_hotel_info = getInfoByJSONObject(hotelJSON, dotw_hotel_info);
-            fliggyhotelinfoService.add(fliggy_hotel_info);
-            dotw_hotel_infoService.updateIsUpdate(hotelJSON.getString("@hotelid"), "1");
-        } else {
-            dotw_hotel_infoService.updateIsUpdate(hotelJSON.getString("@hotelid"), "-1");
         }
+        Integer hotelCount = fliggyhotelinfoService.findHotelCountById(fliggy_hotel_info.getOuter_id());
+        if(hotelCount == 0){
+            fliggyhotelinfoService.add(fliggy_hotel_info);
+        }
+        dotw_hotel_infoService.updateIsUpdate(hotelJSON.getString("@hotelid"), "1");
         listJSON.add(hotelJSON);
     }
 
@@ -410,51 +484,51 @@ public class DotwHotelTask {
 //        }
         //逻辑判断结构化床型
         String roomName = jsonObject.getString("name").toUpperCase();
-        if(roomName.indexOf("SMOKING") != -1){
-            roomName = roomName.replace("SMOKING","temp");
-            System.out.println(roomName);
+        if (roomName.indexOf("SMOKING") != -1) {
+            roomName = roomName.replace("SMOKING", "temp");
+//            System.out.println(roomName);
         }
-        if(roomName.indexOf("DOUBLE") != -1 && roomName.indexOf("TWIN") != -1){
+        if (roomName.indexOf("DOUBLE") != -1 && roomName.indexOf("TWIN") != -1) {
             fliggy_roomType_info.setBed_type("1张大床/2张单人床");
-        }else if(roomName.indexOf("KING") != -1 && roomName.indexOf("TWIN") != -1 && roomName.indexOf("SMOKING") == -1){
+        } else if (roomName.indexOf("KING") != -1 && roomName.indexOf("TWIN") != -1 && roomName.indexOf("SMOKING") == -1) {
             fliggy_roomType_info.setBed_type("1张特大床/2张单人床");
-        }else if(roomName.indexOf("QUEEN") != -1 && roomName.indexOf("TWIN") != -1){
+        } else if (roomName.indexOf("QUEEN") != -1 && roomName.indexOf("TWIN") != -1) {
             fliggy_roomType_info.setBed_type("1张大床/2张单人床");
-        }else if(roomName.indexOf("KING") != -1 && roomName.indexOf("SMOKING") == -1){
-            if(roomName.indexOf("ONE KING") != -1 || roomName.indexOf("1 KING") != -1 || roomName.indexOf("1KING") != -1){
+        } else if (roomName.indexOf("KING") != -1 && roomName.indexOf("SMOKING") == -1) {
+            if (roomName.indexOf("ONE KING") != -1 || roomName.indexOf("1 KING") != -1 || roomName.indexOf("1KING") != -1) {
                 fliggy_roomType_info.setBed_type("1张特大床");
-            }else if(roomName.indexOf("TWO KING") != -1 || roomName.indexOf("2 KING") != -1 || roomName.indexOf("2KING") != -1){
+            } else if (roomName.indexOf("TWO KING") != -1 || roomName.indexOf("2 KING") != -1 || roomName.indexOf("2KING") != -1) {
                 fliggy_roomType_info.setBed_type("2张特大床");
-            }else{
+            } else {
                 fliggy_roomType_info.setBed_type("1张特大床");
             }
-        }else if(roomName.indexOf("DOUBLE") != -1){
-            if(roomName.indexOf("ONE DOUBLE") != -1 || roomName.indexOf("1 DOUBLE") != -1 || roomName.indexOf("1DOUBLE") != -1){
+        } else if (roomName.indexOf("DOUBLE") != -1) {
+            if (roomName.indexOf("ONE DOUBLE") != -1 || roomName.indexOf("1 DOUBLE") != -1 || roomName.indexOf("1DOUBLE") != -1) {
                 fliggy_roomType_info.setBed_type("1张大床");
-            }else if(roomName.indexOf("TWO DOUBLE") != -1 || roomName.indexOf("2 DOUBLE") != -1 || roomName.indexOf("2DOUBLE") != -1){
+            } else if (roomName.indexOf("TWO DOUBLE") != -1 || roomName.indexOf("2 DOUBLE") != -1 || roomName.indexOf("2DOUBLE") != -1) {
                 fliggy_roomType_info.setBed_type("2张大床");
-            }else{
+            } else {
                 fliggy_roomType_info.setBed_type("1张大床");
             }
-        }else if(roomName.indexOf("TWIN") != -1){
+        } else if (roomName.indexOf("TWIN") != -1) {
             fliggy_roomType_info.setBed_type("2张单人床");
-        }else if(roomName.indexOf("SINGLE") != -1){
-            if(roomName.indexOf("ONE SINGLE") != -1 || roomName.indexOf("1 SINGLE") != -1 || roomName.indexOf("1SINGLE") != -1){
+        } else if (roomName.indexOf("SINGLE") != -1) {
+            if (roomName.indexOf("ONE SINGLE") != -1 || roomName.indexOf("1 SINGLE") != -1 || roomName.indexOf("1SINGLE") != -1) {
                 fliggy_roomType_info.setBed_type("1张单人床");
-            }else if(roomName.indexOf("TWO SINGLE") != -1 || roomName.indexOf("2 SINGLE") != -1 || roomName.indexOf("2SINGLE") != -1){
+            } else if (roomName.indexOf("TWO SINGLE") != -1 || roomName.indexOf("2 SINGLE") != -1 || roomName.indexOf("2SINGLE") != -1) {
                 fliggy_roomType_info.setBed_type("2张单人床");
-            }else{
+            } else {
                 fliggy_roomType_info.setBed_type("1张单人床");
             }
-        }else if(roomName.indexOf("QUEEN") != -1){
-            if(roomName.indexOf("ONE QUEEN") != -1 || roomName.indexOf("1 QUEEN") != -1 || roomName.indexOf("1QUEEN") != -1){
+        } else if (roomName.indexOf("QUEEN") != -1) {
+            if (roomName.indexOf("ONE QUEEN") != -1 || roomName.indexOf("1 QUEEN") != -1 || roomName.indexOf("1QUEEN") != -1) {
                 fliggy_roomType_info.setBed_type("1张大床");
-            }else if(roomName.indexOf("TWO QUEEN") != -1 || roomName.indexOf("2 QUEEN") != -1 || roomName.indexOf("2QUEEN") != -1){
+            } else if (roomName.indexOf("TWO QUEEN") != -1 || roomName.indexOf("2 QUEEN") != -1 || roomName.indexOf("2QUEEN") != -1) {
                 fliggy_roomType_info.setBed_type("2张大床");
-            }else{
+            } else {
                 fliggy_roomType_info.setBed_type("1张大床");
             }
-        }else{
+        } else {
             fliggy_roomType_info.setBed_type("1张大床/2张单人床");
         }
 
@@ -578,6 +652,36 @@ public class DotwHotelTask {
             }
         }
         return fliggy_roomtype_sub_sort;
+    }
+
+    /**
+     * 飞猪酒店房型更新处理接口
+     *
+     * @param list
+     */
+    public List<JSONObject> oprateUpdateRoomsThread(List<String> list, String state) {
+        int lenList = list.size();
+        //按多少长度切割的系数
+        int constListLen = 30;
+        System.out.println("共有：" + lenList + "条消息");
+        List<JSONObject> listJSON = new ArrayList<>();
+        //分割数组进行线程操作
+        List<List<String>> listThread = new ArrayList<>();
+        listThread = common.splitListString(list, list.size() / 3);
+        CountDownLatch latch = new CountDownLatch(listThread.size());
+        for (List<String> listTemp : listThread) {
+            AddHotelsThread addHotelsThread = new AddHotelsThread(listTemp, common, latch, this, listJSON, state);
+            Thread t = new Thread(addHotelsThread);
+            t.start();
+        }
+
+        try {
+            latch.await();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        return listJSON;
     }
 
 }

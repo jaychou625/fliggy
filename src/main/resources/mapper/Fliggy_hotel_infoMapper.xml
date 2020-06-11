@@ -82,7 +82,7 @@
 
     <select id="searchAllHotel" resultMap="Fliggy_hotel_info_ResultMap">
         SELECT * FROM fliggy_hotel_information
-        where state != "0"
+        where state = "9"
     </select>
 
     <select id="searchAllHotelByState" resultMap="Fliggy_hotel_info_ResultMap" parameterType="java.lang.String">
@@ -129,6 +129,10 @@
     <select id="searchAllHotelByHavePrice" resultMap="Fliggy_hotel_info_ResultMap" parameterType="java.lang.String">
         SELECT * FROM fliggy_hotel_information
         WHERE have_price = #{havePrice}
+    </select>
+
+    <select id="findAllId" resultType="java.lang.String">
+        select outer_id from fliggy_hotel_information
     </select>
 
 </mapper>

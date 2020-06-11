@@ -49,4 +49,7 @@ public interface Fliggy_hotel_infoMapper {
     //根据酒店id查询酒店
     public Fliggy_hotel_info findHotelById(String outer_id);
 
+    //查询所有酒店的id
+    public List<String> findAllId();
+
 }

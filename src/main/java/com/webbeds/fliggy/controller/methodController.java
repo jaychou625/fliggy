@@ -302,6 +302,40 @@ public class methodController {
     }
 
     /**
+     * 更新对应酒店状态
+     *
+     * @param
+     * @return
+     */
+    @RequestMapping("/tempUpdateHotels")
+    public String tempUpdateHotels() {
+        List<Fliggy_hotel_info> list = fliggy_hotel_infoService.searchAllHotel();
+        for (Fliggy_hotel_info fliggy_hotel_info : list) {
+            if (fliggy_hotel_info != null) {
+                String result = fliggy_interface_util.xhotel_update(fliggy_hotel_info);
+                if (result != null && result.indexOf("xhotel_update_response") != -1) {
+                    System.out.println("酒店状态更改成功!酒店id:" + fliggy_hotel_info.getOuter_id());
+                    fliggy_hotel_info.setInsertDate(new Date());
+                    fliggy_hotel_info.setState("1");
+                    fliggy_hotel_info.setError_msg("");
+                    fliggy_hotel_infoService.updateStateAndDate(fliggy_hotel_info);
+                } else {
+                    System.out.println("酒店状态更改失败");
+                    System.out.print(result);
+                    String error_msg = result;
+//                    fliggy_hotel_info.setError_msg(error_msg);
+                    fliggy_hotel_info.setState("2");
+                    fliggy_hotel_infoService.updateStateAndDate(fliggy_hotel_info);
+                }
+//                System.out.println(result);
+            } else {
+//                System.out.println("系统里没有这个酒店：" + id);
+            }
+        }
+        return "";
+    }
+
+    /**
      * 删除飞猪房型 慎用
      *
      * @param

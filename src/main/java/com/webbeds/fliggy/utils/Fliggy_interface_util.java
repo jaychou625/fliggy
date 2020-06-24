@@ -39,7 +39,7 @@ public class Fliggy_interface_util {
 //    //secret
 //    private final String secret = "91c56c1988556d2a8c053c730f74e286";
 //    //sessionKey
-//    private final String sessionKey = "6102925d83ed054d5385e0f05976496ca1c5b30d33b87c93417495593";
+//    private final String sessionKey = "6101d13912ebf414280a518859d671611acd320c55a7b5a3417495593";
 //
 //    //沙箱接口调用地址
 //    private final String urlS = "http://gw.api.tbsandbox.com/router/rest";
@@ -150,6 +150,51 @@ public class Fliggy_interface_util {
         req.setNameE(fliggy_hotel_info.getHotel_name());
         req.setSupplier(vendor);
         XhotelAddResponse rsp = null;
+        try {
+            rsp = client.execute(req, sessionKey);
+        } catch (ApiException e) {
+            e.printStackTrace();
+        }
+        res = JSON.toJSONString(rsp.getBody());
+        if (rsp.getMsg() != null && !rsp.getMsg().equals("")) {
+            res = rsp.getSubMsg();
+        }
+        return res;
+    }
+
+
+    /**
+     * 更新酒店信息入飞猪标准库,status:-1 删除酒店（慎用），-2 停售
+     *
+     * @param fliggy_hotel_info
+     * @return
+     */
+    public String xhotel_update(Fliggy_hotel_info fliggy_hotel_info) {
+        String res = "";
+        byte status = -2;
+        TaobaoClient client = new DefaultTaobaoClient(url, appkey, secret);
+        XhotelUpdateRequest req = new XhotelUpdateRequest();
+        //必填信息：酒店id，酒店名，城市，酒店地址，酒店电话
+        req.setOuterId(fliggy_hotel_info.getOuter_id());
+        req.setName(fliggy_hotel_info.getHotel_name());
+        req.setDomestic(1L);
+        req.setCountry(fliggy_hotel_info.getCountry());
+        req.setCity(fliggy_hotel_info.getCity().longValue());
+        if (fliggy_hotel_info.getAddress().length() > 120) {
+            req.setAddress(fliggy_hotel_info.getAddress().substring(0, 120));
+        } else {
+            req.setAddress(fliggy_hotel_info.getAddress());
+        }
+//        req.setLongitude(fliggy_hotel_info.getLongitude());
+//        req.setLatitude(fliggy_hotel_info.getLatitude());
+        req.setPositionType("G");
+        req.setTel(fliggy_hotel_info.getTel());
+        req.setVendor(vendor);
+        req.setNameE(fliggy_hotel_info.getHotel_name());
+        req.setSupplier(vendor);
+        req.setStatus(status);
+        System.out.print("请求报文体：" + JSON.toJSONString(req));
+        XhotelUpdateResponse rsp = null;
         try {
             rsp = client.execute(req, sessionKey);
         } catch (ApiException e) {

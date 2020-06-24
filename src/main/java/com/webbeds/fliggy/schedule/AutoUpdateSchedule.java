@@ -95,9 +95,10 @@ public class AutoUpdateSchedule {
          * 将结果发送邮件给目标
          */
         String toEmailAddress = "yun.liu@webbeds.com";
-        String emailTitle = "Weekly_Fliggy_Data_Update";
-        String emailContent = "Hi,all,\n";
-        emailContent += "There are " + changeNum + "pieces of roomtype changed by account:AlitripXML this week.Total" + updateNum + "pieces of room pushed on fliggy system finaly";
+        String emailTitle = "Weekly_Fliggy_Data_Update(DOTW)";
+        String emailContent = "Hi,all,\nbelow is weekly_fliggy_data_update report,for your reference.\n";
+        emailContent += "There are " + changeNum + "pieces of room-type changed by account:AlitripXML in DOTW system this week.Total" + updateNum + "pieces of room-type pushed on fliggy system finaly\n";
+        emailContent += "See you next week.";
         List<String> toEmailAddressList = new ArrayList<>();
         toEmailAddressList.add("yun.liu@webbeds.com");
         toEmailAddressList.add("joy.huang@webbeds.com");

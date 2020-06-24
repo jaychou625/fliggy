@@ -15,8 +15,8 @@ public class ScheduleConfig {
      *
      * @return
      */
-//    @Bean
-//    public AutoUpdateSchedule autoUpdateSchedule(){
-//        return new AutoUpdateSchedule();
-//    }
+    @Bean
+    public AutoUpdateSchedule autoUpdateSchedule(){
+        return new AutoUpdateSchedule();
+    }
 }
